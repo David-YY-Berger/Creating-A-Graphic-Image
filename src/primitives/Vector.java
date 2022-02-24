@@ -9,6 +9,6 @@ public class Vector extends Point {
     }
 
 
-    //Ariel can you see this???
+
 
 }
