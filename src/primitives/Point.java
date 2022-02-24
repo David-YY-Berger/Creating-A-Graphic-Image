@@ -2,7 +2,7 @@ package primitives;
 
 public class Point {
 
-    protected Double3 xyz;
+    protected final Double3 xyz;
     /*protected Double3 x;
     protected Double3 y;
     protected Double3 z;
@@ -13,15 +13,15 @@ public class Point {
         z = _z;
     }*/
 
-    public Point(Double x, Double y, Double z)
+    public Point(Double3 _xyz)
     {
-        xyz = new Double3(x, y, z);
+        xyz = _xyz;
     }
 
     @Override
     public String toString()
     {
-        return xyz.toString();
+        return "Point " + xyz.toString();
     }
     @Override
     public boolean equals(Object obj)
@@ -40,11 +40,11 @@ public class Point {
 
     public Point add(Vector v)
     {
-        return new Point(0.0,0.0,0.0); //delete this line...
+        return new Point(new Double3(0, 0, 0)); //delete this line...
     }
     public Vector subtract(Point p)
     {
-        return new Vector(0.0, 0.0, 0.0); //delete this line..
+        return new Vector(new Double3(0, 0, 0)); //delete this line..
     }
 
 

@@ -2,8 +2,13 @@ package primitives;
 
 public class Vector extends Point {
 
-    public Vector(Double x, Double y, Double z) {
-            super(x, y, z); //call's Point's CTOR
+    //includes point...
+
+    public Vector(Double3 _xyz) {
+            super(_xyz); //call's Point's CTOR
     }
+
+
+    //Ariel can you see this???
 
 }
