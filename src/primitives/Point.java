@@ -5,7 +5,6 @@ public class Point {
     Double3 xyz;
 
     public Point(double d1, double d2, double d3) { xyz = new Double3(d1, d2, d3); }
-
     public Point(Double3 _xyz)
     {
         xyz = _xyz;
@@ -16,7 +15,6 @@ public class Point {
     {
         return "Point " + xyz.toString();
     }
-
     @Override
     public boolean equals(Object obj)
     {
@@ -29,16 +27,14 @@ public class Point {
 
         // cast to Point to check properly
         Point p = (Point) obj;
-        return (p.xyz == this.xyz); //returns bool val
+        return (p.xyz.equals(this.xyz)); //returns bool val
     }
 
     public Vector subtract(Point p) { return new Vector(this.xyz.subtract(p.xyz)); }
-
     public Point add(Vector v)
     {
         return new Point(v.xyz.add(this.xyz));
     }
-
     public double distanceSquared(Point p){
         Vector vec = p.subtract(this);
         return vec.xyz.d1 * vec.xyz.d1 + vec.xyz.d2 * vec.xyz.d2 + vec.xyz.d3 * vec.xyz.d3;
