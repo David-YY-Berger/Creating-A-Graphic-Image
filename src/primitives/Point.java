@@ -2,16 +2,9 @@ package primitives;
 
 public class Point {
 
-    protected final Double3 xyz;
-    /*protected Double3 x;
-    protected Double3 y;
-    protected Double3 z;
-    public Point(Double3 _x, Double3 _y, Double3 _z)
-    {
-        x = _x;
-        y = _y;
-        z = _z;
-    }*/
+    Double3 xyz;
+
+    public Point(double d1, double d2, double d3) { xyz = new Double3(d1, d2, d3); }
 
     public Point(Double3 _xyz)
     {
@@ -23,6 +16,7 @@ public class Point {
     {
         return "Point " + xyz.toString();
     }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -38,15 +32,21 @@ public class Point {
         return (p.xyz == this.xyz); //returns bool val
     }
 
+    public Vector subtract(Point p) { return new Vector(this.xyz.subtract(p.xyz)); }
+
     public Point add(Vector v)
     {
-        return new Point(new Double3(0, 0, 0)); //delete this line...
-    }
-    public Vector subtract(Point p)
-    {
-        return new Vector(new Double3(0, 0, 0)); //delete this line..
+        return new Point(v.xyz.add(this.xyz));
     }
 
+    public double distanceSquared(Point p){
+        Vector vec = p.subtract(this);
+        return vec.xyz.d1 * vec.xyz.d1 + vec.xyz.d2 * vec.xyz.d2 + vec.xyz.d3 * vec.xyz.d3;
+    }
+
+    public double distance (Point p){
+        return Math.sqrt(distanceSquared(p));
+    }
 
     //end of class
 }
