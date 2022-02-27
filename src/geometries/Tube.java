@@ -10,7 +10,6 @@ public class Tube implements Geometry{
     Double radius;
 
 
-
     @Override
     public Vector getNormal(Point pointOnSurface) {
         return null;
