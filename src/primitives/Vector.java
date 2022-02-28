@@ -57,6 +57,10 @@ public class Vector extends Point {
                 + this.xyz.d3*this.xyz.d3;
     }
     public Double length() {return Math.sqrt(lengthSquared());}
+    /**
+     *
+     * @return normalized vector, with each triad btw 0 and 1
+     */
     public Vector normalize() {
         return new Vector(this.xyz.reduce(this.length()));
     }

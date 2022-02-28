@@ -7,7 +7,7 @@ public class Ray {
 
     public Ray(Point p, Vector directionVec){
         p0 = p;
-        dirVector = directionVec;
+        dirVector = directionVec.normalize();
     }
     @Override
     public boolean equals(Object obj)
@@ -21,8 +21,8 @@ public class Ray {
 
         // cast to vector to check properly
         Ray r = (Ray)obj;
-        return (r.p0 == this.p0
-        && r.dirVector == this.dirVector); //returns bool val
+        return (r.p0.equals(this.p0)
+        && r.dirVector.equals(this.dirVector)); //returns bool val
     }
     @Override
     public String toString()
