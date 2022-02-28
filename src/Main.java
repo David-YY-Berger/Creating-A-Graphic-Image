@@ -15,6 +15,26 @@ public final class Main {
      * @param args irrelevant here
      */
     public static void main(String[] args) {
+    //david's testing::
+//        Vector vec1 = new Vector(3, 4, 5);
+//        Vector vec2 = new Vector(7, 8, 9);
+//        out.println(vec1.crossProduct(vec2));
+//
+//        Point p1 = new Point(8, 2, 6);
+//        Point p2 = new Point(3, 5, 7);
+//        out.println(p1.distance(p2));
+//        Vector vec = new Vector(-1, 2, 3);
+//        out.println(vec.length());
+//        Vector vec = new Vector(5, 6, 10);
+//        out.println(vec.normalize());
+
+
+
+
+
+
+
+
 
        /* try { // test zero vector
             new Vector(0, 0, 0);

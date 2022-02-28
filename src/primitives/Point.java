@@ -36,8 +36,10 @@ public class Point {
         return new Point(v.xyz.add(this.xyz));
     }
     public double distanceSquared(Point p){
-        Vector vec = p.subtract(this);
-        return vec.xyz.d1 * vec.xyz.d1 + vec.xyz.d2 * vec.xyz.d2 + vec.xyz.d3 * vec.xyz.d3;
+        Vector diff_btw_points = p.subtract(this);
+        return diff_btw_points.xyz.d1 * diff_btw_points.xyz.d1
+                + diff_btw_points.xyz.d2 * diff_btw_points.xyz.d2
+                + diff_btw_points.xyz.d3 * diff_btw_points.xyz.d3;
     }
 
     public double distance (Point p){
