@@ -12,4 +12,11 @@ public class Sphere implements Geometry{
     public Vector getNormal(Point pointOnSurface) {
         return null;
     }
+
+    public Double getRadius() {
+        return radius;
+    }
+    public Point getCenter() {
+        return center;
+    }
 }

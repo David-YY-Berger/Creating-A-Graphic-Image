@@ -11,4 +11,8 @@ public class Cylinder extends  Tube{
     public Vector getNormal(Point pointOnSurface) {
         return super.getNormal(pointOnSurface);
     }
+
+    public Double getHeight() {
+        return height;
+    }
 }

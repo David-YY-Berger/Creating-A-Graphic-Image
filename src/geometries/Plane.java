@@ -26,6 +26,9 @@ public class Plane implements Geometry{
         //code...
         return null;
     }
+    public Point getP0() {
+        return p0;
+    }
 
     //GETTERS:
     public Vector getNormal() { return normalVector;}

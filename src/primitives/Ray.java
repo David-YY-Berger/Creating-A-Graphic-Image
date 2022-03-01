@@ -10,8 +10,7 @@ public class Ray {
         dirVector = directionVec.normalize();
     }
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         //if same object
         if(this == obj) //checks by address...
             return true;
@@ -28,5 +27,12 @@ public class Ray {
     public String toString()
     {
         return "Ray, p0 = " + p0.toString() + " direction vector = " + dirVector.toString();
+    }
+
+    public Point getP0() {
+        return p0;
+    }
+    public Vector getDirVector() {
+        return dirVector;
     }
 }

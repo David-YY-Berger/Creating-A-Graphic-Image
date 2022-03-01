@@ -29,6 +29,8 @@ public class Point {
         Point p = (Point) obj;
         return (p.xyz.equals(this.xyz)); //returns bool val
     }
+    public Double3 getXyz() { return xyz;}
+
 
     public Vector subtract(Point p) { return new Vector(this.xyz.subtract(p.xyz)); }
     public Point add(Vector v)

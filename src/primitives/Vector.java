@@ -2,7 +2,7 @@ package primitives;
 
 public class Vector extends Point {
 
-    //field point "xyz"
+    //field point "xyz" - from Point...
 
     public Vector(double d1, double d2, double d3) {
         super(d1, d2, d3); //call's Point's CTOR
