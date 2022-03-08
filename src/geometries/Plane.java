@@ -11,7 +11,7 @@ public class Plane implements Geometry{
 
     public Plane(Vector vec, Point p){
         normalVector = vec.normalize();
-        p0 = p;//what to set p0????
+        p0 = p;
     }
     public Plane(Point p1, Point p2, Point p3){
             p0 = p1;// arbitrary choice
