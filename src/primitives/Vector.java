@@ -45,11 +45,16 @@ public class Vector extends Point {
         return (vec.xyz.equals(this.xyz)); //returns bool val
     }
     public Vector crossProduct(Vector vec2){
-        return new Vector(
-                (this.xyz.d2*vec2.xyz.d3) - (this.xyz.d3*vec2.xyz.d2),
+        //if resulat is a "zero vector", throws exception...
+
+        Vector res = new Vector((this.xyz.d2*vec2.xyz.d3) - (this.xyz.d3*vec2.xyz.d2),
                 -((this.xyz.d1*vec2.xyz.d3) - (this.xyz.d3*vec2.xyz.d1)),
-                (this.xyz.d1*vec2.xyz.d2) - (this.xyz.d2*vec2.xyz.d1)
-        );
+                (this.xyz.d1*vec2.xyz.d2) - (this.xyz.d2*vec2.xyz.d1));
+        if(res.xyz == Double3.ZERO)
+            throw new IllegalArgumentException();
+        else
+            return res;
+
     }
     public Double lengthSquared() {
         return this.xyz.d1*this.xyz.d1
