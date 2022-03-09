@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * this class is sometimes used to represent a line...
+ */
 public class Ray {
 
     protected Point p0; // beginning point
