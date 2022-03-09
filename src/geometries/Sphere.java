@@ -8,6 +8,11 @@ public class Sphere implements Geometry{
     Point center;
     Double radius;
 
+    public Sphere(Point p, double r) {
+        center = p;
+        radius = r;
+    }
+
     @Override
     public Vector getNormal(Point pointOnSurface) {
         return null;
