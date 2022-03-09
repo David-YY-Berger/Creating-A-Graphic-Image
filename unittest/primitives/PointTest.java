@@ -35,13 +35,17 @@ class PointTest {
      */
     @Test
     void distanceSquared() {
-        fail("Not yet implemented");
+        // ============ Equivalence Partitions Tests ==============
+        // TC03: Test that the distanceSquared is proper
+        assertEquals(50, p2.distanceSquared(p1), "distanceSquared() wrong result");
     }
     /**
      * Test method for {@link primitives.Point#distance(Point)}
      */
     @Test
     void distance() {
-        fail("Not yet implemented");
+        // ============ Equivalence Partitions Tests ==============
+        // TC04: Test that the distance is proper
+        assertEquals(Math.sqrt(50), p2.distance(p1), "distance() wrong result");
     }
 }
