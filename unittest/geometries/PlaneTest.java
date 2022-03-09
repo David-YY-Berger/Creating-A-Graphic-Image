@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class PlaneTest {
     /**
-     * Test methods for Plane's CTOR 
+     * Test methods for Plane's CTOR
      * {@link Plane#Plane(Point, Point, Point)}
      */
     @Test
