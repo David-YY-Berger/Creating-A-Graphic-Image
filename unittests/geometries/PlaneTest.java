@@ -22,7 +22,7 @@ class PlaneTest {
                 "Plane CTOR does not throw exception for points on same line");
 
         assertThrows(IllegalArgumentException.class,
-                ()-> new Plane(new Point(1, 2, 3), new Point( 5, 6, 7), new Point(1, 2,3)),
+                ()-> new Plane(new Point(1, 2, 3), new Point( 5, 6, 7), new Point(1, 2, 3)),
                 "Plane CTOR does not throw exception for identical points!");
     }
 
@@ -39,5 +39,4 @@ class PlaneTest {
         assertEquals(testPlane.getNormal(), ans, "getNormal() does not return correct vector!");
 
     }
-
 }

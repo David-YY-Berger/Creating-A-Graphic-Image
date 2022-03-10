@@ -24,6 +24,25 @@ class VectorTest {
     }
 
     /**
+     * Test method for {@link primitives.Vector#add(Vector)}
+     */
+    @Test
+    public void testAdd() {
+        Vector v1 = new Vector(1, 2, 3), v2 = new Vector(4, 5, 6), v3 = new Vector(5, 7, 9);
+        assertEquals(v3, v1.add(v2), "add() wrong result");
+    }
+
+    /**
+     * Test method for {@link primitives.Vector#subtract(Point)}
+     */
+    @Test
+    public void testSubtract() {
+        Vector v2 = new Vector(4, 5, 6), v3 = new Vector(5, 7, 9);
+        Point p1 = new Point(1, 2, 3);
+        assertEquals(v2, v3.subtract(p1), "subtract() wrong result");
+    }
+
+    /**
      * Test method for {@link Vector#normalize()}
      */
     @Test

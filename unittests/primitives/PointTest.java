@@ -14,7 +14,7 @@ class PointTest {
      * Test method for {@link primitives.Point#subtract(Point)} 
      */
     @Test
-    void subtract() {
+    public void testSubtract() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test that the subtract is proper
         assertEquals(v1, p2.subtract(p1), "subtract() wrong result");
@@ -24,7 +24,7 @@ class PointTest {
      * Test method for {@link primitives.Point#add(Vector)}
      */
     @Test
-    void add() {
+    public void testAdd() {
         // ============ Equivalence Partitions Tests ==============
         // TC02: Test that the add is proper
         assertEquals(p2, p1.add(v1), "add() wrong result");
@@ -33,7 +33,7 @@ class PointTest {
      * Test method for {@link primitives.Point#distanceSquared(Point)} 
      */
     @Test
-    void distanceSquared() {
+    public void testDistanceSquared() {
         // ============ Equivalence Partitions Tests ==============
         // TC03: Test that the distanceSquared is proper
         assertEquals(50, p2.distanceSquared(p1), "distanceSquared() wrong result");
@@ -42,7 +42,7 @@ class PointTest {
      * Test method for {@link primitives.Point#distance(Point)}
      */
     @Test
-    void distance() {
+    public void testDistance() {
         // ============ Equivalence Partitions Tests ==============
         // TC04: Test that the distance is proper
         assertEquals(Math.sqrt(50), p2.distance(p1), "distance() wrong result");

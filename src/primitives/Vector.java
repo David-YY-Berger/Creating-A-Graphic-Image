@@ -70,10 +70,4 @@ public class Vector extends Point {
         return new Vector(this.xyz.reduce(this.length()));
     }
 
-
-
-
-
-
-
 }

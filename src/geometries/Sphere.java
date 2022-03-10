@@ -15,11 +15,8 @@ public class Sphere implements Geometry{
 
     @Override
     public Vector getNormal(Point pointOnSurface) {
-        //THROW EXCEPTIONS if point is not on surface (illegal paramter)
-        //if inside the sphere:
-
-        //if outside the sphere"
-        return null;
+        Vector v1 = pointOnSurface.subtract(center);
+        return v1.normalize();
     }
 
     public Double getRadius() {

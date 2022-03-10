@@ -20,10 +20,6 @@ class SphereTest {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test that the getNormal is proper
         assertEquals(v1, s1.getNormal(p3), "getNormal() -> wrong result");
-
-// they said that we dont need this test...
-//        assertThrows(IllegalArgumentException.class, () -> s1.getNormal(p2),
-//                "getNormal() for point that is not on sphere does not throw any exception");
     }
 
 }
