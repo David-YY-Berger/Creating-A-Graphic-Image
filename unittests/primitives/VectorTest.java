@@ -34,7 +34,7 @@ class VectorTest {
         assertTrue(Util.isZero(v1.normalize().length() - 1),
                 "normalize() does not return vector whose length is = 1!");
 
-        assertTrue(v1.normalize().dotProduct(v1) < 0,
+        assertTrue(v1.normalize().dotProduct(v1) > 0,
                 "normalize() returns a vector in the opposite direction!");
         //bec dot product is negative....
 

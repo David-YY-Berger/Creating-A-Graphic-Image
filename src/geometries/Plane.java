@@ -23,26 +23,23 @@ public class Plane implements Geometry{
         //(1) create vectors
         Vector p1ToP2 = p2.subtract(p1);
         Vector p1ToP3 = p3.subtract(p1);
+        Vector orthogonalVector;
         //(2) check if their cross product is 0 (if it is, then they are parallel...)
         try{
-            p1ToP2.crossProduct(p1ToP3);
+            orthogonalVector = p1ToP2.crossProduct(p1ToP3);
         }
         catch(IllegalArgumentException ex){
             throw new IllegalArgumentException();
         }
-
         //if no issues, CREATE PLANE:
         p0 = p1;// arbitrary choice
-        normalVector = null; //must calc normal vector from coordinates!
+        normalVector = orthogonalVector.normalize();
     }
 
     @Override
     public Vector getNormal(Point pointOnSurface) {
-        //CHECK IF POINT IS ON PLANE:
-        //code..
-        //CALC AND RETURN NORMAL:
-        //code...
-        return null;
+        //no need to check if point is on plane:
+        return normalVector;
     }
     public Point getP0() {
         return p0;
