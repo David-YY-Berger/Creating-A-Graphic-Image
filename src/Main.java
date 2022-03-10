@@ -9,11 +9,6 @@ import static primitives.Util.*;
  */
 public final class Main {
 
-    /**
-     * Main program to test initial functionality of the 1st stage
-     *
-     * @param args irrelevant here
-     */
     public static void main(String[] args) {
 
         out.println("If there were no any other outputs - all tests succeeded!");
