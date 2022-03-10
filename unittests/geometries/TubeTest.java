@@ -21,6 +21,6 @@ class TubeTest {
         // =============== Boundary Values Tests ==================
 
         assertThrows(IllegalArgumentException.class, () -> t.getNormal(p2),
-                "getNormal() does not throw an exeption when the point is in front of the ray's beginning point");
+                "getNormal() does not throw an exception when the point is in front of the ray's beginning point");
     }
 }
