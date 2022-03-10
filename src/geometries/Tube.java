@@ -9,6 +9,11 @@ public class Tube implements Geometry{
     Ray axisRay;
     Double radius;
 
+    public Tube(Ray _axisRay, Double _radius) {
+        axisRay = _axisRay;
+        radius = _radius;
+    }
+
     @Override
     public Vector getNormal(Point pointOnSurface) {
         return null;

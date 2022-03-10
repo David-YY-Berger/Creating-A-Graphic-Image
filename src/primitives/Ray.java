@@ -8,8 +8,8 @@ public class Ray {
     protected Point p0; // beginning point
     protected Vector dirVector; //direction vector
 
-    public Ray(Point p, Vector directionVec){
-        p0 = p;
+    public Ray(Point _point, Vector directionVec){
+        p0 = _point;
         dirVector = directionVec.normalize();
     }
     @Override

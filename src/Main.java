@@ -11,6 +11,6 @@ public final class Main {
 
     public static void main(String[] args) {
 
-        out.println("If there were no any other outputs - all tests succeeded!");
+        out.println("Main has been run");
     }
 }
