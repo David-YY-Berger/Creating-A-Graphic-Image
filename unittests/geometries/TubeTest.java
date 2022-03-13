@@ -13,14 +13,14 @@ class TubeTest {
         // ============ Equivalence Partitions Tests ==============
         Tube t = new Tube(new Ray(new Point(0, 0, 0), new Vector(0, 0, 1)),
                 1.0);
-        Point p = new Point(0, 1, 2); //sits on cylinder's surface
-        Point p2 =new Point(0, 1, 0);
-        Vector normalVec = new Vector(0, 1, 0);
-        assertEquals(normalVec, t.getNormal(p), "getNormal() does not return proper vector!");
+        Point p1 = new Point(0, 1, 2); //sits on cylinder's surface
+        Vector normalVec1 = new Vector(0, 1, 0);
+        assertEquals(normalVec1, t.getNormal(p1), "getNormal() does not return proper vector!");
 
         // =============== Boundary Values Tests ==================
 
-        assertThrows(IllegalArgumentException.class, () -> t.getNormal(p2),
-                "getNormal() does not throw an exception when the point is in front of the ray's beginning point");
+        Point p2 = new Point(0, 0, 1); //sits on cylinder's surface
+        Vector normalVec2 = new Vector(0, 0, 1);
+        assertEquals(normalVec2, t.getNormal(p2), "getNormal() does not return proper vector!");
     }
 }
