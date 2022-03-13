@@ -19,8 +19,8 @@ class TubeTest {
 
         // =============== Boundary Values Tests ==================
 
-        Point p2 = new Point(0, 0, 1); //sits on cylinder's surface
-        Vector normalVec2 = new Vector(0, 0, 1);
+        Point p2 = new Point(1, 0, 0); //sits on cylinder's surface
+        Vector normalVec2 = new Vector(1, 0, 0);
         assertEquals(normalVec2, t.getNormal(p2), "getNormal() does not return proper vector!");
     }
 }
