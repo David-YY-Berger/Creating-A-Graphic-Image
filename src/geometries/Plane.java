@@ -17,7 +17,7 @@ public class Plane implements Geometry{
     public Plane(Point p1, Point p2, Point p3){
         //throw EX if points are the same..
         if(p1.equals(p2) || p1.equals(p3) || p2.equals(p3))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("2 of the 3 points are identical!");
 
         //throw EX if all 3 points are on the same line..
         //(1) create vectors
@@ -29,7 +29,7 @@ public class Plane implements Geometry{
             orthogonalVector = p1ToP2.crossProduct(p1ToP3);
         }
         catch(IllegalArgumentException ex){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("the three points are on the same line!");
         }
         //if no issues, CREATE PLANE:
         p0 = p1;// arbitrary choice

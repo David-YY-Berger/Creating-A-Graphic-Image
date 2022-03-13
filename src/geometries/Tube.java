@@ -16,11 +16,20 @@ public class Tube implements Geometry{
 
     @Override
     public Vector getNormal(Point pointOnSurface) {
-        double t = axisRay.getDirVector().dotProduct(pointOnSurface.subtract(axisRay.getP0()));
-        if (t == 0)
-            throw new IllegalArgumentException();
-        Point o = axisRay.getP0().add(axisRay.getDirVector().scale(t));
-        return pointOnSurface.subtract(o).normalize();
+        double distance = axisRay.getDirVector().dotProduct(pointOnSurface.subtract(axisRay.getP0()));
+        //"distance" measures dist btw p0 of the axisRAy,
+        // and the intersection of the pointOnSurface's ray with the axisRay
+        if (distance == 0.0)
+        {
+            //if (the ray btw pointOnSurface and the tube's axisRay) == a straight angle,
+            //then must calculate the normal vector differently -> directly with the p0
+            return pointOnSurface.subtract(axisRay.getP0()).normalize();
+        }
+        else {
+            Point intersectPntWAxis = axisRay.getP0().add(axisRay.getDirVector().scale(distance));
+            //intersection point with the axis ray, and ray from pointOnSurface
+            return pointOnSurface.subtract(intersectPntWAxis).normalize();
+        }
     }
 
     public Double getRadius() {
