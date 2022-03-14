@@ -47,4 +47,5 @@ class PointTest {
         // TC04: Test that the distance is proper
         assertEquals(Math.sqrt(50), p2.distance(p1), "distance() wrong result");
     }
+
 }

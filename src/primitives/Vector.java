@@ -1,8 +1,14 @@
 package primitives;
 
+/**
+ * holds an XYZ, but as opposed to a point (which is a specific place in the 3d space),
+ *  a vector is a direction and magnitude - and has no specific spot
+ */
 public class Vector extends Point {
 
     //field point "xyz" - from Point...
+
+    //use's Point's "equals()" function
 
     public Vector(double d1, double d2, double d3) {
         super(d1, d2, d3); //call's Point's CTOR
@@ -30,19 +36,6 @@ public class Vector extends Point {
     public double dotProduct (Vector v) {
         Double3 d = this.xyz.product(v.xyz);
         return d.d1 + d.d2 + d.d3;
-    }
-    @Override
-    public boolean equals(Object obj)    {
-        //if same object
-        if(this == obj) //checks by address...
-            return true;
-        else if(obj == null  //if different classes, reject...
-                || obj.getClass()!= this.getClass())
-            return false;
-
-        // cast to Vector to check properly
-        Vector vec = (Vector) obj;
-        return (vec.xyz.equals(this.xyz)); //returns bool val
     }
     public Vector crossProduct(Vector vec2){
         //if resulat is a "zero vector", throws exception...

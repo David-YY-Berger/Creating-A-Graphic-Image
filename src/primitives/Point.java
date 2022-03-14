@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * holds 3d point and contains basic functions used by other geometries
+ */
 public class Point {
 
     Double3 xyz;
