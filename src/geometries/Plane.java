@@ -5,6 +5,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 public class Plane implements Geometry{
 
     Point p0;
@@ -36,6 +38,7 @@ public class Plane implements Geometry{
         normalVector = orthogonalVector.normalize();
     }
 
+    //GETTERS:
     @Override
     public Vector getNormal(Point pointOnSurface) {
         //no need to check if point is on plane:
@@ -44,7 +47,10 @@ public class Plane implements Geometry{
     public Point getP0() {
         return p0;
     }
-
-    //GETTERS:
     public Vector getNormal() { return normalVector;}
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
+    }
 }

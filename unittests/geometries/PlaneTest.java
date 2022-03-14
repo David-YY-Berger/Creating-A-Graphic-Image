@@ -39,4 +39,17 @@ class PlaneTest {
         assertEquals(testPlane.getNormal(), ans, "getNormal() does not return correct vector!");
 
     }
+
+    /**
+     * Test Method for {@link Plane#findIntsersections(Ray)}
+     */
+    @Test
+    public void testFindIntersections() {
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // =============== Boundary Values Tests ==================
+
+    }
+
 }
