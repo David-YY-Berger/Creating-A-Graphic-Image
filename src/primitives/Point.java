@@ -7,7 +7,18 @@ public class Point {
 
     Double3 xyz;
 
+    /**
+     * Constructor by 3 coordinates
+     * @param d1
+     * @param d2
+     * @param d3
+     */
     public Point(double d1, double d2, double d3) { xyz = new Double3(d1, d2, d3); }
+
+    /**
+     * Constructor by Double3
+     * @param _xyz
+     */
     public Point(Double3 _xyz)
     {
         xyz = _xyz;
@@ -34,7 +45,11 @@ public class Point {
     }
     public Double3 getXyz() { return xyz;}
 
-
+    /**
+     * Subtract between two points
+     * @param p
+     * @return vector
+     */
     public Vector subtract(Point p) { return new Vector(this.xyz.subtract(p.xyz)); }
     public Point add(Vector v)
     {
