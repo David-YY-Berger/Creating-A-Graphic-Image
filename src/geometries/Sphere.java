@@ -11,7 +11,7 @@ public class Sphere implements Geometry{
     Point center;
     Double radius;
 
-    public Sphere(Point _point, double _radius) {
+    public Sphere(double _radius, Point _point) {
         center = _point;
         radius = _radius;
     }
@@ -29,7 +29,7 @@ public class Sphere implements Geometry{
         return center;
     }
     @Override
-    public List<Point> findIntsersections(Ray ray) {
+    public List<Point> findIntersections(Ray ray) {
         return null;
     }
 }

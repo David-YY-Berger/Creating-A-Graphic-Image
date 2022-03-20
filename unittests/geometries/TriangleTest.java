@@ -19,7 +19,7 @@ class TriangleTest {
         assertEquals(testTriangle.getNormal(), ans, "getNormal() does not return correct vector!");
     }
     /**
-     * Test Method for {@link Triangle#findIntsersections(Ray)}
+     * Test Method for {@link Triangle#findIntersections(Ray)}
      */
     @Test
     public void testFindIntersections() {

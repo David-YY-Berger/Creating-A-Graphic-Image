@@ -26,7 +26,7 @@ class TubeTest {
     }
 
     /**
-     * Test Method for {@link Tube#findIntsersections(Ray)}
+     * Test Method for {@link Tube#findIntersections(Ray)}
      */
     @Test
     public void testFindIntersections() {

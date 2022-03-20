@@ -44,7 +44,7 @@ class PlaneTest {
     }
 
     /**
-     * Test Method for {@link Plane#findIntsersections(Ray)}
+     * Test Method for {@link Plane#findIntersections(Ray)}
      */
     @Test
     public void testFindIntersections() {

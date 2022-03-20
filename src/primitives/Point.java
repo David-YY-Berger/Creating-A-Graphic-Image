@@ -61,7 +61,9 @@ public class Point {
                 + diff_btw_points.xyz.d2 * diff_btw_points.xyz.d2
                 + diff_btw_points.xyz.d3 * diff_btw_points.xyz.d3;
     }
-
+    public double getX(){
+        return xyz.d1;
+    }
     public double distance (Point p){
         return Math.sqrt(distanceSquared(p));
     }

@@ -50,7 +50,7 @@ public class Plane implements Geometry{
     public Vector getNormal() { return normalVector;}
 
     @Override
-    public List<Point> findIntsersections(Ray ray) {
+    public List<Point> findIntersections(Ray ray) {
         return null;
     }
 }

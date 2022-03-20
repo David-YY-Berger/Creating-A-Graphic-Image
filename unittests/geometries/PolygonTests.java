@@ -3,7 +3,6 @@ package geometries;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import geometries.*;
 import primitives.*;
 
 /**
@@ -76,7 +75,7 @@ public class PolygonTests {
 	}
 
 	/**
-	 * Test method for {@link Polygon#findIntsersections(Ray)}
+	 * Test method for {@link Polygon#findIntersections(Ray)}
 	 */
 	public void testFindIntersections() {}
 	// ============ Equivalence Partitions Tests ==============
