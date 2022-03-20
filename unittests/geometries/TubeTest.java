@@ -24,4 +24,16 @@ class TubeTest {
         Vector normalVec2 = new Vector(1, 0, 0);
         assertEquals(normalVec2, t.getNormal(p2), "getNormal() does not return proper vector!");
     }
+
+    /**
+     * Test Method for {@link Tube#findIntsersections(Ray)}
+     */
+    @Test
+    public void testFindIntersections() {
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // =============== Boundary Values Tests ==================
+
+    }
 }
