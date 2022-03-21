@@ -9,15 +9,11 @@ public class Point {
 
     /**
      * Constructor by 3 coordinates
-     * @param d1
-     * @param d2
-     * @param d3
      */
     public Point(double d1, double d2, double d3) { xyz = new Double3(d1, d2, d3); }
 
     /**
      * Constructor by Double3
-     * @param _xyz
      */
     public Point(Double3 _xyz)
     {
@@ -47,14 +43,19 @@ public class Point {
 
     /**
      * Subtract between two points
-     * @param p
-     * @return vector
      */
     public Vector subtract(Point p) { return new Vector(this.xyz.subtract(p.xyz)); }
+    /**
+     * add's vector to this point
+     * */
     public Point add(Vector v)
     {
         return new Point(v.xyz.add(this.xyz));
     }
+
+    /**
+     * finds distance btw point p and this point... returns the square
+     */
     public double distanceSquared(Point p){
         Vector diff_btw_points = p.subtract(this);
         return diff_btw_points.xyz.d1 * diff_btw_points.xyz.d1
@@ -64,6 +65,10 @@ public class Point {
     public double getX(){
         return xyz.d1;
     }
+
+    /**
+     * uses {@link Point#distanceSquared(Point)}
+     */
     public double distance (Point p){
         return Math.sqrt(distanceSquared(p));
     }

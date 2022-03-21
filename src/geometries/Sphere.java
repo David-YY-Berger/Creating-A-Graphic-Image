@@ -30,6 +30,10 @@ public class Sphere implements Geometry{
     }
     @Override
     public List<Point> findIntersections(Ray ray) {
+        //this function is based on the theory found here: https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection#:~:text=Intersecting%20a%20ray%20with%20a,simplicity)%20to%20be%20very%20fast.
+
+
+
         return null;
     }
 }
