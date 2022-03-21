@@ -12,7 +12,7 @@ public class Plane implements Geometry{
     Point p0;
     Vector normalVector;
 
-    public Plane(Vector vec, Point p){
+    public Plane(Point p, Vector vec){
         normalVector = vec.normalize();
         p0 = p;
     }

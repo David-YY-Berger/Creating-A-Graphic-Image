@@ -3,6 +3,8 @@ package geometries;
 import org.junit.jupiter.api.Test;
 import primitives.*;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -35,7 +37,7 @@ class PlaneTest {
     public void testGetNormal() {
 
         // ============ Equivalence Partitions Tests ==============
-        //TC03 Check if it returns the correct normal
+        //TC01 Check if it returns the correct normal
         Plane testPlane =  new Plane(new Point(-1, 1, 2), new Point(-4, 2, 2), new Point(-2, 1, 5));
         Vector ans = new Vector(3, 9, 1);
         ans = ans.normalize();
@@ -48,28 +50,32 @@ class PlaneTest {
      */
     @Test
     public void testFindIntersections() {
+        Plane pl = new Plane(new Point(0, 0, 1), new Vector(1, 1, 1));
 
         // ============ Equivalence Partitions Tests ==============
 
-        //TC04 Ray starts above the plane and don't cross it
+        //TC01 Ray starts above the plane and don't cross it
 
-        //TC05 Ray starts under the plane and cross it
+
+        //TC02 Ray starts under the plane and cross it
+        assertEquals(List.of(new Point(1,0,0)), pl.findIntersections(new Ray(new Point(0.5, 0, 0), new Vector(1, 0, 0))),
+                "Bad plane intersection");
 
         // =============== Boundary Values Tests ==================
 
-        //TC06 Ray is parallel to the plane
+        //TC03 Ray is parallel to the plane
 
-        //TC07 Ray is contained in the plane
+        //TC04 Ray is contained in the plane
 
-        //TC08 Ray is orthogonal to the plane under it
+        //TC05 Ray is orthogonal to the plane under it
 
-        //TC09 Ray is orthogonal to the plane on it
+        //TC06 Ray is orthogonal to the plane on it
 
-        //TC10 Ray is orthogonal to the plane above it
+        //TC07 Ray is orthogonal to the plane above it
 
-        //TC11 Ray starts on the plane
+        //TC08 Ray starts on the plane
 
-        //TC12 Ray starts on the point we built the plane (constructor with point and ray)
+        //TC09 Ray starts on the point we built the plane (constructor with point and ray)
 
     }
 
