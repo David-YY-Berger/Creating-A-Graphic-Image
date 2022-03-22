@@ -30,17 +30,21 @@ public class Sphere implements Geometry{
         return center;
     }
 
-    /** @return list of intersection points btw this circle, and _ray
+    /** findIntersections():
+     * @return list of intersection points btw this circle, and _ray
      * if there are no intersetion points, returns null
-     * @param _ray
      */
     @Override
     public List<Point> findIntersections(Ray _ray) {
 
-        // SEE README FILE FOR ILLUSTRATION!
-        Vector u = center.subtract(_ray.getP0()); //u goes from _ray's p0 --> Circle's center
+        // SEE README FILE FOR ILLUSTRATION! - Diagram 1.1
+        //(1) find u [vector u goes from _ray's p0 --> Circle's center]
+        Vector u = center.subtract(_ray.getP0());
+        //(2) find projection of u onto Ray (to find vertex of right triangle)
+        Vector tm = _ray.getDirVector().projection(u);
+        //Vector d = Math.sqrt(u.lengthSquared() - tm.lengthSquared());
 
-        //if no intersection points:
+        // if no intersection points:
         return null;
         //create LinkedList
         //List<Point> res = new LinkedList<>();

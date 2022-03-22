@@ -85,4 +85,16 @@ public class Vector extends Point {
         return new Vector(this.xyz.reduce(this.length()));
     }
 
+    /** projection() @return vector projection of vec2 onto this Vector
+     * @param vec2
+    */
+    public Vector projection(Vector vec2){
+        //find scalar projection:
+        double scalarProj = (vec2.dotProduct(this))/ this.lengthSquared();
+        if(Util.isZero(scalarProj))
+            throw new IllegalArgumentException("Vectors are perpendicular!");
+
+        return this.scale(scalarProj);
+    }
+
 }

@@ -122,7 +122,17 @@ class VectorTest {
         //check for negative direction...
         v1 = new Vector(3, 4, -5);
         assertEquals(Math.sqrt(50), v1.length(), "length() is innaccurate");
-
-
+    }
+    /**
+     * Test method for {@link Vector#projection(Vector)}
+     */
+    @Test
+    public void testProjection(){
+        // ============ Equivalence Partitions Tests ==============
+        //Test proj of vec 1 onto vec 2
+        Vector vec1 = new Vector(-1, 4, 2);
+        Vector vec2 = new Vector(1, 0, 3);
+        assertEquals(new Vector(.5, 0, 1.5), vec2.projection(vec1),
+                "projection() is inaccurate!");
     }
 }
