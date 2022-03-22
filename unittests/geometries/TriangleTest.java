@@ -5,10 +5,16 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TriangleTest {
 
+    /**
+     * Test Method for {@link Triangle#findIntersections(Ray)}
+     */
+    @Test
     public void testGetNormal() {
 
         // ============ Equivalence Partitions Tests ==============
@@ -24,21 +30,26 @@ class TriangleTest {
     @Test
     public void testFindIntersections() {
 
+        Triangle tr = new Triangle(new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0));
+
         // ============ Equivalence Partitions Tests ==============
 
-        //TC02 The point is inside the triangle
+        //TC01 The point is inside the triangle
+        assertEquals(List.of(new Point(1d / 3, 1d / 3, 1d / 3)), tr.findIntersections(new Ray(new Point(1, 1, 1), new Vector(-1, -1, -1))),
+                "Bad intersection");
 
-        //TC03 The point is against edge
+        //TC02 The point is against edge
 
-        //TC04 The point is against vertex
+
+        //TC03 The point is against vertex
 
         // =============== Boundary Values Tests ==================
 
-        //TC05 The point is on edge
+        //TC04 The point is on edge
 
-        //TC06 The point is on vertex
+        //TC05 The point is on vertex
 
-        //TC07 The point is on edge continuation
+        //TC06 The point is on edge continuation
 
     }
 }
