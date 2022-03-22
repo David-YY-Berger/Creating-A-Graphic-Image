@@ -8,7 +8,7 @@ class TubeTest {
 
 
     @Test
-    public void getNormal() {
+    public void testGetNormal() {
 
         // ============ Equivalence Partitions Tests ==============
         Tube t = new Tube(new Ray(new Point(0, 0, 0), new Vector(0, 0, 1)),

@@ -49,14 +49,20 @@ class VectorTest {
     public void testNormalize(){
 
         // ============ Equivalence Partitions Tests ==============
+        //TEST 1
         Vector v1 = new Vector(3, 4, 5);
-        assertTrue(Util.isZero(v1.normalize().length() - 1),
+        Vector normalizedVec = v1.normalize();
+        assertTrue(Util.isZero(normalizedVec.length() - 1),
                 "normalize() does not return vector whose length is = 1!");
-
-        assertTrue(v1.normalize().dotProduct(v1) > 0,
+        //TEST 2
+        assertTrue(normalizedVec.dotProduct(v1) > 0,
                 "normalize() returns a vector in the opposite direction!");
         //bec dot product is negative....
 
+        //TEST 3
+        //calculated normal of vector (3, 4, 5)
+        Vector calculatedNormal = new Vector(0.4242640687119285, 0.565685424949238, 0.7071067811865475);
+        assertEquals(normalizedVec , calculatedNormal, "calculation is inaccurate!");
     }
 
     /**

@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Sphere implements Geometry{
@@ -28,12 +29,20 @@ public class Sphere implements Geometry{
     public Point getCenter() {
         return center;
     }
+
+    /** @return list of intersection points btw this circle, and _ray
+     * if there are no intersetion points, returns null
+     * @param _ray
+     */
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        //this function is based on the theory found here: https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection#:~:text=Intersecting%20a%20ray%20with%20a,simplicity)%20to%20be%20very%20fast.
+    public List<Point> findIntersections(Ray _ray) {
 
+        // SEE README FILE FOR ILLUSTRATION!
+        Vector u = center.subtract(_ray.getP0()); //u goes from _ray's p0 --> Circle's center
 
-
+        //if no intersection points:
         return null;
+        //create LinkedList
+        //List<Point> res = new LinkedList<>();
     }
 }
