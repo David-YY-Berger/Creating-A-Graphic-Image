@@ -37,16 +37,50 @@ public class Sphere implements Geometry{
     @Override
     public List<Point> findIntersections(Ray _ray) {
 
-        // SEE README FILE FOR ILLUSTRATION! - Diagram 1.1
-        //(1) find u [vector u goes from _ray's p0 --> Circle's center]
-        Vector u = center.subtract(_ray.getP0());
-        //(2) find projection of u onto Ray (to find vertex of right triangle)
-        Vector tm = _ray.getDirVector().projection(u);
-        //Vector d = Math.sqrt(u.lengthSquared() - tm.lengthSquared());
+        /** SEE README FILE FOR ILLUSTRATION! - Diagram 1.1
+         * names of variables based on the diagram..
+         * note - "u" is stored as a vector, not as a ray...
+         * good explanation on this website - https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection#:~:text=Intersecting%20a%20ray%20with%20a,simplicity)%20to%20be%20very%20fast.
+         */
 
-        // if no intersection points:
-        return null;
-        //create LinkedList
-        //List<Point> res = new LinkedList<>();
+
+
+         //(1) find u [vector u goes from _ray's p0 --> Circle's center]
+        if(_ray.getP0().equals(center))
+        {
+            //if ray begins at circle's center...
+            List<Point> res =  new LinkedList<>();
+            res.add(_ray.getP0().add(_ray.getDirVector().scale(radius)));
+            return res;
+        }
+        //else:
+        Vector u = center.subtract(_ray.getP0());
+
+        //(2) find scalar projection (tm) of u onto Ray (to find vertex of right triangle)
+        double tm = _ray.getDirVector().dotProduct(u) ; // tm holds the scalar product
+
+        //(3) find d (shared side of both right triangles) used Pythagoras
+        double d = Math.sqrt(u.lengthSquared() - tm*tm);
+        if(d >= radius) //if ray's intersection points are on or beyond the sphere's boundary
+            return null;//new LinkedList<Point>(); //if we return null, the test fails...
+
+        /**
+         * Really, if d == radius, there is one intersection point and the ray is tangent...
+         * but in our project, we will not include intersection points with the surface of a shape
+         */
+
+        //(4) find "th" - base of each right triangle
+        double th = Math.sqrt(radius*radius - d*d );
+        double t1 = tm + th;
+        double t2 = tm - th;
+
+        //(5) calculate both intersection points
+        List<Point> res = new LinkedList<>();
+        if(t1>0)
+            res.add(_ray.getP0().add(_ray.getDirVector().scale(t1)));
+        if(t2>0)
+            res.add(_ray.getP0().add(_ray.getDirVector().scale(t2)));
+
+        return res;
     }
 }

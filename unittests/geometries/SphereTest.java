@@ -52,15 +52,15 @@ class SphereTest {
         //compare actual_result points...
         if (result.get(0).getX() > result.get(1).getX())
             result = List.of(result.get(1), result.get(0));
-        assertEquals(List.of(p1, p2), result, "Ray crosses sphere");
+        assertEquals(List.of(p1, p2), result, "findIntersections() returned the wrong results!");
 
         // TC03: Ray starts inside the sphere (1 point) and continues out
         result = sphere_1_0_0.findIntersections(new Ray(new Point(1.5, 0, 0), new Vector(5, 1, 0)));
-        assertEquals(2, result.size(), "Wrong num points if ray starts inside of sphere");
+        assertEquals(1, result.size(), "Wrong num points if ray starts inside of sphere");
 
         // TC04: Ray starts after the sphere (0 points) and points out
-        result = sphere_1_0_0.findIntersections(new Ray(new Point(2.5, 0, 0), new Vector(5, 2, 0)));
-        assertEquals(0, result.size(),
+        //result = sphere_1_0_0.findIntersections(new Ray(new Point(2.5, 0, 0), new Vector(5, 2, 0)));
+        assertNull( sphere_1_0_0.findIntersections(new Ray(new Point(2.5, 0, 0), new Vector(5, 2, 0))),
                 "Incorrectily finds a point, when ray begins out of circle and points outward!");
 
         // =============== Boundary Values Tests ==================
@@ -73,9 +73,12 @@ class SphereTest {
         assertEquals(1, result.size(), "does not give intersection for Ray that begins " +
                 "at sphere's boundary and points inward!");
         // TC12: Ray starts at sphere and goes outside (0 points)
-        result = sphere_1_0_0.findIntersections(new Ray(new Point(2, 0, 0), new Vector(5, 1, 0)));
-        assertEquals(0, result.size(), "gives intersection for Ray that begins " +
-                "at sphere's boundary and points outward!");
+        assertNull(sphere_1_0_0.findIntersections(new Ray(new Point(2, 0, 0), new Vector(5, 1, 0))),
+                "gives intersection for Ray that begins " +
+                        "at sphere's boundary and points outward!");
+       // result = sphere_1_0_0.findIntersections(new Ray(new Point(2, 0, 0), new Vector(5, 1, 0)));
+        //assertEquals(0, result.size(), "gives intersection for Ray that begins " +
+          //      "at sphere's boundary and points outward!");
 
         // **** Group: Ray's line goes through the center
         // TC13: Ray starts outside the sphere's boundary (2 points)
