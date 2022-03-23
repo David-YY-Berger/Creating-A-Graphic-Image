@@ -55,7 +55,8 @@ class PlaneTest {
         // ============ Equivalence Partitions Tests ==============
 
         //TC01 Ray starts above the plane and don't cross it
-
+        assertNull(pl.findIntersections(new Ray(new Point(2,0,0),new Vector(1,0,0))),
+                "Must not be plane intersection");
 
         //TC02 Ray starts under the plane and cross it
         assertEquals(List.of(new Point(1,0,0)), pl.findIntersections(new Ray(new Point(0.5, 0, 0), new Vector(1, 0, 0))),
@@ -64,18 +65,32 @@ class PlaneTest {
         // =============== Boundary Values Tests ==================
 
         //TC03 Ray is parallel to the plane
+        assertNull(pl.findIntersections(new Ray(new Point(1,1,1), new Vector(1,-1,0))),
+                "Must not be plane intersection");
 
         //TC04 Ray is contained in the plane
+        assertNull(pl.findIntersections(new Ray(new Point(1,0,0), new Vector(1,-1,0))),
+                "Must not be plane intersection");
 
         //TC05 Ray is orthogonal to the plane under it
+        assertEquals(List.of(new Point(1d/3,1d/3,1d/3)),pl.findIntersections(new Ray(new Point(1,1,1), new Vector(-1,-1,-1))),
+                "Bad plane intersection");
 
         //TC06 Ray is orthogonal to the plane on it
+        assertNull( pl.findIntersections(new Ray(new Point(1d/3, 1d/3, 1d/3), new Vector(1, 1, 1))),
+                "Must not be plane intersection");
 
         //TC07 Ray is orthogonal to the plane above it
+        assertNull(pl.findIntersections(new Ray(new Point(1,1,1), new Vector(1,1,1))),
+                "Must not be plane intersection");
 
         //TC08 Ray starts on the plane
+        assertNull(pl.findIntersections(new Ray(new Point(1d/3, 1d/3, 1d/3), new Vector(1, 1, 0))),
+                "Must not be plane intersection");
 
         //TC09 Ray starts on the point we built the plane (constructor with point and ray)
+        assertNull(pl.findIntersections(new Ray(new Point(0, 0, 1), new Vector(1, 1, 0))),
+                "Must not be plane intersection");
 
     }
 
