@@ -43,8 +43,6 @@ public class Sphere implements Geometry{
          * good explanation on this website - https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection#:~:text=Intersecting%20a%20ray%20with%20a,simplicity)%20to%20be%20very%20fast.
          */
 
-
-
          //(1) find u [vector u goes from _ray's p0 --> Circle's center]
         if(_ray.getP0().equals(center))
         {
@@ -73,6 +71,9 @@ public class Sphere implements Geometry{
         double th = Math.sqrt(radius*radius - d*d );
         double t1 = tm + th;
         double t2 = tm - th;
+
+        if(t1 <= 0 && t2 <= 0) //if t1 or t2 ==0, then intersection point at p0 of the ray
+            return null;
 
         //(5) calculate both intersection points
         List<Point> res = new LinkedList<>();

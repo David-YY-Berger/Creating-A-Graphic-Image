@@ -24,7 +24,6 @@ class SphereTest {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test that the getNormal is proper
         assertEquals(class_v1, class_s1.getNormal(p3), "getNormal() -> wrong result");
-        //should use util.isEqual??
     }
 
     /**
@@ -59,7 +58,6 @@ class SphereTest {
         assertEquals(1, result.size(), "Wrong num points if ray starts inside of sphere");
 
         // TC04: Ray starts after the sphere (0 points) and points out
-        //result = sphere_1_0_0.findIntersections(new Ray(new Point(2.5, 0, 0), new Vector(5, 2, 0)));
         assertNull( sphere_1_0_0.findIntersections(new Ray(new Point(2.5, 0, 0), new Vector(5, 2, 0))),
                 "Incorrectily finds a point, when ray begins out of circle and points outward!");
 
@@ -76,9 +74,6 @@ class SphereTest {
         assertNull(sphere_1_0_0.findIntersections(new Ray(new Point(2, 0, 0), new Vector(5, 1, 0))),
                 "gives intersection for Ray that begins " +
                         "at sphere's boundary and points outward!");
-       // result = sphere_1_0_0.findIntersections(new Ray(new Point(2, 0, 0), new Vector(5, 1, 0)));
-        //assertEquals(0, result.size(), "gives intersection for Ray that begins " +
-          //      "at sphere's boundary and points outward!");
 
         // **** Group: Ray's line goes through the center
         // TC13: Ray starts outside the sphere's boundary (2 points)
@@ -102,38 +97,38 @@ class SphereTest {
                 "starting at center and going out");
 
         // TC17: Ray starts at sphere and goes outside (0 points)
-        result = sphere_1_0_0.findIntersections(new Ray(new Point(0, 1, 0), new Vector(0, 5, 0)));
-        assertEquals(0, result.size(), "incorrectly gives intersection point for " +
+        assertNull(sphere_1_0_0.findIntersections(new Ray(new Point(0, 1, 0), new Vector(0, 5, 0))),
+                "incorrectly gives intersection point for " +
                 "vector starting on sphere boundary and going out");
 
         // TC18: Ray starts after sphere (0 points)
-        result = sphere_1_0_0.findIntersections(new Ray(new Point(2.5, 0, 0), new Vector(5, 0, 0)));
-        assertEquals(0, result.size(), "incorrectly gives intersection point for " +
+        assertNull(sphere_1_0_0.findIntersections(new Ray(new Point(2.5, 0, 0), new Vector(5, 0, 0))),
+                "incorrectly gives intersection point for " +
                 "vector starting after sphere boundary and going out");
 
         //(in hebrew, tangent = "meishik").
         // **** Group: Ray's line is tangent to the sphere (all tests 0 points)
         //for these tests --> TANGENT POINT IS AT (2, 0, 0)
         // TC19: Ray starts before the tangent point
-        result = sphere_1_0_0.findIntersections(new Ray(new Point(2, -1, 0), new Vector(0, 5, 0)));
-        assertEquals(0, result.size(), "incorrectly gives intersection point for " +
+        assertNull(sphere_1_0_0.findIntersections(new Ray(new Point(2, -1, 0), new Vector(0, 5, 0))),
+                "incorrectly gives intersection point for " +
                 "vector tangent to sphere (starting before tangent point)");
 
         // TC20: Ray starts at the tangent point
-        result = sphere_1_0_0.findIntersections(new Ray(new Point(2, 0, 0), new Vector(0, 5, 0)));
-        assertEquals(0, result.size(), "incorrectly gives intersection point for " +
+        assertNull(sphere_1_0_0.findIntersections(new Ray(new Point(2, 0, 0), new Vector(0, 5, 0))),
+                "incorrectly gives intersection point for " +
                 "vector tangent to sphere (starting at tangent point)");
 
         // TC21: Ray starts after the tangent point
-        result = sphere_1_0_0.findIntersections(new Ray(new Point(2, 1, 0), new Vector(0, 5, 0)));
-        assertEquals(0, result.size(), "incorrectly gives intersection point for " +
+        assertNull(sphere_1_0_0.findIntersections(new Ray(new Point(2, 1, 0), new Vector(0, 5, 0))),
+                "incorrectly gives intersection point for " +
                 "vector tangent to sphere (starting before tangent point)");
 
         // **** Group: Special cases
         //(TC19 -> * i did not understand this test....david berger)
         // TC19: Ray's line is outside, and is orthogonal to the sphere's center line
-        result = sphere_1_0_0.findIntersections(new Ray(new Point(3, 1, 0), new Vector(0, 5, 0)));
-        assertEquals(0, result.size(), "incorrectly gives intersection point for " +
+        assertNull(sphere_1_0_0.findIntersections(new Ray(new Point(3, 1, 0), new Vector(0, 5, 0))),
+                "incorrectly gives intersection point for " +
                 "vector outside of sphere, orthogonal to ray of sphere's center line");
 
     }
