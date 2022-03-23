@@ -7,6 +7,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 public class Plane implements Geometry{
 
     Point p0;
@@ -49,8 +52,42 @@ public class Plane implements Geometry{
     }
     public Vector getNormal() { return normalVector;}
 
+    /**
+     *Calculate and return the intersection point/s between the plane and the ray got by parameter
+     * return null if there are no points
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return null;
+
+        // We will use the formula t = (n * (Q - p0)) / (n * v)
+        // When n = normal of the plane
+        //      Q = the point on the plane (from Constructor)
+        //      p0 = beginning point of the ray
+        //      v = the direction of the ray
+        //      t = the distance between the beginning of the ray to the intersection point on the plane
+
+        Vector p0_Q;
+
+        try {
+            p0_Q = p0.subtract(ray.getP0()); //built a vector from the beginning of ray to the point on plane
+        }
+        catch (IllegalArgumentException e){
+            return null; //no intersection
+        }
+
+        double denominator = normalVector.dotProduct(ray.getDirVector());
+
+        if (isZero(denominator)){
+            return null; // the ary is parallel to the plane - no intersection
+        }
+
+        double t = alignZero(normalVector.dotProduct(p0_Q) / denominator);
+
+        if(t < 0){
+            return  null; //the direction is opposite to the plane - no intersection
+        }
+        else{
+            return List.of(ray.getPoint(t));
+        }
     }
 }

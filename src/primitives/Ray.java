@@ -38,4 +38,19 @@ public class Ray {
     public Vector getDirVector() {
         return dirVector;
     }
+
+    /**
+     * get a scalar and return the point on the ray at distance t from the beginning of the ray
+     */
+    public Point getPoint(double t){
+        if(t == 0)
+            return p0;
+        try{
+            Point p = p0.add(dirVector.scale(t));
+            return p;
+        }
+        catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
 }

@@ -36,20 +36,29 @@ class TriangleTest {
 
         //TC01 The point is inside the triangle
         assertEquals(List.of(new Point(1d / 3, 1d / 3, 1d / 3)), tr.findIntersections(new Ray(new Point(1, 1, 1), new Vector(-1, -1, -1))),
-                "Bad intersection");
+                "Wrong intersection");
 
         //TC02 The point is against edge
-
+        assertNull(tr.findIntersections(new Ray(new Point(0, 0, -1), new Vector(1, 1, 0))),
+                "Wrong intersection");
 
         //TC03 The point is against vertex
+        assertNull(tr.findIntersections(new Ray(new Point(0, 0, 2), new Vector(-1, -1, 0))),
+                "Wrong intersection");
 
         // =============== Boundary Values Tests ==================
 
         //TC04 The point is on edge
+        assertNull(tr.findIntersections(new Ray(new Point(-1, -1, 0), new Vector(1, 1, 0))),
+                "Wrong intersection");
 
         //TC05 The point is on vertex
+        assertNull(tr.findIntersections(new Ray(new Point(-1, 0, 0), new Vector(1, 1, 0))),
+                "Wrong intersection");
 
         //TC06 The point is on edge continuation
+        assertNull(tr.findIntersections(new Ray(new Point(-2, 0, 0), new Vector(1, 1, 0))),
+                "Wrong intersection");
 
     }
 }
