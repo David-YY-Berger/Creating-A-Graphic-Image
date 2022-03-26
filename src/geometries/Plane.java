@@ -86,6 +86,9 @@ public class Plane implements Geometry{
         if(t < 0){
             return  null; //the direction is opposite to the plane - no intersection
         }
+        if (t ==0) {
+            return null; // the ray starts on the plane
+        }
         else{
             return List.of(ray.getPoint(t));
         }
