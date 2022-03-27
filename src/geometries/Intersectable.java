@@ -3,7 +3,7 @@ import primitives.*;
 import java.util.List;
 
 /**
- * Interface which helps with RayTracing - finds intersection points..
+ * Interface helps w RayTracing - every obj can return intersection points w a ray
  */
 public interface Intersectable {
     /**
