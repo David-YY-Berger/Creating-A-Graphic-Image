@@ -78,9 +78,12 @@ public class Sphere implements Geometry{
         //(5) calculate both intersection points
         List<Point> res = new LinkedList<>();
         if(t1>0)
-            res.add(_ray.getP0().add(_ray.getDirVector().scale(t1)));
+            res.add(_ray.getPoint(t1));
+            //res.add(_ray.getP0().add(_ray.getDirVector().scale(t1)));
+
         if(t2>0)
-            res.add(_ray.getP0().add(_ray.getDirVector().scale(t2)));
+            res.add(_ray.getPoint(t2));
+            //res.add(_ray.getP0().add(_ray.getDirVector().scale(t2)));
 
         return res;
     }
