@@ -12,33 +12,50 @@ import java.util.List;
  */
 public class Geometries implements Intersectable {
 
-    private List<Intersectable> lst;
+    private List<Intersectable> intersectableList; //should NOT be final; we plan to add to this..
 
     //default CTOR
     public Geometries() {
-        lst = new LinkedList<Intersectable>();
-        /** WE HAVE CHOSEN TO USE A LINKEDLIST INSTEAD OF AN ARRAYLIST, BECAUSE:
-         * (1) we will never need to access a particular element; rather we will always iterate thru them...
-         * (2) we need to add many shapes to our list, and a linkedList is faster in that regard..
+        /*
+        WE HAVE CHOSEN TO USE A LINKEDLIST INSTEAD OF AN ARRAYLIST, BECAUSE:
+        (1) we will never need to access a particular element; rather we will always iterate thru them...
+        (2) we need to add many shapes to our list, and a linkedList is faster in that regard..
          */
+        intersectableList = new LinkedList<>();
     }
     //CTOR with parameters
     public Geometries(Intersectable ... geometries){
 
-        lst = new LinkedList<>(); //intialize...
-        for (Intersectable geo : geometries) {
-            lst.add(geo);
-        }
+        intersectableList = new LinkedList<>(); //intialize...
+        intersectableList.addAll(List.of(geometries));
     }
 
-    public List<Intersectable> getLst() {
-        return lst;
+    public List<Intersectable> getIntersectableList() {
+        return intersectableList;
     }
     public void add(Intersectable geo) {
-        lst.add(geo);
+        intersectableList.add(geo);
     }
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        return null;
+    public List<Point> findIntersections(Ray _ray) {
+
+        List<Point> res = new LinkedList<>(); //initializes as null list...does this take up memory?? how should we check for points before making a list?
+        //boolean firstPoint = true;
+
+        for (Intersectable shape: intersectableList) {
+            List<Point> thisShapeIntersections = shape.findIntersections(_ray);
+            if(thisShapeIntersections != null)      //returns null if there are no intersections....
+            {
+//                if(firstPoint) {
+//                    res = new LinkedList<>();
+//                    firstPoint = false;
+//                }
+                res.addAll(thisShapeIntersections);
+            }
+        }
+        if(!res.isEmpty())
+            return res; //returns empty list if no points were returned...
+        else
+            return null;
     }
 }
