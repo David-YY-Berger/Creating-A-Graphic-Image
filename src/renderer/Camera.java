@@ -14,31 +14,31 @@ public class Camera {
 
     private double height;
     private double width;
-    private double length;
+    private double length;  //<- do we need this????
 
-    private double distanceFromVP;
+    private double distanceFromVP; //from camera to View Plane
 
     public Camera(Point _p0, Vector _v_to, Vector _v_up) {
 
         //checks that Vectors are orthogonal (otherwise, throws ex),
+        if(!Util.isZero(_v_to.dotProduct(_v_up))) //if vectors are not orthogonal
+            throw new IllegalArgumentException("given vectors are not orthogonal!");
 
-//code...
-
-        // creates v_right, saves all as normal vectors
-
+        p0 = _p0;
+        v_to = _v_to.normalize();
+        v_up = _v_up.normalize();
+        v_right = _v_to.crossProduct(_v_up).normalize(); //<- do we need to normalize???
     }
 
-    public Camera setVPSize(double width, double height){
+    public Camera setVPSize(double _width, double _height){
 
-        //code...
-
-        Camera res = new Camera(new Point(0, 0, 0), new Vector(0, 0, 0), new Vector(0, 0, 0));
-
-        return res;
+        width = _width;
+        height = _height;
+        return this;
     }
     public Camera setVPDistance(double distance){
-        //code...
 
+        distanceFromVP = distance;
         return this; //?
     }
 
