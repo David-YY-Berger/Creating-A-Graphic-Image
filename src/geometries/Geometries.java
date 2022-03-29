@@ -33,8 +33,8 @@ public class Geometries implements Intersectable {
     public List<Intersectable> getIntersectableList() {
         return intersectableList;
     }
-    public void add(Intersectable geo) {
-        intersectableList.add(geo);
+    public void add(Intersectable ... geoList) {
+        intersectableList.addAll(List.of(geoList));
     }
     @Override
     public List<Point> findIntersections(Ray _ray) {
