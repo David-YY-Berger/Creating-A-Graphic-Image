@@ -13,5 +13,6 @@ public final class Main {
       System.out.println(v1.normalize());
 
 
+
     }
 }

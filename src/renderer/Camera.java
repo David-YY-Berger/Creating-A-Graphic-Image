@@ -14,7 +14,7 @@ public class Camera {
 
     private double height;
     private double width;
-    private double length;  //<- do we need this????
+    //private double length;  //<- do we need this????
 
     private double distanceFromVP; //from camera to View Plane
 
@@ -44,10 +44,22 @@ public class Camera {
 
     public Ray constructRay(int nX, int nY, int j, int i){
 
-        //code...
+        //see diagram.....!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+        Point pc = p0.add(v_to.scale(distanceFromVP)); //center of VP (respresented as a 3d Point
+        Point pIJ = pc;
+        double rx = width / nX;
+        double xJ = (j - (nX-1)/2d) * rx;
 
+        if(xJ!=0)
+            pIJ = pIJ.add(v_right.scale(xJ));
 
-        Ray res = new Ray(new Point(0, 0, 0), new Vector(0, 0, 0));
+        double rY = height / nY;
+        double yI = -(i - (nY-1)/2d)*rY;
+
+        if(yI!=0)
+            pIJ = pIJ.add(v_up.scale(yI));
+
+        Ray res = new Ray(p0, pIJ.subtract(p0));
         return res;
     }
 
