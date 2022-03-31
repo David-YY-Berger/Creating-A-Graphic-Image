@@ -17,5 +17,9 @@ text  text text text text text text text text text text text text text text text
 ![image](https://user-images.githubusercontent.com/92029043/159909319-91e35666-a66d-4fbc-b211-f2284c34d83d.png)
 
 ## Diagrams for Ray Construction thru View Plane with Camera
+
+### Diagram 2.2 - Position of Camera and View Plane
+![image](https://user-images.githubusercontent.com/91850832/160981229-5ae04570-a83a-4751-8b3c-03cd47db47af.png)
+
 ### Diagram 2.3 - Formula to construct ray thru View Plane
 ![image](https://user-images.githubusercontent.com/91850832/160821202-5832f13e-146d-4e84-8cce-d9ba42a7c018.png)
