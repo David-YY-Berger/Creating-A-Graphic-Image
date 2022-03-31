@@ -36,16 +36,23 @@ public class Geometries implements Intersectable {
     public void add(Intersectable ... geoList) {
         intersectableList.addAll(List.of(geoList));
     }
+
+
     @Override
     public List<Point> findIntersections(Ray _ray) {
 
-        List<Point> res = new LinkedList<>(); //initializes as null list...does this take up memory?? how should we check for points before making a list?
+        //List<Point> res = new LinkedList<>(); //initializes as null list...does this take up memory?? how should we check for points before making a list?
         //boolean firstPoint = true;
+
+        List<Point> res = null;
 
         for (Intersectable shape: intersectableList) {
             List<Point> thisShapeIntersections = shape.findIntersections(_ray);
             if(thisShapeIntersections != null)      //returns null if there are no intersections....
             {
+                if (res == null){
+                    res = new LinkedList<>();
+                }
 //                if(firstPoint) {
 //                    res = new LinkedList<>();
 //                    firstPoint = false;
@@ -53,9 +60,12 @@ public class Geometries implements Intersectable {
                 res.addAll(thisShapeIntersections);
             }
         }
-        if(!res.isEmpty())
-            return res; //returns empty list if no points were returned...
-        else
-            return null;
+
+        return res;
+
+        //if(!res.isEmpty())
+        //    return res; //returns empty list if no points were returned...
+        //else
+        //    return null;
     }
 }

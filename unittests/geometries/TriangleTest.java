@@ -13,8 +13,8 @@ class TriangleTest {
 
     //**
    //  * Test Method for {@link Triangle#findIntersections(Ray)}
-     //*/
-    //@Test
+
+   // @Test
     //public void testGetNormal() {
 
         // ============ Equivalence Partitions Tests ==============
@@ -24,6 +24,7 @@ class TriangleTest {
         //Vector ans = new Vector(3, 9, 1);
         //assertEquals(testTriangle.getNormal(), ans, "getNormal() does not return correct vector!");
     //}
+
     /**
      * Test Method for {@link Triangle#findIntersections(Ray)}
      */
