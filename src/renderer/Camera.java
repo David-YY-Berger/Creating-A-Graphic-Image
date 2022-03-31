@@ -44,23 +44,24 @@ public class Camera {
 
     public Ray constructRay(int nX, int nY, int j, int i){
 
-        //see diagram.....!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+
+        //see Diagram 2.2, 2.3 in ReadMe file
         Point pc = p0.add(v_to.scale(distanceFromVP)); //center of VP (respresented as a 3d Point
-        Point pIJ = pc;
-        double rx = width / nX;
-        double xJ = (j - (nX-1)/2d) * rx;
+        Point pIJ = pc;                                //center of desired pixel
 
+        //(1) MOVING PIJ IN THE X DIRECTION
+        double rx = width / nX;                        //resolution of pixels in x direction
+        double xJ = (j - (nX-1)/2d) * rx;              //scalar value to get exact pixel in x direction
         if(xJ!=0)
-            pIJ = pIJ.add(v_right.scale(xJ));
+            pIJ = pIJ.add(v_right.scale(xJ));          //move pij in x direction
 
-        double rY = height / nY;
+        //(2) MOVING PIJ IN THE Y DIRECTION
+        double rY = height / nY;                        //same as x direction...
         double yI = -(i - (nY-1)/2d)*rY;
-
         if(yI!=0)
             pIJ = pIJ.add(v_up.scale(yI));
 
-        Ray res = new Ray(p0, pIJ.subtract(p0));
-        return res;
+        return new Ray(p0, pIJ.subtract(p0));
     }
 
 }
