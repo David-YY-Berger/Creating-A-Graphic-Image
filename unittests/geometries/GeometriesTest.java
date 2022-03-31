@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GeometriesTest {
 
     @Test
-    void findIntersections() {
+    void testFindIntersections() {
 
         //this functions uses the same variables, but overwrites the data for each test
 

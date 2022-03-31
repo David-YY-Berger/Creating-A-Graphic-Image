@@ -3,6 +3,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import static primitives.Util.isZero;
+
 public class Cylinder extends  Tube{
 
     Double height;
@@ -13,6 +15,29 @@ public class Cylinder extends  Tube{
     }
     @Override
     public Vector getNormal(Point pointOnSurface) {
+
+        //When point is center of 1st base
+        if (pointOnSurface.equals(axisRay.getP0())) {
+
+            return axisRay.getDirVector().scale(-1);
+        }
+        //When point is center of top's base
+        if (pointOnSurface.equals(axisRay.getPoint(height))){
+
+            return axisRay.getDirVector();
+        }
+        //when point is on the base
+        if (isZero(pointOnSurface.subtract(axisRay.getP0()).dotProduct(axisRay.getDirVector()))){
+
+            return axisRay.getDirVector().scale(-1);
+        }
+        //when point is on the top
+        else if (isZero(pointOnSurface.subtract(axisRay.getP0().add(axisRay.getDirVector().scale(height))).dotProduct(axisRay.getDirVector()))){
+
+            return axisRay.getDirVector();
+        }
+
+        //when point on the surface, same normal as tube
         return super.getNormal(pointOnSurface);
     }
 

@@ -20,7 +20,7 @@ class SphereTest {
      * Test method for {@link geometries.Sphere#getNormal(Point)}
      */
     @Test
-    void getNormal() {
+    void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test that the getNormal is proper
         assertEquals(class_v1, class_s1.getNormal(p3), "getNormal() -> wrong result");
