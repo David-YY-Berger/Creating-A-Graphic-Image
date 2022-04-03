@@ -46,7 +46,7 @@ public class Camera {
 
 
         //see Diagram 2.2, 2.3 in ReadMe file
-        Point pc = p0.add(v_to.scale(distanceFromVP)); //center of VP (respresented as a 3d Point
+        Point pc = p0.add(v_to.scale(distanceFromVP)); //center of VP (represented as a 3d Point
         Point pIJ = pc;                                //center of desired pixel
 
         //(1) MOVING PIJ IN THE X DIRECTION
