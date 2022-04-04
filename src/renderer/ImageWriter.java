@@ -70,8 +70,8 @@ public class ImageWriter {
      */
     public void writeToImage() {
         try {
-            File file = new File(FOLDER_PATH + '/' + imageName + ".png");
-            ImageIO.write(image, "png", file);
+            File fileContainsImage = new File(FOLDER_PATH + '/' + imageName + ".png"); //creates empty file
+            ImageIO.write(image, "png", fileContainsImage); //exports bufferedImage -->> file....
         } catch (IOException e) {
             logger.log(Level.SEVERE, "I/O error", e);
             throw new IllegalStateException("I/O error - may be missing directory " + FOLDER_PATH, e);

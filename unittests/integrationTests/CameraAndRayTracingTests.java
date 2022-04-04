@@ -18,6 +18,10 @@ public class CameraAndRayTracingTests {
 
     private final String errorMessage = "inaccurate num points!";
 
+    /**
+     * func computes all intersect points for each pixel given in parameter
+     * @return num intersections with given shape (paramter)
+     */
     private int getNumIntersections(Intersectable shape, Camera cam, int nx, int ny){
 
         int res = 0;
