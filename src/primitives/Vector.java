@@ -71,8 +71,8 @@ public class Vector extends Point {
     /**
      * @return length of vector
      */
-    public Double length() {return Math.sqrt(lengthSquared());}
-    public Double lengthSquared() {
+    public double length() {return Math.sqrt(lengthSquared());}
+    public double lengthSquared() {
         return this.xyz.d1*this.xyz.d1
                 + this.xyz.d2*this.xyz.d2
                 + this.xyz.d3*this.xyz.d3;
