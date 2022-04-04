@@ -26,13 +26,14 @@ public class Cylinder extends  Tube{
 
             return axisRay.getDirVector();
         }
+
         //when point is on the base
-        if (isZero(pointOnSurface.subtract(axisRay.getP0()).dotProduct(axisRay.getDirVector()))){
+        if (pointOnSurface.subtract(axisRay.getP0()).length() < radius){
 
             return axisRay.getDirVector().scale(-1);
         }
         //when point is on the top
-        else if (isZero(pointOnSurface.subtract(axisRay.getP0().add(axisRay.getDirVector().scale(height))).dotProduct(axisRay.getDirVector()))){
+        else if (pointOnSurface.subtract(axisRay.getP0().add(axisRay.getDirVector().scale(height))).length() <radius){
 
             return axisRay.getDirVector();
         }
