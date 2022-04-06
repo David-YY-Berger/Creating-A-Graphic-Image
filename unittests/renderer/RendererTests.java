@@ -26,7 +26,7 @@ public class RendererTests {
                 .setBackground(new Color(75, 127, 90))
                         .build();
 
-        scene.geometriesList.add(new Sphere(50, new Point(0, 0, -100)),
+        scene.geometries.add(new Sphere(50, new Point(0, 0, -100)),
                 new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
                 // left
                 new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down

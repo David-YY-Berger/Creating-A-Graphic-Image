@@ -15,7 +15,7 @@ class RayTest {
      * test method for {@link Ray#findClosestPoint(List)}
      */
     @Test
-    void findClosest() {
+    void testFindClosest() {
 
         String errorMsg = "function does not find closet point to p0 in ray!";
 

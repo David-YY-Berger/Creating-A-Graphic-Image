@@ -111,8 +111,7 @@ public class Camera {
 
         for (int x = 0; x < totalXPixels; x++) {        //x = specific pixel in x direction (j)
             for (int y = 0; y < totalYPixels; y++) {    //y = specific pixel in y direction (i)
-                Ray ray = constructRayThruPixel(totalXPixels, totalYPixels, x, y);
-                Color pixelColor = rayTracerBase.traceRay(ray);
+                Color pixelColor = castRay(totalXPixels, totalYPixels, x, y);
                 imageWriter.writePixel(x, y, pixelColor);
             }
         }
@@ -120,6 +119,11 @@ public class Camera {
         //(3) export bufferedImage to file (file given in image's constructor)
         // imageWriter.writeToImage();
 
+    }
+
+    private Color castRay(int totalXPixels, int totalYPixels, int x, int y) {
+        Ray ray = constructRayThruPixel(totalXPixels, totalYPixels, x, y);
+        return rayTracerBase.traceRay(ray);
     }
 
     /**
@@ -133,11 +137,15 @@ public class Camera {
         int totalXPixels = imageWriter.getNx();
         int totalYPixels = imageWriter.getNy();
 
-        for (int x = 0; x < totalXPixels; x+=interval) {        //x = specific pixel in x direction (j)
+        for (int x = 0; x < totalXPixels; x++) {        //x = specific pixel in x direction (j)
             for (int y = 0; y < totalYPixels; y+=interval) {    //y = specific pixel in y direction (i)
-                Ray ray = constructRayThruPixel(totalXPixels, totalYPixels, x, y);
-                Color borderColor = new Color(10, 200, 48);
-                imageWriter.writePixel(x, y, borderColor);
+                imageWriter.writePixel(x, y, color);
+            }
+        }
+
+        for (int x = 0; x < totalXPixels; x+= interval) {        //x = specific pixel in x direction (j)
+            for (int y = 0; y < totalYPixels; y++) {    //y = specific pixel in y direction (i)
+                imageWriter.writePixel(x, y, color);
             }
         }
     }

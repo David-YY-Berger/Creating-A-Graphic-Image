@@ -11,19 +11,19 @@ public class Scene {
     public String name;
     public Color backgroundColor;
     public AmbientLight ambientLight;
-    public Geometries geometriesList;
+    public Geometries geometries;
 
     private Scene(String _name){
         name = _name;
         backgroundColor = Color.BLACK;
         ambientLight = new AmbientLight();
-        geometriesList = new Geometries();
+        geometries = new Geometries();
     }
 
-    public String getName() { return name; }
-    public Color getBackground() { return backgroundColor; }
-    public Geometries getGeometriesList() { return geometriesList; }
-    public AmbientLight getAmbient() { return ambientLight; }
+//    public String getName() { return name; }
+//    public Color getBackground() { return backgroundColor; }
+//    public Geometries getGeometriesList() { return geometriesList; }
+//    public AmbientLight getAmbient() { return ambientLight; }
 
     /**
      * EXAMPLE OF HOW TO CALL THE SCENE'S BUILDER:
@@ -57,12 +57,12 @@ public class Scene {
             return this;
         }
         public Builder addGeometry(Geometry geo){
-            scene.geometriesList.add(geo);
+            scene.geometries.add(geo);
             return this;
         }
         public Scene build(){
             if(scene.name == null
-            || scene.geometriesList == null)
+            || scene.geometries == null)
                 throw new NullPointerException("Scene is lacking either a name of geometries!");
             else
                 return scene;
