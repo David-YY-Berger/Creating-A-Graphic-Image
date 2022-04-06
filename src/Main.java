@@ -27,6 +27,7 @@ public final class Main {
                 .setImageWriter(new ImageWriter("davidsTestImage", 100, 100))
                 .setRayTracerBase(new RayTracerBasic(myScene));
 
+        cam.printGrid(50, new Color(50, 50, 50));
         cam.writeToImage();
 
 

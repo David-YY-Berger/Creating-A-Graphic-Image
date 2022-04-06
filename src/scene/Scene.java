@@ -27,17 +27,13 @@ public class Scene {
 
     /**
      * EXAMPLE OF HOW TO CALL THE SCENE'S BUILDER:
-     * Scene scene = new Scene.Builder(“Some scene”)
-     * .setAmbient(new Color(255, 255, 0), 0.1)
-     * .addGeometry(new Trinagle(…))
-     * .addGeometry(new Trinagle(…))
-     * .addGeometry(new Trinagle(…))
-     * .addGeometry(new Trinagle(…))
-     * .addGeometry(new Sphere(…))
-     * .build();                   // <<--MUST END WITH BUILD()!!!!!
+     *     Scene myScene = new Scene.Builder("davidsTestScene")
+     *                 .setAmbientLight(new Color(255, 255, 0), new Double3(.1, .1, .1))
+     *                 .setBackground(new Color(100, 100, 100))
+     *                 .addGeometry(new Sphere(2, new Point(6, 0, 0)))
+     *                 .addGeometry(new Sphere(2, new Point(6, 3, 0)))
+     *                 .build();           // <<--MUST END WITH BUILD()!!!!!
      */
-
-
     public static class Builder{
 
         private Scene scene;

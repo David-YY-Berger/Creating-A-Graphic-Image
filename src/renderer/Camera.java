@@ -118,7 +118,7 @@ public class Camera {
         }
 
         //(3) export bufferedImage to file (file given in image's constructor)
-        imageWriter.writeToImage();
+        // imageWriter.writeToImage();
 
     }
 
@@ -129,7 +129,17 @@ public class Camera {
         if(imageWriter == null)
             throw new MissingResourceException("missing resource!", "imageWriter", " ");
 
-        //code...
+        //(1) iterate thru each pixel acc to interval, write to imageWriter:
+        int totalXPixels = imageWriter.getNx();
+        int totalYPixels = imageWriter.getNy();
+
+        for (int x = 0; x < totalXPixels; x+=interval) {        //x = specific pixel in x direction (j)
+            for (int y = 0; y < totalYPixels; y+=interval) {    //y = specific pixel in y direction (i)
+                Ray ray = constructRayThruPixel(totalXPixels, totalYPixels, x, y);
+                Color borderColor = new Color(10, 200, 48);
+                imageWriter.writePixel(x, y, borderColor);
+            }
+        }
     }
 
     /**
