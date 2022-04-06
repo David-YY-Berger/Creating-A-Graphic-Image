@@ -5,18 +5,17 @@ import primitives.Double3;
 
 public class AmbientLight {
 
-    Color intencity;
+    Color intensity;
 
     public AmbientLight(Color Ia, Double3 Ka){
-
-        intencity = Ia.scale(Ka);
+        intensity = Ia.scale(Ka);
     }
 
     public AmbientLight(){
-        intencity = Color.BLACK;
+        intensity = Color.BLACK;
     }
 
-    public Color getIntencity(){
-        return intencity;
+    public Color getIntensity(){
+        return intensity;
     }
 }

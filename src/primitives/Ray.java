@@ -48,8 +48,8 @@ public class Ray {
         if(t == 0)
             return p0;
         try{
-            Point p = p0.add(dirVector.scale(t));
-            return p;
+           return p0.add(dirVector.scale(t));
+
         }
         catch (IllegalArgumentException e) {
             return null;
@@ -63,8 +63,8 @@ public class Ray {
         if(lst.isEmpty())
             throw new IllegalArgumentException("list given as parameter is empty!");
 
-        double shortestDist = Double.POSITIVE_INFINITY;
-        Point res = Point.ZERO; // closest point
+        double shortestDist = Double.POSITIVE_INFINITY; //any distance will be shorter, and res will be reset
+        Point res = Point.ZERO; // closest point... initialized to 0
         for (Point p: lst) {
 
             double dist = p0.distance(p);

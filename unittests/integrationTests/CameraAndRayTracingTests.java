@@ -28,7 +28,7 @@ public class CameraAndRayTracingTests {
         for (int i = 0; i < nx; i++) {
             for (int j = 0; j < ny; j++) {
 
-                List<Point> nullableList = shape.findIntersections(cam.constructRay(nx, ny, j, i));
+                List<Point> nullableList = shape.findIntersections(cam.constructRayThruPixel(nx, ny, j, i));
                 if(nullableList == null)
                     continue;
                 else
@@ -39,7 +39,7 @@ public class CameraAndRayTracingTests {
     }
 
     /**
-     * Integration test method for {@link renderer.Camera#constructRay(int, int, int, int)}
+     * Integration test method for {@link renderer.Camera#constructRayThruPixel(int, int, int, int)}
      * and {@link geometries.Sphere#findIntersections(Ray)}
      */
     @Test
@@ -76,7 +76,7 @@ public class CameraAndRayTracingTests {
     }
 
     /**
-     * Integration test method for {@link renderer.Camera#constructRay(int, int, int, int)} 
+     * Integration test method for {@link renderer.Camera#constructRayThruPixel(int, int, int, int)}
      * and {@link geometries.Plane#findIntersections(Ray)}
      */
     @Test
@@ -104,7 +104,7 @@ public class CameraAndRayTracingTests {
 
     }
     /**
-     * Integration test method for {@link renderer.Camera#constructRay(int, int, int, int)}
+     * Integration test method for {@link renderer.Camera#constructRayThruPixel(int, int, int, int)}
      * and {@link geometries.Triangle#findIntersections(Ray)}
      */
     @Test

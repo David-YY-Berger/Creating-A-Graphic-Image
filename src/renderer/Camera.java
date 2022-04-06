@@ -1,6 +1,5 @@
 package renderer;
 import primitives.*;
-import scene.Scene;
 
 import java.util.MissingResourceException;
 
@@ -58,8 +57,16 @@ public class Camera {
 
 
     //METHODS:
-    public Ray constructRay(int nX, int nY, int j, int i){
 
+    /**
+     * constructs a ray from camera's p0 to the pixel given as a parameter
+     * @param nX num of pixels in VP - horizontal
+     * @param nY num of pixels in VP - vertical
+     * @param j specific pixel - horizantal (x axis...)
+     * @param i specific pixel - vertical (x=y axis...)
+     * @return
+     */
+    public Ray constructRayThruPixel(int nX, int nY, int j, int i){
 
         //see Diagram 2.2, 2.3 in ReadMe file
         Point pc = p0.add(v_to.scale(distanceFromVP)); //center of VP (represented as a 3d Point
@@ -85,6 +92,7 @@ public class Camera {
      */
     public void renderImage() {
 
+        //(1) throw exceptions
         boolean unsupported = false;
         if (imageWriter == null) {
             unsupported = true;
@@ -95,7 +103,22 @@ public class Camera {
             throw new MissingResourceException("missing resource!", "rayTracerBase", " ");
         }
         if (unsupported)
-            throw new UnsupportedOperationException(); //what to do with this????
+            throw new UnsupportedOperationException(); //what to do with this???? we will never get to this code block...
+
+        //(2) iterate thru each pixel, write to imageWriter:
+        int totalXPixels = imageWriter.getNx();
+        int totalYPixels = imageWriter.getNy();
+
+        for (int x = 0; x < totalXPixels; x++) {        //x = specific pixel in x direction (j)
+            for (int y = 0; y < totalYPixels; y++) {    //y = specific pixel in y direction (i)
+                Ray ray = constructRayThruPixel(totalXPixels, totalYPixels, x, y);
+                Color pixelColor = rayTracerBase.traceRay(ray);
+                imageWriter.writePixel(x, y, pixelColor);
+            }
+        }
+
+        //(3) export bufferedImage to file (file given in image's constructor)
+        imageWriter.writeToImage();
 
     }
 
@@ -116,6 +139,6 @@ public class Camera {
         if (imageWriter == null) {
             throw new MissingResourceException("missing resource!", "imageWriter", " ");
         }
-
+        imageWriter.writeToImage();
     }
 }
