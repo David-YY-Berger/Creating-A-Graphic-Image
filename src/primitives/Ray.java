@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * this class is sometimes used to represent a line...
  */
@@ -52,5 +54,25 @@ public class Ray {
         catch (IllegalArgumentException e) {
             return null;
         }
+    }
+    /** @return closest point to p0 (beginning of the ray)
+     * @param lst contains diff points on the ray,
+     */
+    public Point findClosestPoint(List<Point> lst){
+
+        if(lst.isEmpty())
+            throw new IllegalArgumentException("list given as parameter is empty!");
+
+        double shortestDist = Double.POSITIVE_INFINITY;
+        Point res = Point.ZERO; // closest point
+        for (Point p: lst) {
+
+            double dist = p0.distance(p);
+            if(dist < shortestDist) {
+                shortestDist = dist;
+                res = p;
+            }
+        }
+        return res;
     }
 }

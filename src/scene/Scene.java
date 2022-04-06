@@ -7,10 +7,10 @@ import primitives.Double3;
 
 public class Scene {
 
-    String name;
-    Color background;
-    AmbientLight ambientLight;
-    Geometries geometries;
+    public String name;
+    public Color background;
+    public AmbientLight ambientLight;
+    public Geometries geometries;
 
     private Scene(String _name){
         name = _name;
@@ -33,10 +33,20 @@ public class Scene {
             scene.background = color;
             return this;
         }
-        public Builder setAmbient(Color color, Double3 Ka){
+        public Builder setAmbientLight(Color color, Double3 Ka){
             scene.ambientLight = new AmbientLight(color, Ka);
             return this;
         }
-
+        public Builder setAmbientLight(AmbientLight ambientLight){
+            scene.ambientLight = ambientLight;
+            return this;
+        }
+        public Scene build(){
+            if(scene.name == null
+            || scene.geometries == null)
+                throw new NullPointerException("Scene is lacking either a name of geometries!");
+            else
+                return scene;
+        }
     }
 }

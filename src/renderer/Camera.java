@@ -1,5 +1,8 @@
 package renderer;
 import primitives.*;
+import scene.Scene;
+
+import java.util.MissingResourceException;
 
 
 /**
@@ -14,10 +17,12 @@ public class Camera {
 
     private double height;
     private double width;
-    //private double length;  //<- do we need this????
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracerBase;
 
     private double distanceFromVP; //from camera to View Plane
 
+    //CTOR with parameters
     public Camera(Point _p0, Vector _v_to, Vector _v_up) {
 
         //checks that Vectors are orthogonal (otherwise, throws ex),
@@ -30,6 +35,7 @@ public class Camera {
         v_right = _v_to.crossProduct(_v_up).normalize(); //<- do we need to normalize???
     }
 
+    //SETTERS:
     public Camera setVPSize(double _width, double _height){
 
         width = _width;
@@ -41,7 +47,17 @@ public class Camera {
         distanceFromVP = distance;
         return this; //?
     }
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+    public Camera setRayTracerBase(RayTracerBase rayTracerBase) {
+        this.rayTracerBase = rayTracerBase;
+        return this;
+    }
 
+
+    //METHODS:
     public Ray constructRay(int nX, int nY, int j, int i){
 
 
@@ -64,4 +80,42 @@ public class Camera {
         return new Ray(p0, pIJ.subtract(p0));
     }
 
+    /**
+     * renderImage() iterates thru pixels, coloring each one, and transfers data to ImageWriter
+     */
+    public void renderImage() {
+
+        boolean unsupported = false;
+        if (imageWriter == null) {
+            unsupported = true;
+            throw new MissingResourceException("missing resource!", "imageWriter", " ");
+        }
+        if (rayTracerBase == null) {
+            unsupported = true;
+            throw new MissingResourceException("missing resource!", "rayTracerBase", " ");
+        }
+        if (unsupported)
+            throw new UnsupportedOperationException(); //what to do with this????
+
+    }
+
+    /**
+     * prints grid, colors the grid with the given color, keeps background empty
+     */
+    public void printGrid(int interval, Color color) {
+        if(imageWriter == null)
+            throw new MissingResourceException("missing resource!", "imageWriter", " ");
+
+        //code...
+    }
+
+    /**
+     * writeToImage() activates the ImageWriter, and exports the image to the file specified there
+     */
+    public void writeToImage(){
+        if (imageWriter == null) {
+            throw new MissingResourceException("missing resource!", "imageWriter", " ");
+        }
+
+    }
 }
