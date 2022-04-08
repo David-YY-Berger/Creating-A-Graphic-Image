@@ -58,6 +58,10 @@ public class RendererTests {
                 .setVPSize(500, 500)
                 .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
                 .setRayTracerBase(new RayTracerBasic(scene));
+
+        //camera.rotateDown(90); //added!
+
+
         camera.renderImage();
         camera.printGrid(100, new Color(java.awt.Color.YELLOW));
         camera.writeToImage();

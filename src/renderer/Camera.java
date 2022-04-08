@@ -150,6 +150,13 @@ public class Camera {
         }
     }
 
+    public void rotateLeft(double angleInDegrees)
+    {
+        v_to.rotateLeft(angleInDegrees);
+    }
+    public void rotateDown(double angleInDegrees){
+        v_to.rotateDown(angleInDegrees);
+    }
     /**
      * writeToImage() activates the ImageWriter, and exports the image to the file specified there
      */

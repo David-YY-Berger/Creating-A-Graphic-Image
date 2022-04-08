@@ -27,10 +27,10 @@ public class MatrixOperations {
         int i, j, k;
 
         // Print the matrices A and B
-        System.out.println("\nMatrix A:");
-        printMatrix(A, row1, col1);
-        System.out.println("\nMatrix B:");
-        printMatrix(B, row2, col2);
+        //System.out.println("\nMatrix A:");
+        //printMatrix(A, row1, col1);
+        //System.out.println("\nMatrix B:");
+        //printMatrix(B, row2, col2);
 
         // Check if multiplication is Possible
         if (row2 != col1) {
@@ -51,8 +51,8 @@ public class MatrixOperations {
         }
 
         // Print the result
-        System.out.println("\nResultant Matrix:");
-        printMatrix(C, row1, col2);
+        //System.out.println("\nResultant Matrix:");
+        //printMatrix(C, row1, col2);
 
         return C;
     }
