@@ -97,4 +97,76 @@ public class Vector extends Point {
         return this.scale(scalarProj);
     }
 
+    /**
+     * rotates vector around the z axis...
+     * @param angleInDegrees number of degrees to rotate...
+     * @return the rotated vector
+     */
+    public void rotateLeft(double angleInDegrees) {
+        //based on theory found here: https://stackoverflow.com/questions/14607640/rotating-a-vector-in-3d-space
+        double angleInRadians = Math.toRadians(angleInDegrees);
+
+        double[][] vectorMatrix = new double[3][1];
+        vectorMatrix[0][0] = getX();
+        vectorMatrix[1][0] = getY();
+        vectorMatrix[2][0] = getZ();
+
+        double[][] rotatingMatrix = new double[3][3];
+        rotatingMatrix[0][0] = Math.cos(angleInRadians);
+        rotatingMatrix[0][1] = -Math.sin(angleInRadians);
+        rotatingMatrix[0][2] = 0;
+
+        rotatingMatrix[1][0] = Math.sin(angleInRadians);
+        rotatingMatrix[1][1] = Math.cos(angleInRadians);
+        rotatingMatrix[1][2] = 0;
+
+        rotatingMatrix[2][0] = 0;
+        rotatingMatrix[2][1] = 0;
+        rotatingMatrix[2][2] = 1;
+
+        double[][] res = MatrixOperations.multiplyMatrix(3, 3, rotatingMatrix,
+                3, 1, vectorMatrix);
+        for (int i = 0; i < 3; i++) {
+            if(Util.isZero(res[i][0])) res[i][0] = 0;
+        }
+
+        this.xyz = new Double3(res[0][0], res[1][0], res[2][0]);
+    }
+
+    /**
+     * rotates vector around the y axis...
+     * @param angleInDegrees number of degrees to rotate...
+     * @return the rotated vector
+     */
+    public void rotateDown(double angleInDegrees) {
+        //based on theory found here: https://stackoverflow.com/questions/14607640/rotating-a-vector-in-3d-space
+        double angleInRadians = Math.toRadians(angleInDegrees);
+
+        double[][] vectorMatrix = new double[3][1];
+        vectorMatrix[0][0] = getX();
+        vectorMatrix[1][0] = getY();
+        vectorMatrix[2][0] = getZ();
+
+        double[][] rotatingMatrix = new double[3][3];
+        rotatingMatrix[0][0] = Math.cos(angleInRadians);
+        rotatingMatrix[0][1] = 0;
+        rotatingMatrix[0][2] = Math.sin(angleInRadians);
+
+        rotatingMatrix[1][0] = 0;
+        rotatingMatrix[1][1] = 1 ;
+        rotatingMatrix[1][2] = 0;
+
+        rotatingMatrix[2][0] = -Math.sin(angleInRadians);
+        rotatingMatrix[2][1] = 0;
+        rotatingMatrix[2][2] = Math.cos(angleInRadians);
+
+        double[][] res = MatrixOperations.multiplyMatrix(3, 3, rotatingMatrix,
+                3, 1, vectorMatrix);
+        for (int i = 0; i < 3; i++) {
+            if(Util.isZero(res[i][0])) res[i][0] = 0;
+        }
+
+        this.xyz = new Double3(res[0][0], res[1][0], res[2][0]);
+    }
+
 }
