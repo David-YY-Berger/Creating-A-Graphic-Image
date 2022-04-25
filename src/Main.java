@@ -6,15 +6,6 @@ public final class Main {
 
     public static void main(String[] args) {
 
-        /**
-         * KEEP THESE LINES! MUST REFEACTOR TO A TEST...
-         *         Vector v = new Vector(1, 0, 3);
-         *         v.rotateLeft(90);//should be 0, 1, 3
-         *         v.rotateDown(90); //should be 3, 0, 1
-         *         out.println(v);
-         */
-
-
 
 
 //        Scene myScene = new Scene.Builder("davidsTestScene")

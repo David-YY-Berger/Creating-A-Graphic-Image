@@ -34,10 +34,22 @@ public class RendererTests {
                 new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down
         // right
         Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-                .setVPDistance(100) //
-                .setVPSize(500, 500) //
+                .setVPDistance(100) // sets distance from the camera to the view plane
+                .setVPSize(500, 500) //sets number of pixels in the view plane
                 .setImageWriter(new ImageWriter("base render test", 1000, 1000))
                 .setRayTracerBase(new RayTracerBasic(scene));
+
+        //FOR BONUS - Add these lines:
+        {
+            camera.rotateAroundY(0); //<<-- to rotate image, right and left
+            camera.rotateAroundZ(0); //in this case, doesnt do anything..
+            camera.rotateAroundX(0); //<<-- to rotate image, up and down
+
+            camera.resetP0(new Point(0, 0, 0)); //<<-- to move to camera to the new position
+            //(0, 0, _) -> if +, makes the image smaller... "zoom in/out"
+            //(_, 0, 0) -> if +, moves the image left, else moves right
+            //(0, _, 0) -> if +, moves the image down, else moves up
+        }
 
         camera.renderImage();
         camera.printGrid(100, new Color(java.awt.Color.YELLOW));

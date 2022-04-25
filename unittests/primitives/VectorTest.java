@@ -135,4 +135,23 @@ class VectorTest {
         assertEquals(new Vector(.5, 0, 1.5), vec2.projection(vec1),
                 "projection() is inaccurate!");
     }
+
+    /**
+     * Test method for {@link Vector#rotateAroundZ(double)}
+     */
+    @Test
+    public void testRotateLeft(){
+        Vector v = new Vector(1, 0, 3);
+        assertEquals( new Vector(0, 1, 3), v.rotateAroundZ(90), "does not accurately rotate vector to the left!");
+    }
+    /**
+     * Test method for {@link Vector#rotateAroundY(double)}
+     */
+    @Test
+    public void testRotateDown(){
+        Vector v = new Vector(1, 0, 3);
+        assertEquals( new Vector(3, 0, -1), v.rotateAroundY(90),"does not accurately rotate vector downward!");
+    }
+
+
 }

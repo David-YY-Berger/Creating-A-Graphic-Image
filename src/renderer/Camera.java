@@ -150,12 +150,23 @@ public class Camera {
         }
     }
 
-    public void rotateLeft(double angleInDegrees)
+    public Camera rotateAroundZ(double angleInDegrees)
     {
-        v_to.rotateLeft(angleInDegrees);
+        this.v_to = v_to.rotateAroundZ(angleInDegrees);
+        return this;
     }
-    public void rotateDown(double angleInDegrees){
-        v_to.rotateDown(angleInDegrees);
+    public Camera rotateAroundY(double angleInDegrees){
+        this.v_to = v_to.rotateAroundY(angleInDegrees);
+        return this;
+    }
+    public Camera rotateAroundX(double angleInDegrees){
+        this.v_to = v_to.rotateAroundX(angleInDegrees);
+        return this;
+    }
+
+    public Camera resetP0(Point newP0){
+        p0 = newP0;
+        return this;
     }
     /**
      * writeToImage() activates the ImageWriter, and exports the image to the file specified there
