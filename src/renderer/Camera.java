@@ -150,6 +150,7 @@ public class Camera {
         }
     }
 
+    //to reposition camera after being constructed:
     public Camera rotateAroundZ(double angleInDegrees)
     {
         this.v_to = v_to.rotateAroundZ(angleInDegrees);
@@ -163,7 +164,6 @@ public class Camera {
         this.v_to = v_to.rotateAroundX(angleInDegrees);
         return this;
     }
-
     public Camera resetP0(Point newP0){
         p0 = newP0;
         return this;
