@@ -25,7 +25,7 @@ public class Camera {
     public Camera(Point _p0, Vector _v_to, Vector _v_up) {
 
         //checks that Vectors are orthogonal (otherwise, throws ex),
-        if(!Util.isZero(_v_to.dotProduct(_v_up))) //if vectors are not orthogonal
+        if (!Util.isZero(_v_to.dotProduct(_v_up))) //if vectors are not orthogonal
             throw new IllegalArgumentException("given vectors are not orthogonal!");
 
         p0 = _p0;
