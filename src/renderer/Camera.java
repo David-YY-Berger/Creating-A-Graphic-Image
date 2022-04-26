@@ -90,7 +90,7 @@ public class Camera {
     /**
      * renderImage() iterates thru pixels, coloring each one, and transfers data to ImageWriter
      */
-    public void renderImage() {
+    public Camera renderImage() {
 
         //(1) throw exceptions
         boolean unsupported = false;
@@ -118,6 +118,7 @@ public class Camera {
 
         //(3) export bufferedImage to file (file given in image's constructor)
         // imageWriter.writeToImage();
+        return this;
 
     }
 
@@ -157,6 +158,8 @@ public class Camera {
         return this;
     }
     public Camera rotateAroundY(double angleInDegrees){
+        //rotates counter-clockwise ("left").
+        //to rotate clockwise , do 360 - angleInDegrees
         this.v_to = v_to.rotateAroundY(angleInDegrees);
         return this;
     }
