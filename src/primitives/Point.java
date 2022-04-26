@@ -38,7 +38,7 @@ public class Point {
 
         // cast to Point to check properly
         Point p = (Point) obj;
-        return (p.xyz.equals(this.xyz)); //returns bool val
+        return (p.xyz.equals(this.xyz)); //returns by value
     }
     public Double3 getXyz() { return xyz;}
 

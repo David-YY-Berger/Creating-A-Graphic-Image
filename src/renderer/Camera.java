@@ -64,7 +64,6 @@ public class Camera {
      * @param nY num of pixels in VP - vertical
      * @param j specific pixel - horizantal (x axis...)
      * @param i specific pixel - vertical (x=y axis...)
-     * @return
      */
     public Ray constructRayThruPixel(int nX, int nY, int j, int i){
 

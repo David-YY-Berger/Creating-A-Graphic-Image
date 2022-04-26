@@ -10,7 +10,7 @@ import java.util.List;
  * implements the "Composite" design pattern; this object can iterate thru a list of geometries
  *
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
 
     private List<Intersectable> intersectableList; //should NOT be final; we plan to add to this..
 
