@@ -1,5 +1,8 @@
 package primitives;
 
+import geometries.Intersectable.GeoPoint;
+
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -60,19 +63,44 @@ public class Ray {
      */
     public Point findClosestPoint(List<Point> lst){
 
+//            return lst == null || lst.isEmpty() ? null
+//                    : findClosestGeoPoint(lst.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+//        }
+        if(lst == null)
+            return  null;
+        else if(lst.isEmpty())
+            throw new IllegalArgumentException("list given as parameter is empty!");
+        else
+        {
+            List<GeoPoint> listToSendAsParam = new LinkedList<>();
+            for (Point point: lst
+                 ) {
+                listToSendAsParam.add(new GeoPoint(null, point));
+            }
+            return findClosestGeoPoint(listToSendAsParam).point;
+        }
+
+
+    }
+
+
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> lst){
+
         if(lst.isEmpty())
             throw new IllegalArgumentException("list given as parameter is empty!");
 
         double shortestDist = Double.POSITIVE_INFINITY; //any distance will be shorter, and res will be reset
-        Point res = Point.ZERO; // closest point... initialized to 0
-        for (Point p: lst) {
+        GeoPoint res = null;
+        for (GeoPoint geoPoint: lst) {
 
-            double dist = p0.distance(p);
+            double dist = p0.distance(geoPoint.point);
             if(dist < shortestDist) {
                 shortestDist = dist;
-                res = p;
+                res = geoPoint;
             }
         }
         return res;
+
     }
+
 }

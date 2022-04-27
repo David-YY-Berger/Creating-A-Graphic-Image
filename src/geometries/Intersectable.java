@@ -1,5 +1,7 @@
 package geometries;
 import primitives.*;
+
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,10 +11,30 @@ import java.util.Objects;
 public abstract class Intersectable {
     /**
      * The function returns the intersection points with the geometry
-     * @param ray
+     * @param _ray
      * @return list of point/s that intersects the geometry
      */
-    abstract public List<Point> findIntersections(Ray ray);
+    //abstract public List<Point> findIntersections(Ray ray);
+    public List<Point> findIntersections(Ray _ray) {
+
+        var geoList = findGeoIntersections(_ray);
+        List<Point> res = null;
+        if (geoList != null) {
+            res = new LinkedList<>();
+            for (GeoPoint gP : geoList
+            ) {
+                res.add(gP.point);
+            }
+//           return geoList == null ? null
+//                    : geoList.stream().map(gp -> gp.point).toList(); //<doesnt work; i guess i dont have the right java?
+        }
+        return res; //returns null if no points..
+    }
+    public List<GeoPoint> findGeoIntersections(Ray ray){
+        return findGeoIntersectionsHelper(ray);
+    }
+    abstract protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+
 
     /**
      * PDS  - Passive data structure;
@@ -23,7 +45,7 @@ public abstract class Intersectable {
         public Point point;
 
         public GeoPoint(Geometry _geometry, Point _point) {
-            this.geometry = geometry;
+            this.geometry = _geometry;
             this.point = _point;
         }
 

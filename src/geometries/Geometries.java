@@ -3,8 +3,11 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * implements the "Composite" design pattern; this object can iterate thru a list of geometries
@@ -37,35 +40,43 @@ public class Geometries extends Intersectable {
         intersectableList.addAll(List.of(geoList));
     }
 
+//DELETE THIS
+//    @Override
+//    public List<Point> findIntersections(Ray _ray) {
+//
+//        var geoList = findGeoIntersections(_ray);
+//        List<Point> res = null;
+//        if (geoList != null) {
+//            res = new LinkedList<>();
+//            for (GeoPoint gP : geoList
+//            ) {
+//                res.add(gP.point);
+//            }
+////           return geoList == null ? null
+////                    : geoList.stream().map(gp -> gp.point).toList(); //<doesnt work; i guess i dont have the right java?
+//        }
+//        return res; //returns null if no points..
+//    }
 
-    @Override
-    public List<Point> findIntersections(Ray _ray) {
 
-        //List<Point> res = new LinkedList<>(); //initializes as null list...does this take up memory?? how should we check for points before making a list?
-        //boolean firstPoint = true;
+        @Override
+        public List<GeoPoint> findGeoIntersectionsHelper (Ray ray){
 
-        List<Point> res = null;
+            List<GeoPoint> res = null;
 
-        for (Intersectable shape: intersectableList) {
-            List<Point> thisShapeIntersections = shape.findIntersections(_ray);
-            if(thisShapeIntersections != null)      //returns null if there are no intersections....
-            {
-                if (res == null){
-                    res = new LinkedList<>();
+            for (Intersectable shape : intersectableList) {
+                List<GeoPoint> thisShapeIntersections = shape.findGeoIntersections(ray);
+                if (thisShapeIntersections != null)      //returns null if there are no intersections....
+                {
+                    if (res == null) { //for first time that we add a list...
+                        res = new LinkedList<>();
+                    }
+                    res.addAll(thisShapeIntersections);
                 }
-//                if(firstPoint) {
-//                    res = new LinkedList<>();
-//                    firstPoint = false;
-//                }
-                res.addAll(thisShapeIntersections);
             }
+
+            return res;
         }
 
-        return res;
-
-        //if(!res.isEmpty())
-        //    return res; //returns empty list if no points were returned...
-        //else
-        //    return null;
     }
-}
+
