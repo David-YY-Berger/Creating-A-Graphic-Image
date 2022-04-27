@@ -22,7 +22,8 @@ class TriangleTest {
         // ============ Equivalence Partitions Tests ==============
 
         //TC01 The point is inside the triangle
-        assertEquals(List.of(new Point(1d / 3, 1d / 3, 1d / 3)), tr.findIntersections(new Ray(new Point(1, 1, 1), new Vector(-1, -1, -1))),
+        assertEquals(List.of(new Point(1d / 3, 1d / 3, 1d / 3)), tr.findIntersections(new Ray(new Point(1, 1, 1),
+                        new Vector(-1, -1, -1))),
                 "Wrong intersection");
 
         //TC02 The point is against edge
