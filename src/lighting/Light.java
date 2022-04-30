@@ -14,7 +14,8 @@ abstract class Light {
      * @param _intensity
      */
     protected Light(Color _intensity){
-        intensity=_intensity;
+
+        intensity = _intensity;
     }
 
     /**
@@ -22,6 +23,7 @@ abstract class Light {
      * @return
      */
     public Color getIntensity() {
+
         return intensity;
     }
 }
