@@ -23,3 +23,9 @@ text  text text text text text text text text text text text text text text text
 
 ### Diagram 2.3 - Formula to construct ray thru View Plane
 ![image](https://user-images.githubusercontent.com/91850832/160821202-5832f13e-146d-4e84-8cce-d9ba42a7c018.png)
+
+
+## Diagrams for Light Refraction
+
+### Diagram 3.1 - Phong Reflection Model
+![image](https://user-images.githubusercontent.com/91850832/166256268-64c030f3-36e9-48fc-8a48-c7eedce55d44.png)
