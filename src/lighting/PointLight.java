@@ -9,16 +9,13 @@ public class PointLight extends Light implements LightSource{
     private Point position;
     private double kC = 1, kL = 0, kQ = 0;
 
-    public PointLight(Point _position, double _kC, double _kL, double _kQ, Color color){
+    public PointLight(Point _position, Color color){
 
         super(color);
         position = _position;
-        kC = _kC;
-        kL = _kL;
-        kQ = _kQ;
     }
 
-    public PointLight setkC(double kC) {
+    public PointLight setNarrowBeam(double kC) {
         this.kC = kC;
         return this;
     }

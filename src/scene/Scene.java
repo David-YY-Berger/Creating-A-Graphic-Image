@@ -3,8 +3,12 @@ package scene;
 import geometries.Geometries;
 import geometries.Geometry;
 import lighting.AmbientLight;
+import lighting.LightSource;
 import primitives.Color;
 import primitives.Double3;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Scene {
 
@@ -12,13 +16,17 @@ public class Scene {
     public Color backgroundColor;
     public AmbientLight ambientLight;
     public Geometries geometries;
+    public List<LightSource> lights;
 
     private Scene(String _name){
         name = _name;
         backgroundColor = Color.BLACK;
         ambientLight = new AmbientLight();
         geometries = new Geometries();
+        lights = new LinkedList<>();
     }
+
+
 
 //    public String getName() { return name; }
 //    public Color getBackground() { return backgroundColor; }
@@ -60,6 +68,10 @@ public class Scene {
             scene.geometries.add(geo);
             return this;
         }
+        public Builder setLights(List<LightSource>  lights) {
+            scene.lights = lights;
+            return this;
+        }
         public Scene build(){
             if(scene.name == null
             || scene.geometries == null)
@@ -67,6 +79,5 @@ public class Scene {
             else
                 return scene;
         }
-
     }
 }

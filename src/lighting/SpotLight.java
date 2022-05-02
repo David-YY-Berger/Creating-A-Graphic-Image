@@ -8,9 +8,9 @@ public class SpotLight extends PointLight{
 
     private Vector direction;
 
-    public SpotLight(Vector _direction, Point _position, double _kC, double _kL, double _kQ, Color color){
+    public SpotLight(Vector _direction, Point _position, Color color){
 
-        super(_position, _kC, _kL, _kQ, color);
+        super(_position, color);
         direction = _direction.normalize();
     }
 
