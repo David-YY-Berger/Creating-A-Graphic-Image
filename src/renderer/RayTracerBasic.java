@@ -1,12 +1,13 @@
 package renderer;
 
 import geometries.Intersectable.GeoPoint;
-import primitives.Color;
-import primitives.Point;
-import primitives.Ray;
+import lighting.LightSource;
+import primitives.*;
 import scene.Scene;
 
 import java.util.List;
+
+import static primitives.Util.alignZero;
 
 /**
  * inherits from RayTracerBase...
@@ -42,5 +43,38 @@ public class RayTracerBasic extends RayTracerBase{
 
         return scene.ambientLight.getIntensity().add(geoPoint.geometry.getEmission());
     }
+
+    private Color calcLocalEffects(GeoPoint gp, Ray ray) {
+        Color color = gp.geometry.getEmission();
+        Vector v = ray.getDirVector ();
+        Vector normalVector = gp.geometry.getNormal(gp.point);
+        double nv = alignZero(normalVector.dotProduct(v));
+        if (nv == 0) return color; //if directly on the normal vector...
+
+        Material material = gp.geometry.getMaterial();
+        for (LightSource lightSource : scene.lights) {
+            Vector lightVector = lightSource.getL(gp.point);
+            double nl = alignZero(normalVector.dotProduct(lightVector));
+
+            if (nl * nv > 0) { // if both are positive || both are negative,
+                //then add colors... otherwise, color is irrelevant
+                Color intesityOfLightSource = lightSource.getIntensity(gp.point);
+                color = color.add(intesityOfLightSource.scale(calcDiffusive(material, nl)),
+                        intesityOfLightSource.scale(calcSpecular(material, normalVector, lightVector, nl, v)));
+            }
+        }
+        return color;
+    }
+
+    //What to do in these functions??
+
+    public double calcDiffusive(Material material, double nl){
+
+        return 0d;
+    }
+    public double calcSpecular(Material material, Vector normalVec, Vector lightVec, double nl, Vector origDirection){
+        return 0d;
+    }
+
 
 }

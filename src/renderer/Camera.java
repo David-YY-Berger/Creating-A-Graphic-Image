@@ -150,7 +150,7 @@ public class Camera {
         }
     }
 
-    //to reposition camera after being constructed:
+    //TO REPOSITION CAMERA AFTER BEING CONSTRUCTED (rotates Camera's "vector_to"):
     public Camera rotateAroundZ(double angleInDegrees)
     {
         this.v_to = v_to.rotateAroundZ(angleInDegrees);
