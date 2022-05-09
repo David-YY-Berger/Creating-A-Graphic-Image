@@ -40,7 +40,7 @@ public class RayTracerBasic extends RayTracerBase{
         //create a "backwards" ray from the shape to the light - to see if there are any other shapes btw this shape and the light source
         Ray lightRay = new Ray(point, vecFromShapeToLight);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-        if(intersections == null)
+        if (intersections == null)
             return true;
         else
             return false;
