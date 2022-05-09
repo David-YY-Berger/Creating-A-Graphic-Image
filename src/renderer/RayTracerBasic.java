@@ -15,11 +15,39 @@ import static primitives.Util.alignZero;
  */
 public class RayTracerBasic extends RayTracerBase{
 
+    private static final double DELTA = 0.1;
+
     public RayTracerBasic(Scene _scene){
         super(_scene);
 
-        //throw new IllegalArgumentException(); //need to work on this...
     }
+
+    /**
+     * @return whether or not given point is shaded..
+     * @param l - vector from the light..
+     * @param n - normal vector from the light
+     * @param nv scalar value btw Camera's vector and normal vector of l....
+     */
+    private boolean unshaded(GeoPoint gp, Vector l, Vector n, double nv, LightSource lightsource) {
+
+        //check if camera is on the same side of the object as the light source:
+        Vector deltaVector = n.scale(nv < 0 ? DELTA : -DELTA);
+        // moves the point "outside" of the shape -
+        //to ensure that the shape does not "shade" itself
+        Point point = gp.point.add(deltaVector);
+
+        Vector vecFromShapeToLight = l.scale(-1); // from point to light source
+        //create a "backwards" ray from the shape to the light - to see if there are any other shapes btw this shape and the light source
+        Ray lightRay = new Ray(point, vecFromShapeToLight);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        if(intersections == null)
+            return true;
+        else
+            return false;
+    }
+
+
+
 
     /**
      *  traceRay() finds intersections of ray with any geometry in scene, and
@@ -44,7 +72,12 @@ public class RayTracerBasic extends RayTracerBase{
     }
 
 
-
+    /**
+     * calculates color based on the differet light sources in the environment...
+     * @param gp receives point in our 3d space - it is connected with a geometry and color
+     * @param ray ray to trace back to the camera..
+     * @return colors
+     */
     private Color calcLocalEffects(GeoPoint gp, Ray ray) {
 
         Color result_color = gp.geometry.getEmission();     //final result
@@ -55,18 +88,22 @@ public class RayTracerBasic extends RayTracerBase{
         if (nv == 0) return result_color; //if directly on the normal vector...
 
         Material material = gp.geometry.getMaterial();
+
         //add effect of every light source of color of the geoPoint
         for (LightSource lightSource : scene.lights) {
+
             Vector lightVector = lightSource.getL(gp.point);
-            double nl = alignZero(normalVector.dotProduct(lightVector));
+            double nl = alignZero(normalVector.dotProduct(lightVector)); //scalar product of light vector and its normal vector
 
-            if (nl * nv > 0) { // if both are positive || both are negative,
+            if (Util.checkSign(nl, nv)) { // if both are positive || both are negative,
                 //then add colors... otherwise, color is irrelevant
-                Color intesityOfLightSource = lightSource.getIntensity(gp.point);
-                result_color = result_color.add(intesityOfLightSource.scale(calcDiffusive(material, nl)),
-                        intesityOfLightSource.scale(calcSpecular(material, normalVector, lightVector, nl, v)));
 
-
+                if(unshaded(gp, lightVector, normalVector, nv, lightSource))
+                {
+                    Color intesityOfLightSource = lightSource.getIntensity(gp.point);
+                    result_color = result_color.add(intesityOfLightSource.scale(calcDiffusive(material, nl)),
+                            intesityOfLightSource.scale(calcSpecular(material, normalVector, lightVector, nl, v)));
+                }
             }
         }
         return result_color;
