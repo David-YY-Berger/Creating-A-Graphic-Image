@@ -38,9 +38,6 @@ public class RayTracerBasic extends RayTracerBase{
      * depending on lighting,
      * @return appropriate color of point in the 3d space..
      */
-//    public Color calcColor(GeoPoint geoPoint){
-//         return scene.ambientLight.getIntensity().add(geoPoint.geometry.getEmission());
-//    }
     public Color calcColor(GeoPoint geoPoint, Ray ray){
         return scene.ambientLight.getIntensity().add(geoPoint.geometry.getEmission())
                 .add(calcLocalEffects(geoPoint, ray));
@@ -49,6 +46,7 @@ public class RayTracerBasic extends RayTracerBase{
 
 
     private Color calcLocalEffects(GeoPoint gp, Ray ray) {
+
         Color result_color = gp.geometry.getEmission();     //final result
         Vector v = ray.getDirVector ();
         Vector normalVector = gp.geometry.getNormal(gp.point);
@@ -68,7 +66,6 @@ public class RayTracerBasic extends RayTracerBase{
                 result_color = result_color.add(intesityOfLightSource.scale(calcDiffusive(material, nl)),
                         intesityOfLightSource.scale(calcSpecular(material, normalVector, lightVector, nl, v)));
 
-                //see diagram!! phong..
 
             }
         }
@@ -81,10 +78,10 @@ public class RayTracerBasic extends RayTracerBase{
 
     public double calcSpecular(Material material, Vector normalVec, Vector lightVec, double nl, Vector cameraVec){
 
-        //see diagram!!! for r
-
-        //big equation: ks (-v * r) ^(nshini)
-        //r = l - 2*(l*n)*n
+        /**
+         * see ReadMe! diagram 3.2 - Calculating Vectors "r" and "l"
+         * equation: ks (-v * r) ^(nshini)
+         */
 
         Vector r = lightVec.subtract(normalVec.scale(((lightVec.dotProduct(normalVec))*2)));
         double numberToExpo = (cameraVec.scale(-1)).dotProduct(r); //<- not efficient!
