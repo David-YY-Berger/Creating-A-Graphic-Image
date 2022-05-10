@@ -72,6 +72,7 @@ public class Scene {
             scene.lights = lights;
             return this;
         }
+
         public Scene build(){
             if(scene.name == null
             || scene.geometries == null)
