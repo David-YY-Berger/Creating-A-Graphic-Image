@@ -41,9 +41,16 @@ public class RayTracerBasic extends RayTracerBase{
         Ray lightRay = new Ray(point, vecFromShapeToLight);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
         if (intersections == null)
+            return true; // the is no shade
+        else {
+            double distance = lightsource.getDistance(gp.point);
+            for (GeoPoint p : intersections) {
+                // check if the intersection is between the light
+                if (gp.point.distance(p.point) < distance)
+                    return false; // shaded
+            }
             return true;
-        else
-            return false;
+        }
     }
 
 
