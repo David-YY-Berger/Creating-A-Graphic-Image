@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import static java.awt.Color.*;
 
 import renderer.ImageWriter;
-import lighting.*;
 import geometries.*;
 import primitives.*;
 import renderer.*;
@@ -19,13 +18,13 @@ import scene.Scene;
 public class ShadowTests {
 	private Intersectable sphere = new Sphere(60d, new Point(0, 0, -200)) //
 			.setEmission(new Color(BLUE)) //
-			.setMaterial(new Material().setkD(0.5).setkS(new Double3(0.5)).setnShininess(30));
-	private Material trMaterial = new Material().setkD(0.5).setkS(new Double3(0.5)).setnShininess(30);
+			.setMaterial(new Material().setKd(0.5).setKs(new Double3(0.5)).setShininess(30));
+	private Material trMaterial = new Material().setKd(0.5).setKs(new Double3(0.5)).setShininess(30);
 
 	private Scene scene = new Scene.Builder("Test scene").build();
 	private Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 			.setVPSize(200, 200).setVPDistance(1000) //
-			.setRayTracerBase(new RayTracerBasic(scene));
+			.setRayTracer(new RayTracerBasic(scene));
 
 	/**
 	 * Helper function for the tests in this module
@@ -34,7 +33,7 @@ public class ShadowTests {
 		scene.geometries.add(sphere, triangle.setEmission(new Color(BLUE)).setMaterial(trMaterial));
 		scene.lights.add( //
 				new SpotLight( new Vector(1, 1, -3), spotLocation,  new Color(400, 240, 0)) //
-						.setkL(1E-5).setkQ(1.5E-7));
+						.setKl(1E-5).setKq(1.5E-7));
 		camera.setImageWriter(new ImageWriter(pictName, 400, 400)) //
 				.renderImage() //
 				.writeToImage();
@@ -100,16 +99,16 @@ public class ShadowTests {
 
 		scene.geometries.add( //
 				new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //
-						.setMaterial(new Material().setkS(new Double3(0.8)).setnShininess(60)), //
+						.setMaterial(new Material().setKs(new Double3(0.8)).setShininess(60)), //
 				new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
-						.setMaterial(new Material().setkS(new Double3(0.8)).setnShininess(60)), //
+						.setMaterial(new Material().setKs(new Double3(0.8)).setShininess(60)), //
 				new Sphere( 30d, new Point(0, 0, -11)) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.5).setkS(new Double3(0.5)).setnShininess(30)) //
+						.setMaterial(new Material().setKd(0.5).setKs(new Double3(0.5)).setShininess(30)) //
 		);
 		scene.lights.add( //
 				new SpotLight(new Vector(-1, -1, -4), new Point(40, 40, 115),  new Color(700, 400, 400)) //
-						.setkL(4E-4).setkQ(2E-5));
+						.setKl(4E-4).setKq(2E-5));
 
 		camera.setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600)) //
 				.renderImage() //

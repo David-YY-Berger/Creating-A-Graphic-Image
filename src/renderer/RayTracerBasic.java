@@ -4,10 +4,7 @@ import geometries.Intersectable.GeoPoint;
 import lighting.LightSource;
 import primitives.*;
 import scene.Scene;
-
 import java.util.List;
-
-import static java.lang.Math.abs;
 import static primitives.Util.alignZero;
 
 /**
@@ -15,7 +12,12 @@ import static primitives.Util.alignZero;
  */
 public class RayTracerBasic extends RayTracerBase{
 
-    private static final double DELTA = 0.1;
+    private static final double DELTA = 0.1; // moves the point "outside" of the shape.. see "unshaded()"
+    //stopping coniditions for recursion:
+    private static final int MAX_CALC_COLOR_LEVEL = 10;     //
+    private static final double MIN_CALC_COLOR_K = 0.001;   // if color is no longer significant
+
+
 
     public RayTracerBasic(Scene _scene){
         super(_scene);

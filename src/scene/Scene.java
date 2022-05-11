@@ -41,6 +41,10 @@ public class Scene {
      *                 .addGeometry(new Sphere(2, new Point(6, 0, 0)))
      *                 .addGeometry(new Sphere(2, new Point(6, 3, 0)))
      *                 .build();           // <<--MUST END WITH BUILD()!!!!!
+     *
+     *
+     *                 or
+     *                 scene.ambientLight = new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15));
      */
     public static class Builder{
 

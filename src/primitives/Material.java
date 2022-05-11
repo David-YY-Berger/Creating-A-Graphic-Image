@@ -20,48 +20,55 @@ public class Material {
     public Double3 kR = Double3.ZERO; //reflectance; if(kR ==0), Material does not reflect at all
 
 
-    private static final int MAX_CALC_COLOR_LEVEL = 10;
-    private static final double MIN_CALC_COLOR_K = 0.001;
-
-
-
     // SETTERS
     /**
      * @param kS sets specular coef
      */
-    public Material setkS(Double3 kS) {
+    public Material setKs(Double3 kS) {
         this.kS = kS;
+        return this;
+    }
+    /**
+     * @param kS sets specular coef
+     */
+    public Material setKs(double kS) {
+        this.kS = new Double3(kS);
         return this;
     }
 
     /**
      * @param kD sets diffusive coef
      */
-    public Material setkD(double kD) {
+    public Material setKd(double kD) {
         this.kD = new Double3(kD);
         return this;
     }
 
-    /**
-     * @param kR - sets reflectan
+     /**
+     * @param kR - sets reflectance
      */
-    public Material setkR(Double3 kR) {
-        this.kR = kR;
+    public Material setKr(double kR) {
+        this.kR = new Double3(kR);
         return this;
     }
-
     /**
      * @param kT set transparency
      */
-    public Material setkT(Double3 kT) {
+    public Material setKt(Double3 kT) {
         this.kT = kT;
         return this;
     }
-
+    /**
+     * @param kT set transparency
+     */
+    public Material setKt(double kT) {
+        this.kT = new Double3(kT);
+        return this;
+    }
     /**
      * @param nShininess see shininess
      */
-    public Material setnShininess(int nShininess) {
+    public Material setShininess(int nShininess) {
         this.nShininess = nShininess;
         return this;
     }

@@ -8,7 +8,6 @@ import primitives.*;
 import scene.Scene;
 
 import static java.awt.Color.*;
-import static java.awt.Color.YELLOW;
 
 /**
  * Test rendering a basic image
@@ -40,7 +39,7 @@ public class RendererTests {
                 .setVPDistance(100) // sets distance from the camera to the view plane
                 .setVPSize(500, 500) //sets number of pixels in the view plane
                 .setImageWriter(new ImageWriter("base render test", 1000, 1000))
-                .setRayTracerBase(new RayTracerBasic(scene));
+                .setRayTracer(new RayTracerBasic(scene));
 
         //FOR BONUS - Add these lines:
         {
@@ -72,7 +71,7 @@ public class RendererTests {
                 .setVPDistance(100) //
                 .setVPSize(500, 500)
                 .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
-                .setRayTracerBase(new RayTracerBasic(scene));
+                .setRayTracer(new RayTracerBasic(scene));
 
         //camera.rotateDown(90); //added!
 
@@ -110,7 +109,7 @@ public class RendererTests {
                 .setVPDistance(100) //
                 .setVPSize(500, 500) //
                 .setImageWriter(new ImageWriter("color render test", 1000, 1000))
-                .setRayTracerBase(new RayTracerBasic(scene)); //
+                .setRayTracer(new RayTracerBasic(scene)); //
 
         camera.renderImage();
         camera.printGrid(100, new Color(WHITE));

@@ -30,7 +30,7 @@ public class PointLight extends Light implements LightSource{
     /**
      * @param kL - light attenuation with distance; if higher, light decreases more quickly (kL*d)
      */
-    public PointLight setkL(double kL) {
+    public PointLight setKl(double kL) {
         this.kL = kL;
         return this;
     }
@@ -38,7 +38,7 @@ public class PointLight extends Light implements LightSource{
     /**
      * @param kQ - light attenuation with distance; if higher, light decreases more quickly (kQ*d^2)
      */
-    public PointLight setkQ(double kQ) {
+    public PointLight setKq(double kQ) {
         this.kQ = kQ;
         return this;
     }
