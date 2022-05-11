@@ -103,4 +103,61 @@ public class ReflectionRefractionTests {
                 .renderImage() //
                 .writeToImage();
     }
+
+    /**
+     * Produce a picture of a sphere and three triangles, each one with different levels of reflection, refraction
+     */
+    @Test
+    public void ourNewTest() {
+        Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+                .setVPSize(200, 200).setVPDistance(500);
+
+        scene.ambientLight = (new AmbientLight(new Color(WHITE), new Double3(0.15)));
+
+        double radius_of_circle = 30d;
+        //background triangles...
+        Point A = new Point(200, -200, -100);
+        Point B = new Point(-200, -200, -100);
+        Point C = new Point(200, 200, -100);
+        Point D = new Point(-200, 200, -100);
+
+        //colored triangles
+        Point a = new Point(radius_of_circle/2, radius_of_circle/2, 0);
+        Point b = new Point(-radius_of_circle/2, radius_of_circle/2, 0);
+        Point c = new Point(0, radius_of_circle/2 + 30, 0);
+
+
+
+
+
+        scene.geometries.add( //
+//                new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)), //
+//                new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)), //
+//                new Sphere(30d, new Point(60, 50, -50)).setEmission(new Color(BLUE)) //
+//                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6))
+                  new Sphere(radius_of_circle, new Point(0, 0, 0)).setEmission(new Color(BLUE)) //
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6)),
+                new Triangle(A, B, C).setEmission(new Color(YELLOW))
+                        .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
+                new Triangle(D, B, C).setEmission(new Color(YELLOW))
+                        .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
+                new Triangle(a, b, c).setEmission(new Color(GREEN))
+                        .setMaterial(new Material().setKt(.8).setKd(.2).setShininess(1))
+        );
+
+//        scene.lights.add(new SpotLight( new Vector(0, 0, -1), new Point(60, 50, 0),new Color(700, 400, 400)) //
+//                .setKl(4E-5).setKq(2E-7));
+        scene.lights.add(new SpotLight(new Vector(0, -1, -1), new Point(0, 100, 100), new Color(700, 400, 400)
+        ));
+
+
+        ImageWriter imageWriter = new ImageWriter("ourNewImage", 600, 600);
+        camera.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene)) //
+                .renderImage() //
+                .writeToImage();
+    }
+
 }

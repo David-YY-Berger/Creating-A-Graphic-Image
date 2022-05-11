@@ -10,7 +10,6 @@ abstract class Light {
     private Color intensity;
 
     /**
-     *
      * @param _intensity
      */
     protected Light(Color _intensity){

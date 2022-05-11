@@ -10,8 +10,8 @@ public class AmbientLight extends Light{
 
     /**
      *
-     * @param Ia
-     * @param Ka
+     * @param Ia intensity of the light
+     * @param Ka adjusts the light...a higher kA is stronger light
      */
     public AmbientLight(Color Ia, Double3 Ka){
         super(Ia.scale(Ka));
