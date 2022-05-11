@@ -7,24 +7,37 @@ import primitives.Vector;
 public class PointLight extends Light implements LightSource{
 
     private Point position;
-    private double kC = 1, kL = 0, kQ = 0;
+    private double kC = 1, kL = 0, kQ = 0; //coef calc light attenuation with distance; if higher, light decreases more quickly
+    //equation: Intensity / (kC + kL*d + kQ*d^2) .... d = distance...
 
+    //see Readme - Diagram 3.3 - Light Attenuation with Distance
+
+    //CTOR
     public PointLight(Point _position, Color color){
 
         super(color);
         position = _position;
     }
 
-    public PointLight setNarrowBeam(double kC) {
+    /**
+     * @param kC - light attenuation with distance; if higher, light decreases more quickly
+     */
+    public PointLight setKc(double kC) { //"Narrow Beam"
         this.kC = kC;
         return this;
     }
 
+    /**
+     * @param kL - light attenuation with distance; if higher, light decreases more quickly (kL*d)
+     */
     public PointLight setkL(double kL) {
         this.kL = kL;
         return this;
     }
 
+    /**
+     * @param kQ - light attenuation with distance; if higher, light decreases more quickly (kQ*d^2)
+     */
     public PointLight setkQ(double kQ) {
         this.kQ = kQ;
         return this;

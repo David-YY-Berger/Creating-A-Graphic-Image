@@ -19,8 +19,8 @@ import scene.Scene;
 public class ShadowTests {
 	private Intersectable sphere = new Sphere(60d, new Point(0, 0, -200)) //
 			.setEmission(new Color(BLUE)) //
-			.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30));
-	private Material trMaterial = new Material().setkD(0.5).setkS(0.5).setnShininess(30);
+			.setMaterial(new Material().setkD(0.5).setkS(new Double3(0.5)).setnShininess(30));
+	private Material trMaterial = new Material().setkD(0.5).setkS(new Double3(0.5)).setnShininess(30);
 
 	private Scene scene = new Scene.Builder("Test scene").build();
 	private Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
@@ -100,12 +100,12 @@ public class ShadowTests {
 
 		scene.geometries.add( //
 				new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //
-						.setMaterial(new Material().setkS(0.8).setnShininess(60)), //
+						.setMaterial(new Material().setkS(new Double3(0.8)).setnShininess(60)), //
 				new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
-						.setMaterial(new Material().setkS(0.8).setnShininess(60)), //
+						.setMaterial(new Material().setkS(new Double3(0.8)).setnShininess(60)), //
 				new Sphere( 30d, new Point(0, 0, -11)) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)) //
+						.setMaterial(new Material().setkD(0.5).setkS(new Double3(0.5)).setnShininess(30)) //
 		);
 		scene.lights.add( //
 				new SpotLight(new Vector(-1, -1, -4), new Point(40, 40, 115),  new Color(700, 400, 400)) //
