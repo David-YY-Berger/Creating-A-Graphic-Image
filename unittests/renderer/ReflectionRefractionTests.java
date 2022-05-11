@@ -115,20 +115,21 @@ public class ReflectionRefractionTests {
         scene.ambientLight = (new AmbientLight(new Color(WHITE), new Double3(0.15)));
 
         double radius_of_circle = 30d;
+        double distance_btw_circle_and_background = -80;
         //background triangles...
-        Point A = new Point(200, -200, -100);
-        Point B = new Point(-200, -200, -100);
-        Point C = new Point(200, 200, -100);
-        Point D = new Point(-200, 200, -100);
+        Point A = new Point(200, -200, distance_btw_circle_and_background);
+        Point B = new Point(-200, -200, distance_btw_circle_and_background);
+        Point C = new Point(200, 200, distance_btw_circle_and_background);
+        Point D = new Point(-200, 200, distance_btw_circle_and_background);
 
         //colored triangles
+        double height_of_triangles = 30;
         Point a = new Point(radius_of_circle/2, radius_of_circle/2, 0);
         Point b = new Point(-radius_of_circle/2, radius_of_circle/2, 0);
-        Point c = new Point(0, radius_of_circle/2 + 30, 0);
+        Point c = new Point(0, radius_of_circle/2 + height_of_triangles, 0);
 
-
-
-
+        Point d = new Point(radius_of_circle/2, -radius_of_circle/2, 0);
+        Point e = new Point(radius_of_circle/2 + height_of_triangles, 0 ,0);
 
         scene.geometries.add( //
 //                new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //
@@ -138,13 +139,18 @@ public class ReflectionRefractionTests {
 //                new Sphere(30d, new Point(60, 50, -50)).setEmission(new Color(BLUE)) //
 //                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6))
                   new Sphere(radius_of_circle, new Point(0, 0, 0)).setEmission(new Color(BLUE)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6)),
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.9)),
+                //background triangles...
                 new Triangle(A, B, C).setEmission(new Color(YELLOW))
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
                 new Triangle(D, B, C).setEmission(new Color(YELLOW))
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
+                //colored triangles
                 new Triangle(a, b, c).setEmission(new Color(GREEN))
-                        .setMaterial(new Material().setKt(.8).setKd(.2).setShininess(1))
+                        .setMaterial(new Material().setKt(.8).setKd(.2).setShininess(1)),
+                new Triangle(a, d, e).setEmission(new Color(RED))
+                        .setMaterial(new Material().setKt(0).setKd(0).setShininess(0))
+
         );
 
 //        scene.lights.add(new SpotLight( new Vector(0, 0, -1), new Point(60, 50, 0),new Color(700, 400, 400)) //
