@@ -33,5 +33,8 @@ text  text text text text text text text text text text text text text text text
 ### Diagram 3.2 - Calculating Vectors "r" and "l" 
 ![image](https://user-images.githubusercontent.com/91850832/167423317-a165b981-50ca-43c8-8267-3378e2aa07ed.png)
 
+### Diagram 3.3 - Light Attenuation with Distance
+![image](https://user-images.githubusercontent.com/91850832/167838447-e3cdd10e-c49a-4215-a49e-eebf9b0ce4d2.png)
+
 
 
