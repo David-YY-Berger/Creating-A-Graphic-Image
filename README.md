@@ -37,4 +37,6 @@ text  text text text text text text text text text text text text text text text
 ![image](https://user-images.githubusercontent.com/91850832/167838447-e3cdd10e-c49a-4215-a49e-eebf9b0ce4d2.png)
 
 
+### Diagram 3.4 - Constructing a Reflection Ray
+![image](https://user-images.githubusercontent.com/91850832/168073335-3a3b1fc3-62dd-45b0-8d49-a702c07e1c7e.png)
 
