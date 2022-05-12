@@ -76,8 +76,11 @@ public class RayTracerBasic extends RayTracerBase{
      * @return appropriate color of point in the 3d space..
      */
     public Color calcColor(GeoPoint geoPoint, Ray ray){
-        return scene.ambientLight.getIntensity().add(geoPoint.geometry.getEmission())
+        Color color = scene.ambientLight.getIntensity().add(geoPoint.geometry.getEmission())
                 .add(calcLocalEffects(geoPoint, ray));
+        color = color.add(calcGlobalEffects(geoPoint, ray));
+
+        return color;
     }
 
 
@@ -118,8 +121,21 @@ public class RayTracerBasic extends RayTracerBase{
         return result_color;
     }
 
-    public double calcDiffusive(Material material, double nl){
-        return material.kD.d1 * Math.abs(nl);
+    /**
+     * calculates color based on the differet light sources in the environment...
+     * @param gp receives point in our 3d space - it is connected with a geometry and color
+     * @param ray ray to trace back to the camera..
+     * @return colors
+     */
+    private Color calcGlobalEffects(GeoPoint gp, Ray ray) {
+
+        Color color = Color.BLACK;
+        Ray reflectedRay = constructReflectedRay(gp.geometry.getNormal(gp.point), gp.point, ray);
+        GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
+        if (reflectedPoint != null) color = color.add(calcColor(reflectedPoint, reflectedRay)
+                .scale(gp.geometry.getKr()))
+
+        return
     }
 
     public double calcSpecular(Material material, Vector normalVec, Vector lightVec, double nl, Vector cameraVec){
@@ -134,6 +150,41 @@ public class RayTracerBasic extends RayTracerBase{
         if(numberToExpo<0)
             numberToExpo = 0;
         return material.kS.d1 * Math.pow(numberToExpo, material.nShininess);// Math.exp (material.nShininess);
+    }
+
+    /**
+     *
+     * @param normal
+     * @param p
+     * @param cameraRay
+     * @return
+     */
+    public Ray constructReflectedRay(Vector normal, Point p, Ray cameraRay){
+
+        return new Ray(p,
+                cameraRay.getDirVector()
+                        .add(normal.scale(cameraRay.getDirVector().dotProduct(normal)*(-2))));
+    }
+
+    /**
+     *
+     * @param p
+     * @param cameraRay
+     * @return
+     */
+    public Ray constructRefractedRay(Point p, Ray cameraRay){
+
+        return new Ray(p, cameraRay.getDirVector());
+    }
+
+    private GeoPoint findClosestIntersection(Ray ray){
+
+            List<GeoPoint> geoIntersections = scene.geometries.findGeoIntersections(ray);
+            if (geoIntersections == null)
+                return null;
+            else
+                return ray.findClosestGeoPoint(geoIntersections);
+
     }
 
 
