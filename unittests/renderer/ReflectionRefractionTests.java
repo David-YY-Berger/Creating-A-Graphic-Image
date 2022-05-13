@@ -113,6 +113,11 @@ public class ReflectionRefractionTests {
                 .setVPSize(200, 200).setVPDistance(500);
 
         scene.ambientLight = (new AmbientLight(new Color(WHITE), new Double3(0.15)));
+//        scene.lights.add(new SpotLight( new Vector(0, 0, -1), new Point(60, 50, 0),new Color(700, 400, 400)) //
+//                .setKl(4E-5).setKq(2E-7));
+        scene.lights.add(new SpotLight(new Vector(0, -1, -1), new Point(0, 100, 100), new Color(700, 400, 400)
+        ));
+
 
         double radius_of_circle = 30d;
         double distance_btw_circle_and_background = -80;
@@ -124,39 +129,42 @@ public class ReflectionRefractionTests {
 
         //colored triangles
         double height_of_triangles = 30;
-        Point a = new Point(radius_of_circle/2, radius_of_circle/2, 0);
-        Point b = new Point(-radius_of_circle/2, radius_of_circle/2, 0);
-        Point c = new Point(0, radius_of_circle/2 + height_of_triangles, 0);
+        Point a = new Point(radius_of_circle, radius_of_circle, 0);
+        Point b = new Point(-radius_of_circle, radius_of_circle, 0);
+        Point c = new Point(0, radius_of_circle + height_of_triangles, 0);
 
-        Point d = new Point(radius_of_circle/2, -radius_of_circle/2, 0);
-        Point e = new Point(radius_of_circle/2 + height_of_triangles, 0 ,0);
+        Point d = new Point(radius_of_circle, -radius_of_circle, 0);
+        Point e = new Point(radius_of_circle + height_of_triangles, 0 ,0);
+
+        Point f = new Point(-radius_of_circle, -radius_of_circle, 0);
+        Point g = new Point(-(radius_of_circle + height_of_triangles), 0, 0);
 
         scene.geometries.add( //
-//                new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //
-//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)), //
-//                new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
-//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)), //
-//                new Sphere(30d, new Point(60, 50, -50)).setEmission(new Color(BLUE)) //
-//                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6))
-                  new Sphere(radius_of_circle, new Point(0, 0, 0)).setEmission(new Color(BLUE)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.9)),
-                //background triangles...
-                new Triangle(A, B, C).setEmission(new Color(YELLOW))
+
+               //background triangles...
+                new Triangle(A, B, C).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
-                new Triangle(D, B, C).setEmission(new Color(YELLOW))
+                new Triangle(D, B, C).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
+               //sphere - partly transparent,
+                new Sphere(radius_of_circle, new Point(0, 0, 0)).setEmission(new Color(BLUE))
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.5)),
+
                 //colored triangles
+                //Tri #1 - not transparent, not shiny
                 new Triangle(a, b, c).setEmission(new Color(GREEN))
-                        .setMaterial(new Material().setKt(.8).setKd(.2).setShininess(1)),
+                        .setMaterial(new Material().setKt(0).setKd(.1).setShininess(0)),
+                //Tri #2 - not transparent, shiny
                 new Triangle(a, d, e).setEmission(new Color(RED))
-                        .setMaterial(new Material().setKt(0).setKd(0).setShininess(0))
+                        .setMaterial(new Material().setKt(0).setKd(.1).setShininess(50).setKs(.6)),
+                //Tri #3 - transparent, not shiny
+                new Triangle(b, f, g).setEmission(new Color(BLACK))
+                        .setMaterial(new Material().setKt(.6).setKd(.1))
+
+                //we dont see any partial shadows!!
+                //and we dont see any impact of specular, or shininess...
 
         );
-
-//        scene.lights.add(new SpotLight( new Vector(0, 0, -1), new Point(60, 50, 0),new Color(700, 400, 400)) //
-//                .setKl(4E-5).setKq(2E-7));
-        scene.lights.add(new SpotLight(new Vector(0, -1, -1), new Point(0, 100, 100), new Color(700, 400, 400)
-        ));
 
 
         ImageWriter imageWriter = new ImageWriter("ourNewImage", 600, 600);

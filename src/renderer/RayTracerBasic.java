@@ -56,6 +56,41 @@ public class RayTracerBasic extends RayTracerBase{
         }
     }
 
+    /**
+     * in order to calculate PARTIAL shading, this function returns a double - btw 0 and 1,
+     * representing how shaded this object is
+     * @param l - vector from the light..
+     * @param n - normal vector from the light
+     * @param nv scalar value btw Camera's vector and normal vector of l....
+     * @return
+     */
+    private double transparency(GeoPoint geoPoint, LightSource lightsource, Vector l, Vector n, double nv){
+        //check if camera is on the same side of the object as the light source:
+        Vector deltaVector = n.scale(nv < 0 ? DELTA : -DELTA);
+        // moves the point "outside" of the shape -
+        //to ensure that the shape does not "shade" itself
+        Point point = geoPoint.point.add(deltaVector);
+
+        Vector vecFromShapeToLight = l.scale(-1); // from point to light source
+        //create a "backwards" ray from the shape to the light - to see if there are any other shapes btw this shape and the light source
+        Ray lightRay = new Ray(point, vecFromShapeToLight);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        if (intersections == null)
+            return 0; // the is no shade.. return the full color of the shape..
+        else {
+            double ktr = 1; //<- how much transparency to return... (?)
+
+//             for each intersection which is closer to the point than the light source,
+//             multiply ktr by 𝒌𝑻 of its geometry:
+            double distance = lightsource.getDistance(geoPoint.point);
+            for (GeoPoint p : intersections) {
+                // check if the intersection is between the light
+                if (geoPoint.point.distance(p.point) < distance)
+                    ktr = ktr * p.geometry.getMaterial().kT.d1;
+            }
+            return ktr;
+        }
+    }
 
 
 
