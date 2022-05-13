@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 import java.util.LinkedList;
@@ -112,7 +113,7 @@ public class Sphere extends Geometry{
         double tm = ray.getDirVector().dotProduct(u); // tm holds the scalar product
 
         //(3) find d (shared side of both right triangles) used Pythagoras
-        double d = Math.sqrt(u.lengthSquared() - tm * tm);
+        double d = Util.alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
         if (d >= radius) //if ray's intersection points are on or beyond the sphere's boundary
             return null;//new LinkedList<Point>(); //if we return null, the test fails...
 
@@ -122,7 +123,7 @@ public class Sphere extends Geometry{
          */
 
         //(4) find "th" - base of each right triangle
-        double th = Math.sqrt(radius * radius - d * d);
+        double th = Util.alignZero(Math.sqrt(radius * radius - d * d));
         double t1 = tm + th;
         double t2 = tm - th;
 

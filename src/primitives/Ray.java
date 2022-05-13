@@ -93,11 +93,14 @@ public class Ray {
         GeoPoint res = null;
         for (GeoPoint geoPoint: lst) {
 
-            double dist = p0.distance(geoPoint.point);
-            if(dist < shortestDist) {
-                shortestDist = dist;
-                res = geoPoint;
+
+                double dist = p0.distance(geoPoint.point);
+                if (dist < shortestDist) {
+                    shortestDist = dist;
+                    res = geoPoint;
+
             }
+
         }
         return res;
 
