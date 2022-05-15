@@ -76,12 +76,12 @@ public class RayTracerBasic extends RayTracerBase{
         Ray lightRay = new Ray(point, vecFromShapeToLight);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
         if (intersections == null)
-            return 0; // the is no shade.. return the full color of the shape..
+            return 0; // there are no other points btw this shape and the light source... ie there is full light..
         else {
-            double ktr = 1; //<- how much transparency to return... (?)
+            double ktr = 1; //<- assume fully transparent
 
 //             for each intersection which is closer to the point than the light source,
-//             multiply ktr by 𝒌𝑻 of its geometry:
+//             multiply ktr by 𝒌𝑻 of its geometry -> shade more of the point (acc to transparency of each point)
             double distance = lightsource.getDistance(geoPoint.point);
             for (GeoPoint p : intersections) {
                 // check if the intersection is between the light
@@ -120,18 +120,12 @@ public class RayTracerBasic extends RayTracerBase{
 
         return calcColor(geoPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K)
                 .add(scene.ambientLight.getIntensity());
-
-//        Color color = scene.ambientLight.getIntensity().add(geoPoint.geometry.getEmission())
-//                .add(calcLocalEffects(geoPoint, ray));
-//        color = color.add(calcGlobalEffects(geoPoint, ray));
-//
-//        return color;
     }
 
     private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
 
         Color color = intersection.geometry.getEmission()
-                .add(calcLocalEffects(intersection, ray));
+                .add(calcLocalEffects(intersection, ray, k));
 
         if(level == 1)
             return color;
@@ -146,9 +140,10 @@ public class RayTracerBasic extends RayTracerBase{
      * calculates color based on the differet light sources in the environment...
      * @param gp receives point in our 3d space - it is connected with a geometry and color
      * @param ray ray to trace back to the camera..
+     * @param k - coefficient for transparency (if k == 0: opaque)
      * @return colors
      */
-    private Color calcLocalEffects(GeoPoint gp, Ray ray) {
+    private Color calcLocalEffects(GeoPoint gp, Ray ray, double k) {
 
         Color result_color = gp.geometry.getEmission();     //final result
         Vector v = ray.getDirVector ();
@@ -156,7 +151,6 @@ public class RayTracerBasic extends RayTracerBase{
         double nv = alignZero(normalVector.dotProduct(v)); // <- use scalar product to check if vector (from camera)
                                                         // and light vector are in the same direction
         if (nv == 0) return result_color; //if directly on the normal vector...
-
         Material material = gp.geometry.getMaterial();
 
         //add effect of every light source of color of the geoPoint
@@ -167,10 +161,11 @@ public class RayTracerBasic extends RayTracerBase{
 
             if (Util.checkSign(nl, nv)) { // if both are positive || both are negative,
                 //then add colors... otherwise, color is irrelevant
-
-                if(unshaded(gp, lightVector, normalVector, nv, lightSource))
+                double ktr = transparency(gp, lightSource, lightVector, normalVector, nv);
+                if(ktr * k > MIN_CALC_COLOR_K) //checks transparency of objects btw lightsource and this shape..
                 {
-                    Color intesityOfLightSource = lightSource.getIntensity(gp.point);
+                    Color intesityOfLightSource = lightSource.getIntensity(gp.point).scale(ktr); //if ktr is very small,
+                                                                                //color will be must less bright
                     result_color = result_color.add(intesityOfLightSource.scale(calcDiffusive(material, nl)),
                             intesityOfLightSource.scale(calcSpecular(material, normalVector, lightVector, nl, v)));
                 }

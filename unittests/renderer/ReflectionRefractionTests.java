@@ -105,6 +105,7 @@ public class ReflectionRefractionTests {
     }
 
     /**
+     * WE ADDED THIS TEST!!!
      * Produce a picture of a sphere and three triangles, each one with different levels of reflection, refraction
      */
     @Test
