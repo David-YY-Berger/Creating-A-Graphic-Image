@@ -177,6 +177,24 @@ public class ReflectionRefractionTests {
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage() //
                 .writeToImage();
+
+        ImageWriter imageWriter2 = new ImageWriter("ourNewImage_from_left", 600, 600);
+        camera.resetP0(new Point(-300, 0, 800));
+        //camera.rotateAroundZ(40);
+        camera.rotateAroundY(-15);
+        camera.setImageWriter(imageWriter2) //
+                .setRayTracer(new RayTracerBasic(scene)) //
+                .renderImage() //
+                .writeToImage();
+
+        ImageWriter imageWriter3 = new ImageWriter("ourNewImage_from_right", 600, 600);
+        camera.resetP0(new Point(450, 0, 900));
+        camera.rotateAroundY(40);
+        camera.setImageWriter(imageWriter3) //
+                .setRayTracer(new RayTracerBasic(scene)) //
+                .renderImage() //
+                .writeToImage();
+
     }
 
 }
