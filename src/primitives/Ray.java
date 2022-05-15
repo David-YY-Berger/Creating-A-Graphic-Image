@@ -99,7 +99,7 @@ public class Ray {
                     shortestDist = dist;
                     res = geoPoint;
 
-            }
+                }
 
         }
         return res;

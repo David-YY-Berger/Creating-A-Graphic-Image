@@ -242,7 +242,9 @@ public class RayTracerBasic extends RayTracerBase{
      */
     public Ray constructReflectedRay(Vector normal, Point p, Ray cameraRay){
 
-        return new Ray(p,
+        Vector deltaVector = cameraRay.getDirVector().scale(-DELTA);
+        Point point = p.add(deltaVector);
+        return new Ray(point,
                 cameraRay.getDirVector()
                         .add(normal.scale(cameraRay.getDirVector().dotProduct(normal)*(-2))));
     }
@@ -255,7 +257,6 @@ public class RayTracerBasic extends RayTracerBase{
      */
     public Ray constructRefractedRay(Point p, Ray cameraRay){
 
-        //check if camera is on the same side of the object as the light source:
         Vector deltaVector = cameraRay.getDirVector().scale(DELTA);
         // moves the point "outside" of the shape -
         //to ensure that the shape does not "shade" itself
