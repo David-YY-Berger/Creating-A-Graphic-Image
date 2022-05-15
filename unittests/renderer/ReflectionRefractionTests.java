@@ -121,6 +121,7 @@ public class ReflectionRefractionTests {
 
 
         double radius_of_circle = 30d;
+        double radius_of_circle2 = 10d;
         double distance_btw_circle_and_background = -80;
         //background triangles...
         Point A = new Point(200, -200, distance_btw_circle_and_background);
@@ -147,9 +148,12 @@ public class ReflectionRefractionTests {
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
                 new Triangle(D, B, C).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
-               //sphere - partly transparent,
+               //sphere#1 - partly transparent, low specular
                 new Sphere(radius_of_circle, new Point(0, 0, 0)).setEmission(new Color(BLUE))
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.5)),
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5)),
+                //sphere#2 - opaque, high specular
+                new Sphere(radius_of_circle2, new Point(-(radius_of_circle + height_of_triangles +radius_of_circle2), 0, 0))
+                        .setMaterial(new Material().setKd(0.5).setKs(.9).setShininess(50).setKt(0)),
 
                 //colored triangles
                 //Tri #1 - not transparent, not shiny
@@ -157,7 +161,7 @@ public class ReflectionRefractionTests {
                         .setMaterial(new Material().setKt(0).setKd(.1).setShininess(0)),
                 //Tri #2 - not transparent, shiny
                 new Triangle(a, d, e).setEmission(new Color(RED))
-                        .setMaterial(new Material().setKt(0).setKd(.1).setShininess(50).setKs(.6)),
+                        .setMaterial(new Material().setKt(0).setKd(.1).setShininess(10).setKs(0)),
                 //Tri #3 - transparent, not shiny
                 new Triangle(b, f, g).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKt(.6).setKd(.1))
