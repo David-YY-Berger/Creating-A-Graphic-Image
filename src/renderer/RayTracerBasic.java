@@ -76,7 +76,7 @@ public class RayTracerBasic extends RayTracerBase{
         Ray lightRay = new Ray(point, vecFromShapeToLight);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
         if (intersections == null)
-            return 0; // there are no other points btw this shape and the light source... ie there is full light..
+            return 1; // there are no other points btw this shape and the light source... ie there is full light..
         else {
             double ktr = 1; //<- assume fully transparent
 
