@@ -26,37 +26,6 @@ public class RayTracerBasic extends RayTracerBase{
     }
 
     /**
-     * @return whether or not given point is shaded..
-     * @param l - vector from the light..
-     * @param n - normal vector from the light
-     * @param nv scalar value btw Camera's vector and normal vector of l....
-     */
-    private boolean unshaded(GeoPoint gp, Vector l, Vector n, double nv, LightSource lightsource) {
-
-        //check if camera is on the same side of the object as the light source:
-        Vector deltaVector = n.scale(nv < 0 ? DELTA : -DELTA);
-        // moves the point "outside" of the shape -
-        //to ensure that the shape does not "shade" itself
-        Point point = gp.point.add(deltaVector);
-
-        Vector vecFromShapeToLight = l.scale(-1); // from point to light source
-        //create a "backwards" ray from the shape to the light - to see if there are any other shapes btw this shape and the light source
-        Ray lightRay = new Ray(point, vecFromShapeToLight);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-        if (intersections == null)
-            return true; // the is no shade
-        else {
-            double distance = lightsource.getDistance(gp.point);
-            for (GeoPoint p : intersections) {
-                // check if the intersection is between the light
-                if (gp.point.distance(p.point) < distance && p.geometry.getMaterial().kT.d1 == 0)
-                    return false; // shaded
-            }
-            return true;
-        }
-    }
-
-    /**
      * in order to calculate PARTIAL shading, this function returns a double - btw 0 and 1,
      * representing how shaded this object is
      * @param l - vector from the light..
@@ -198,7 +167,7 @@ public class RayTracerBasic extends RayTracerBase{
         double kkt = k*kt;
 
         if(kkt>MIN_CALC_COLOR_K) {
-            Ray refractedRay = constructRefractedRay(gp.point, ray);
+            Ray refractedRay = constructRefractedRay(gp, ray);
             GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 
             if (refractedPoint != null)
@@ -230,14 +199,19 @@ public class RayTracerBasic extends RayTracerBase{
 
     /**
      *
-     * @param normal
-     * @param p
-     * @param cameraRay
-     * @return
+     * @param normal normal ray at geometry's point
+     * @param p of interesection with cameraRay and geometry
+     * @param cameraRay - ray from camera
+     * @return new ray from interection point to surroundings
      */
     public Ray constructReflectedRay(Vector normal, Point p, Ray cameraRay){
 
-        Vector deltaVector = cameraRay.getDirVector().scale(-DELTA);
+        //see ReadMe - Diagram 3.2 - Calculating Vectors "r" and "l"!
+        //Vector deltaVector = cameraRay.getDirVector().scale(-DELTA); //keep this...
+        double nv = normal.dotProduct(cameraRay.getDirVector());
+        Vector deltaVector = normal.scale(nv < 0 ? DELTA : -DELTA);
+
+
         Point point = p.add(deltaVector);
         return new Ray(point,
                 cameraRay.getDirVector()
@@ -246,16 +220,20 @@ public class RayTracerBasic extends RayTracerBase{
 
     /**
      *
-     * @param p
+     * @param gp
      * @param cameraRay
      * @return
      */
-    public Ray constructRefractedRay(Point p, Ray cameraRay){
+    public Ray constructRefractedRay(GeoPoint gp, Ray cameraRay){
 
-        Vector deltaVector = cameraRay.getDirVector().scale(DELTA);
+        //Vector deltaVector = cameraRay.getDirVector().scale(DELTA); //keep this...!
+        double nv = gp.geometry.getNormal(gp.point).dotProduct(cameraRay.getDirVector());
+        Vector deltaVector = cameraRay.getDirVector().scale(nv < 0 ? DELTA : -DELTA);
+
+
         // moves the point "outside" of the shape -
         //to ensure that the shape does not "shade" itself
-        Point point = p.add(deltaVector);
+        Point point = gp.point.add(deltaVector);
         return new Ray(point, cameraRay.getDirVector());
     }
 
