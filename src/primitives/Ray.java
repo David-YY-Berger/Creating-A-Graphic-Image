@@ -6,18 +6,49 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * this class is sometimes used to represent a line...
+ * this class is holds a beginning point and a direction... used to color different points in our 3d plane
  */
 public class Ray {
 
     protected Point p0; // beginning point
     protected Vector dirVector; //direction vector
+    private static final double DELTA = 0.1; // moves the point "outside" of the shape.. see CTOR#2
 
+
+    //CTOR #1 - w basic parameters
     public Ray(Point _point, Vector directionVec){
         p0 = _point;
         dirVector = directionVec.normalize();
     }
-    @Override
+
+    /** CTOR #2 - builds Ray, moves p0 in direction of camera vector (to prevent issues of a geometry "shading itself"
+     * @param point orig point.. the CTOR moves the point (w/ DELTA) in the direction of the light
+     * @param origVector vector that "sees" the point....
+     * @param normalVec used to calculate a double "nv" - to ascertain on which side the point is...
+     * @param finalDir assigned to the ray... in case we needed to calculate point, but want the final direction to point somewhere else
+     */
+    public Ray(Point point, Vector origVector, Vector normalVec, Vector finalDir) {
+        //calculate nv - to see if point is on same side of ray (and should be pulled closer),
+        // if point is on different side of ray (and shouble be pushed farther)
+        double nv = origVector.dotProduct(normalVec);
+        // moves the point "outside" of the shape -
+        //to ensure that the shape does not "shade" itself
+        p0 = point.add(normalVec.scale(nv < 0 ? DELTA : -DELTA));
+        dirVector = finalDir;
+    }
+
+    /**
+     * CTOR #3 - enables usage of CTOR#2 with jsut three parameters..
+     * @param point orig point.. the CTOR moves the point (w/ DELTA) in the direction of the light
+     * @param origVector vector that "sees" the point....
+     * @param normalVec used to calculate a double "nv" - to ascertain on which side the point is...
+     * @return
+     */
+    public Ray(Point point, Vector origVector, Vector normalVec) {
+        this(point, origVector, normalVec, origVector);
+    }
+
+        @Override
     public boolean equals(Object obj) {
         //if same object
         if(this == obj) //checks by address...
