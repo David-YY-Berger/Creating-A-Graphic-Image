@@ -93,9 +93,6 @@ public class RayTracerBasic extends RayTracerBase{
             return color;
         else
             return color.add(calcGlobalEffects(intersection, ray, level, k));
-
-//        return (1 == level) ? color : color = color.add(calcGlobalEffects(intersection, ray,
-//                level, k));
     }
 
     /**

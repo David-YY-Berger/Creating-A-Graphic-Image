@@ -123,15 +123,11 @@ public class Ray {
         double shortestDist = Double.POSITIVE_INFINITY; //any distance will be shorter, and res will be reset
         GeoPoint res = null;
         for (GeoPoint geoPoint: lst) {
-
-
                 double dist = p0.distance(geoPoint.point);
                 if (dist < shortestDist) {
                     shortestDist = dist;
                     res = geoPoint;
-
                 }
-
         }
         return res;
 
