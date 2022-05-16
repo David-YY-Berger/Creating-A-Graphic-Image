@@ -25,27 +25,16 @@ public class Ray {
      * @param point orig point.. the CTOR moves the point (w/ DELTA) in the direction of the light
      * @param origVector vector that "sees" the point....
      * @param normalVec used to calculate a double "nv" - to ascertain on which side the point is...
-     * @param finalDir assigned to the ray... in case we needed to calculate point, but want the final direction to point somewhere else
-     */
-    public Ray(Point point, Vector origVector, Vector normalVec, Vector finalDir) {
-        //calculate nv - to see if point is on same side of ray (and should be pulled closer),
-        // if point is on different side of ray (and shouble be pushed farther)
-        double nv = origVector.dotProduct(normalVec);
-        // moves the point "outside" of the shape -
-        //to ensure that the shape does not "shade" itself
-        p0 = point.add(normalVec.scale(nv < 0 ? DELTA : -DELTA));
-        dirVector = finalDir;
-    }
-
-    /**
-     * CTOR #3 - enables usage of CTOR#2 with jsut three parameters..
-     * @param point orig point.. the CTOR moves the point (w/ DELTA) in the direction of the light
-     * @param origVector vector that "sees" the point....
-     * @param normalVec used to calculate a double "nv" - to ascertain on which side the point is...
-     * @return
+     //* @param finalDir assigned to the ray... in case we needed to calculate point, but want the final direction to point somewhere else
      */
     public Ray(Point point, Vector origVector, Vector normalVec) {
-        this(point, origVector, normalVec, origVector);
+        //calculate nv - to see if point is on same side of ray (and should be pulled closer),
+        // if point is on different side of ray (and shouble be pushed farther)
+        double nv = origVector.normalize().dotProduct(normalVec);
+        // moves the point "outside" of the shape -
+        //to ensure that the shape does not "shade" itself
+        p0 = point.add(normalVec.scale(origVector.dotProduct(normalVec) >= 0 ? DELTA : -DELTA));
+        dirVector = origVector;
     }
 
         @Override

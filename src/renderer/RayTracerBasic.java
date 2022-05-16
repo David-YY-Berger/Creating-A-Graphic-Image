@@ -30,12 +30,15 @@ public class RayTracerBasic extends RayTracerBase{
      * representing how shaded this object is
      * @param l - vector from the light..
      * @param normalVector - normal vector from the light
-     * @param nv scalar value btw Camera's vector and normal vector of l....
+     //* @param nv scalar value btw Camera's vector and normal vector of l....
      * @return
      */
-    private double transparency(GeoPoint geoPoint, LightSource lightsource, Vector l, Vector normalVector, double nv){
+    private double transparency(GeoPoint geoPoint, LightSource lightsource, Vector l, Vector normalVector){
 
-        Ray lightRay = new Ray(geoPoint.point, l, normalVector, l.scale(-1));
+
+        Vector lightDirection = l.scale(-1);
+
+        Ray lightRay = new Ray(geoPoint.point, lightDirection, normalVector);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
         if (intersections == null)
             return 1; // there are no other points btw this shape and the light source... ie there is full light..
@@ -45,10 +48,10 @@ public class RayTracerBasic extends RayTracerBase{
 //             for each intersection which is closer to the point than the light source,
 //             multiply ktr by 𝒌𝑻 of its geometry -> shade more of the point (acc to transparency of each point)
             double distance = lightsource.getDistance(geoPoint.point);
-            for (GeoPoint p : intersections) {
+            for (GeoPoint p1 : intersections) {
                 // check if the intersection is between the light
-                if (geoPoint.point.distance(p.point) < distance)
-                    ktr = ktr * p.geometry.getMaterial().kT.d1;
+                if (geoPoint.point.distance(p1.point) < distance)
+                    ktr = ktr * p1.geometry.getMaterial().kT.d1;
             }
             return ktr;
         }
@@ -67,10 +70,7 @@ public class RayTracerBasic extends RayTracerBase{
 
         if(closestPoint == null)
             return scene.backgroundColor;
-//        List<GeoPoint> intersectingGeoPoints = scene.geometries.findGeoIntersections(_ray);
-//        if(intersectingGeoPoints == null) // if no intersections..
-//            return scene.backgroundColor;
-//        GeoPoint closestPoint = _ray.findClosestGeoPoint(intersectingGeoPoints);
+
         return calcColor(closestPoint, _ray);
     }
 
@@ -104,7 +104,7 @@ public class RayTracerBasic extends RayTracerBase{
      */
     private Color calcLocalEffects(GeoPoint gp, Ray ray, double k) {
 
-        Color result_color = gp.geometry.getEmission();     //final result
+        Color result_color = Color.BLACK;     //final result
         Vector v = ray.getDirVector ();
         Vector normalVector = gp.geometry.getNormal(gp.point);
         double nv = alignZero(normalVector.dotProduct(v)); // <- use scalar product to check if vector (from camera)
@@ -120,7 +120,7 @@ public class RayTracerBasic extends RayTracerBase{
 
             if (Util.checkSign(nl, nv)) { // if both are positive || both are negative,
                 //then add colors... otherwise, color is irrelevant
-                double ktr = transparency(gp, lightSource, lightVector, normalVector, nv);
+                double ktr = transparency(gp, lightSource, lightVector, normalVector);
                 if(ktr * k > MIN_CALC_COLOR_K) //checks transparency of objects btw lightsource and this shape..
                 {
                     Color intesityOfLightSource = lightSource.getIntensity(gp.point).scale(ktr); //if ktr is very small,
@@ -157,7 +157,7 @@ public class RayTracerBasic extends RayTracerBase{
         double kkt = k*kt;
 
         if(kkt>MIN_CALC_COLOR_K) {
-            Ray refractedRay = constructRefractedRay(gp, ray);
+            Ray refractedRay = constructRefractedRay(gp, ray, gp.geometry.getNormal(gp.point));
             GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 
             if (refractedPoint != null)
@@ -197,8 +197,10 @@ public class RayTracerBasic extends RayTracerBase{
 
         //see ReadMe - Diagram 3.2 - Calculating Vectors "r" and "l"!
 
-        return new Ray(p, cameraRay.getDirVector(), normal,
-                cameraRay.getDirVector().add(normal.scale(cameraRay.getDirVector().dotProduct(normal)*(-2))));
+        Vector v = cameraRay.getDirVector();
+        Vector dir = v.subtract(normal.scale(v.dotProduct(normal)*(2))).normalize();
+
+        return new Ray(p, dir, normal);
     }
 
     /**
@@ -206,9 +208,9 @@ public class RayTracerBasic extends RayTracerBase{
      * @param cameraRay ray from camera...
      * @return ray from gp to surrounding (refraction of camera...)
      */
-    public Ray constructRefractedRay(GeoPoint gp, Ray cameraRay){
+    public Ray constructRefractedRay(GeoPoint gp, Ray cameraRay, Vector normal){
 
-        return new Ray(gp.point, cameraRay.getDirVector(), gp.geometry.getNormal(gp.point));
+        return new Ray(gp.point, cameraRay.getDirVector(), normal);
         // ** in our implementation, we will assume that the ray passes thru the material
         // without changing direction
     }
