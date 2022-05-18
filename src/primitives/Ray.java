@@ -128,36 +128,40 @@ public class Ray {
      */
     public List<Ray> getRandomRays(Point destPoint, double glossinessParam){
 
+        //for theory of function, see: 2nd answer at https://math.stackexchange.com/questions/4242584/picking-a-random-point-from-a-circle-in-3d
+        //based on PARAMETRIC REPRESENTATION OF GENERIC POINT ON CIRCLE:
+        //Point = Center +r*u*cos(t)+r*v*sin(t), t∈[0,2π). where u,v are perpendicular Vectors on circle, and r is radius
+
         final int NUM_RANDOM_RAYS = 10;
 
         //assuming that glossinessParam is btw (0, 0.1)
         double ratio = 100; //maybe should change this??
-        double radiusOfTargArea =  ratio * glossinessParam; //example, glossiness = .1, so radious = 10
-        double distance = p0.distance(destPoint);
-
-        for (int i = 0; i < NUM_RANDOM_RAYS; i++) {
-            //(1) first randomly choose an x
-            double xTrasformation = Util.random(-radiusOfTargArea, radiusOfTargArea);
-            System.out.println("x point:" + (destPoint.getX()+ xTrasformation));
-            //(2) randomly choose y - with borders acc to x's point:
-            /* EXPLANATION:
-                based on (x-Px)^2 + (y-Py)^2 = r^2 //equation for a circle
-                y = +-sqrt{ r^2 - (x-Px)^2) } - Py //yields boundaries for y...
-             */
-            //System.out.println("r^2: " + Math.pow(radiusOfTargArea, 2));
-            //System.out.println("- (x-px)^2: " + Math.pow(xTrasformation-destPoint.getX(), 2));
-            //System.out.println("swrt :" + Math.sqrt(Math.pow(radiusOfTargArea, 2)
-            //        - Math.pow(xTrasformation-destPoint.getX(), 2)));
-
-            double rangeForY = Math.sqrt(Math.pow(radiusOfTargArea, 2)
-                    - Math.pow(xTrasformation-destPoint.getX(), 2))
-                    - destPoint.getY();
-            System.out.println("range: " + rangeForY + " and " + -rangeForY);
-            double yTransformation = Util.random(-rangeForY, +rangeForY);
-        }
+        double radiusOfTargArea =  ratio * glossinessParam; //example, if glossiness = .1, so radious = 10
+        //double distance = p0.distance(destPoint);
 
         List<Ray> res = new LinkedList<>();
+        Vector u = dirVector.perpendicVecNormalized(); //u is perpendicular to Ray's direction
+        Vector v = dirVector.crossProduct(u); // v is perpendicular to both u and Ray's direction
 
+        //delete this check:
+        if(!Util.isZero(u.dotProduct(v))
+        || !Util.isZero(u.dotProduct(dirVector))
+        || !Util.isZero(dirVector.dotProduct(v)))
+            throw new ArithmeticException();
+
+        double t = 0;
+        for (int i = 0; i < NUM_RANDOM_RAYS; i++) {
+            t = Util.random(0, 2*Math.PI); // for any angle btw 0degrees and 360 degrees, in Radians...
+            //pointOnCircle is for debugging... delete this variable..
+            Point pointOnCircle = destPoint
+                    .add( u.scale(radiusOfTargArea).scale(Math.cos(t))) //add in the U direction
+                    .add( v.scale(radiusOfTargArea).scale(Math.sin(t)));//add in the V direction
+            res.add(new Ray(p0, pointOnCircle.subtract(p0))); //construct ray from p0 to random point on circle...
+
+            //for debugging:
+            System.out.println("point on circle: " + pointOnCircle);
+
+        }
         return res;
     }
 

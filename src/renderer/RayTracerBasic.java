@@ -147,8 +147,6 @@ public class RayTracerBasic extends RayTracerBase{
                                                                                 //color will be must less bright
                     result_color = result_color.add(intesityOfLightSource.scale(calcDiffusive(material, nl)),
                             intesityOfLightSource.scale(calcSpecular(material, normalVector, lightVector, nl, cameraVec)));
-
-
                 }
             }
         }

@@ -98,6 +98,31 @@ public class Vector extends Point {
     }
 
     /**
+     * @return normalized vector perpendicular to this one
+     */
+    public Vector perpendicVecNormalized()
+    {
+        /*based on: https://sciencing.com/plane-3-points-8123924.html
+                see "Three Dimensions -- Dot Product"
+         */
+        //to find Vector V, perpendicular to U(1, 2, 3), we use: V∙U = 1*v1 + 2*v2 - 3*v3 = 0
+        //(1) randomly choose v1 and v2 (and calculate v3)
+        //we will choose x=v1 and y=v2 to save run time...
+        double v3 = -(xyz.d1 + xyz.d2) / xyz.d3;
+        return new Vector(1, 1, v3).normalize();
+    }
+
+
+
+
+
+
+
+
+
+    //ROTATION FUNCITONS:
+
+    /**
      * rotates vector around the z axis...
      * @param angleInDegrees number of degrees to rotate...
      * @return the rotated vector
