@@ -166,8 +166,6 @@ public class ReflectionRefractionTests {
                 new Triangle(b, f, g).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKt(.6).setKd(.1))
 
-                //we dont see any partial shadows!!
-                //and we dont see any impact of specular, or shininess...
 
         );
 
