@@ -6,8 +6,8 @@ public final class Main {
 
     public static void main(String[] args) {
 
-
-      System.out.println("no bugs BH!");
+        Ray ray = new Ray(Point.ZERO, new Vector(1, 1, 1));
+        ray.getRandomRays(new Point(4, -4, 0), .04);
 
 
 

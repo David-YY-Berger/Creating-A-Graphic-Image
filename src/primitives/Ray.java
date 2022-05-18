@@ -1,7 +1,9 @@
 package primitives;
 
 import geometries.Intersectable.GeoPoint;
+import org.junit.jupiter.api.MethodOrderer;
 
+import java.lang.invoke.ConstantCallSite;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -83,9 +85,6 @@ public class Ray {
      */
     public Point findClosestPoint(List<Point> lst){
 
-//            return lst == null || lst.isEmpty() ? null
-//                    : findClosestGeoPoint(lst.stream().map(p -> new GeoPoint(null, p)).toList()).point;
-//        }
         if(lst == null)
             return  null;
         else if(lst.isEmpty())
@@ -102,8 +101,6 @@ public class Ray {
 
 
     }
-
-
     public GeoPoint findClosestGeoPoint(List<GeoPoint> lst){
 
         if(lst.isEmpty())
@@ -120,6 +117,48 @@ public class Ray {
         }
         return res;
 
+    }
+
+    /**
+     * getRandomRays() returns list of randomly calculated rays,
+     * each one starting from this p0, and landing in a target area (a circle around destPoint)...
+     * @param destPoint center of target area (circle)
+     * @param glossinessParam usually btw (0, .1) determines size of target area circle (how "glossy" the point is meant to be....for more blurry, target area is bigger, rays are "more" random)
+     * @return list of the rays
+     */
+    public List<Ray> getRandomRays(Point destPoint, double glossinessParam){
+
+        final int NUM_RANDOM_RAYS = 10;
+
+        //assuming that glossinessParam is btw (0, 0.1)
+        double ratio = 100; //maybe should change this??
+        double radiusOfTargArea =  ratio * glossinessParam; //example, glossiness = .1, so radious = 10
+        double distance = p0.distance(destPoint);
+
+        for (int i = 0; i < NUM_RANDOM_RAYS; i++) {
+            //(1) first randomly choose an x
+            double xTrasformation = Util.random(-radiusOfTargArea, radiusOfTargArea);
+            System.out.println("x point:" + (destPoint.getX()+ xTrasformation));
+            //(2) randomly choose y - with borders acc to x's point:
+            /* EXPLANATION:
+                based on (x-Px)^2 + (y-Py)^2 = r^2 //equation for a circle
+                y = +-sqrt{ r^2 - (x-Px)^2) } - Py //yields boundaries for y...
+             */
+            //System.out.println("r^2: " + Math.pow(radiusOfTargArea, 2));
+            //System.out.println("- (x-px)^2: " + Math.pow(xTrasformation-destPoint.getX(), 2));
+            //System.out.println("swrt :" + Math.sqrt(Math.pow(radiusOfTargArea, 2)
+            //        - Math.pow(xTrasformation-destPoint.getX(), 2)));
+
+            double rangeForY = Math.sqrt(Math.pow(radiusOfTargArea, 2)
+                    - Math.pow(xTrasformation-destPoint.getX(), 2))
+                    - destPoint.getY();
+            System.out.println("range: " + rangeForY + " and " + -rangeForY);
+            double yTransformation = Util.random(-rangeForY, +rangeForY);
+        }
+
+        List<Ray> res = new LinkedList<>();
+
+        return res;
     }
 
 }
