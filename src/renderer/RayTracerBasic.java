@@ -67,11 +67,23 @@ public class RayTracerBasic extends RayTracerBase{
     public Color traceRay(Ray _ray) {
 
         GeoPoint closestPoint = findClosestIntersection(_ray);
-
         if(closestPoint == null)
             return scene.backgroundColor;
 
         return calcColor(closestPoint, _ray);
+        /*
+        for help, see: https://stackoverflow.com/questions/32077952/ray-tracing-glossy-reflection-sampling-ray-direction
+
+        Collection = getListRandomRays(_ray, gp,  gp.Material.getGlossyParam()); //
+                                              // funciont contains Constant = how many rays to make (number of samples)
+        Color sumColors = 0;
+        int n = collection.Size;// numColors
+        for i==0; i<n.. //foreach i-ray in Collection
+                sumColors += calcColor(closestPoint, i);
+
+        return sumColors/n;
+         */
+
     }
 
     /**
@@ -84,6 +96,13 @@ public class RayTracerBasic extends RayTracerBase{
                 .add(scene.ambientLight.getIntensity());
     }
 
+    /**
+     * @param intersection gp on surface of shape
+     * @param ray origin ray
+     * @param level for recursion -
+     * @param k for recursion - initialized, and gets smaller with distance
+     * @return
+     */
     private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
 
         Color color = intersection.geometry.getEmission()
@@ -96,18 +115,18 @@ public class RayTracerBasic extends RayTracerBase{
     }
 
     /**
-     * calculates color based on the differet light sources in the environment...
+     * calculates color based on the differet light sources (diffusive, specular)in the environment...
      * @param gp receives point in our 3d space - it is connected with a geometry and color
      * @param ray ray to trace back to the camera..
-     * @param k - coefficient for transparency (if k == 0: opaque)
+     * @param recursiveConstant - coefficient for transparency (if recursiveConstant == 0: opaque)
      * @return colors
      */
-    private Color calcLocalEffects(GeoPoint gp, Ray ray, double k) {
+    private Color calcLocalEffects(GeoPoint gp, Ray ray, double recursiveConstant) {
 
         Color result_color = Color.BLACK;     //final result
-        Vector v = ray.getDirVector ();
+        Vector cameraVec = ray.getDirVector ();
         Vector normalVector = gp.geometry.getNormal(gp.point);
-        double nv = alignZero(normalVector.dotProduct(v)); // <- use scalar product to check if vector (from camera)
+        double nv = alignZero(normalVector.dotProduct(cameraVec)); // <- use scalar product to check if vector (from camera)
                                                         // and light vector are in the same direction
         if (nv == 0) return result_color; //if directly on the normal vector...
         Material material = gp.geometry.getMaterial();
@@ -121,12 +140,15 @@ public class RayTracerBasic extends RayTracerBase{
             if (Util.checkSign(nl, nv)) { // if both are positive || both are negative,
                 //then add colors... otherwise, color is irrelevant
                 double ktr = transparency(gp, lightSource, lightVector, normalVector);
-                if(ktr * k > MIN_CALC_COLOR_K) //checks transparency of objects btw lightsource and this shape..
+                //(how much color is "lost" by transparency
+                if(ktr * recursiveConstant > MIN_CALC_COLOR_K) //checks transparency of objects btw lightsource and this shape..
                 {
                     Color intesityOfLightSource = lightSource.getIntensity(gp.point).scale(ktr); //if ktr is very small,
                                                                                 //color will be must less bright
                     result_color = result_color.add(intesityOfLightSource.scale(calcDiffusive(material, nl)),
-                            intesityOfLightSource.scale(calcSpecular(material, normalVector, lightVector, nl, v)));
+                            intesityOfLightSource.scale(calcSpecular(material, normalVector, lightVector, nl, cameraVec)));
+
+
                 }
             }
         }
@@ -183,7 +205,6 @@ public class RayTracerBasic extends RayTracerBase{
     }
 
     private double calcDiffusive(Material material, double nl) {
-
         return material.kD.d1*Math.abs(nl);
     }
 

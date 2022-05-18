@@ -102,7 +102,7 @@ public class Camera {
             throw new MissingResourceException("missing resource!", "rayTracerBase", " ");
         }
         if (unsupported)
-            throw new UnsupportedOperationException(); //what to do with this???? we will never get to this code block...
+            throw new UnsupportedOperationException();
 
         //(2) iterate thru each pixel, write to imageWriter:
         int totalXPixels = imageWriter.getNx();
@@ -123,7 +123,7 @@ public class Camera {
 
     private Color castRay(int totalXPixels, int totalYPixels, int x, int y) {
         Ray ray = constructRayThruPixel(totalXPixels, totalYPixels, x, y);
-        return rayTracerBase.traceRay(ray);
+        return rayTracerBase.traceRay(ray); //returns color..
     }
 
     /**

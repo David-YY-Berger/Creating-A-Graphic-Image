@@ -37,7 +37,7 @@ public class Material {
     }
 
     /**
-     * @param kD sets diffusive coef
+     * @param kD sets diffusive coef (default is ZERO)
      */
     public Material setKd(double kD) {
         this.kD = new Double3(kD);
