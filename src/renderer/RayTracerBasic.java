@@ -15,7 +15,7 @@ public class RayTracerBasic extends RayTracerBase{
     private static final double DELTA = 0.1; // moves the point "outside" of the shape.. see "unshaded()"
     //stopping coniditions for recursion:
     private static final double INITIAL_K = 1.0;
-    private static final int MAX_CALC_COLOR_LEVEL = 10;     //
+    private static final int MAX_CALC_COLOR_LEVEL = 3;     //
     private static final double MIN_CALC_COLOR_K = 0.001;   // if color is no longer significant
 
 
@@ -165,13 +165,14 @@ public class RayTracerBasic extends RayTracerBase{
         double kr = gp.geometry.getMaterial().kR.d1;
         double kkr = k*kr;
 
-        //(1) add color from reflection
+        //(1) ADD COLOR FROM REFLECTION
         if(kkr>MIN_CALC_COLOR_K) {
             //check if material is blurry:
             if(gp.geometry.getMaterial().kBlurry != Double3.ZERO) //if blurry:
             {
                 Color resColor = Color.BLACK;
-                List<Ray> randomRays = rayFromCamera.getRandomRays(gp.point, gp.geometry.getMaterial().kBlurry.d1);
+                List<Ray> randomRays = constructReflectedRay(gp.geometry.getNormal(gp.point), gp.point, rayFromCamera)
+                        .getRandomRays(gp.point, gp.geometry.getMaterial().kBlurry.d1);
                 for (Ray ray_i: randomRays
                      ) {
                     GeoPoint reflectedPoint = findClosestIntersection(ray_i);
@@ -179,7 +180,7 @@ public class RayTracerBasic extends RayTracerBase{
                         resColor = resColor.add(calcColor(reflectedPoint, ray_i, level - 1, kkr)
                                 .scale(kr));
                 }
-                resColor.scale(1/randomRays.size()); //to get average color..
+                color.add(resColor.scale(1/randomRays.size()));             //to get average color..
             }
             else
             {
@@ -197,14 +198,33 @@ public class RayTracerBasic extends RayTracerBase{
         double kt = gp.geometry.getMaterial().kT.d1;
         double kkt = k*kt;
 
-        //(2) add color from refraction
+        //(2) ADD COLOR FROM REFRACTION
         if(kkt>MIN_CALC_COLOR_K) {
-            Ray refractedRay = constructRefractedRay(gp, rayFromCamera, gp.geometry.getNormal(gp.point));
-            GeoPoint refractedPoint = findClosestIntersection(refractedRay);
+            //check if material is blurry:
+            if(gp.geometry.getMaterial().kBlurry != Double3.ZERO) //if blurry:
+            {
+                Color resColor = Color.BLACK;
+                List<Ray> randomRays = constructRefractedRay(gp, rayFromCamera, gp.geometry.getNormal(gp.point))
+                        .getRandomRays(gp.point, gp.geometry.getMaterial().kBlurry.d1);
+                for (Ray ray_i: randomRays
+                ) {
+                    GeoPoint reflectedPoint = findClosestIntersection(ray_i);
+                    if(reflectedPoint != null)
+                        resColor = resColor.add(calcColor(reflectedPoint, ray_i, level - 1, kkr)
+                                .scale(kr));
+                }
+                color.add(resColor.scale(1/randomRays.size()));             //to get average color..
+            }
+            else
+            {
+                Ray refractedRay = constructRefractedRay(gp, rayFromCamera, gp.geometry.getNormal(gp.point));
+                GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 
-            if (refractedPoint != null)
-                color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt)
-                    .scale(kt));
+                if (refractedPoint != null)
+                    color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt)
+                            .scale(kt));
+            }
+
         }
 
         return color;

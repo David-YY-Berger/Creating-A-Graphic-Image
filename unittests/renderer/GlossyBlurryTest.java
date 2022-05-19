@@ -65,7 +65,7 @@ public class GlossyBlurryTest {
 
                 //window triangles...
                 new Triangle(AA, BB, CC).setEmission(new Color(new java.awt.Color(0, 1, 0)))
-                        .setMaterial(new Material().setKt(1).setkBlurry(.1)), //<--blurry triangle
+                        .setMaterial(new Material().setKt(1).setkBlurry(.01)), //<--blurry triangle.setkBlurry(0)
                 new Triangle(DD, BB, CC).setEmission(new Color(new java.awt.Color(0, 1, 0)))
                         .setMaterial(new Material().setKt(1)),
 
@@ -135,13 +135,13 @@ public class GlossyBlurryTest {
 
                 new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(670, 670, 3000)) //
                         .setEmission(new Color(20, 20, 20)) //<<--meant to be the blurry mirror!
-                        .setMaterial(new Material().setKr(1).setkBlurry(.1)),
+                        .setMaterial(new Material().setKr(1)), //.setkBlurry(0.1)
                 new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500),
                         new Point(-1500, -1500, -2000)) //
                         .setEmission(new Color(20, 20, 20)) //
                         .setMaterial(new Material().setKr(0.5)));
 
-        scene.lights.add(new SpotLight(new Vector(-1, -1, -4), new Point(-750, -750, -150),new Color(1020, 400, 400)) //
+        scene.lights.add(new SpotLight(new Vector(-1, -1, -4), new Point(-750, -750, -150),new Color(4020, 1600, 1600)) //
                 .setKl(0.00001).setKq(0.000005));
 
         ImageWriter imageWriter = new ImageWriter("ZT2blurryMirrorTest", 500, 500);
