@@ -19,6 +19,9 @@ public class Material {
     public Double3 kT = Double3.ZERO; //transparency; if(kT ==0), Material is opaque (not transparent)
     public Double3 kR = Double3.ZERO; //reflectance; if(kR ==0), Material does not reflect at all
 
+    public Double3 kBlurry = Double3.ZERO;// Blurriness/glossiness; if(kBlurry ==0) Material shines cleary,
+                        //if(kBlurry == .1) Material shines blurry
+
 
     // SETTERS
     /**
@@ -35,7 +38,13 @@ public class Material {
         this.kS = new Double3(kS);
         return this;
     }
-
+    /**
+     * @param kBlurry sets how blurry. btw (0, .1) 0=clear, .1 = blurry
+     */
+    public Material setkBlurry(double kBlurry) {
+        this.kBlurry = new Double3(kBlurry);
+        return this;
+    }
     /**
      * @param kD sets diffusive coef (default is ZERO)
      */
