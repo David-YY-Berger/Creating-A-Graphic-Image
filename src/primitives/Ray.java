@@ -159,7 +159,7 @@ public class Ray {
             res.add(new Ray(p0, pointOnCircle.subtract(p0))); //construct ray from p0 to random point on circle...
 
             //for debugging:
-            System.out.println("point on circle: " + pointOnCircle);
+            //System.out.println("point on circle: " + pointOnCircle);
 
         }
         return res;
