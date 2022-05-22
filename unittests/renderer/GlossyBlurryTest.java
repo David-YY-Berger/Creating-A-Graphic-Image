@@ -67,7 +67,7 @@ public class GlossyBlurryTest {
                 new Triangle(AA, BB, CC).setEmission(new Color(new java.awt.Color(0, 1, 0)))
                         .setMaterial(new Material().setKt(1).setkBlurry(0.025)), //<--blurry triangle.setkBlurry(0)
                 new Triangle(DD, BB, CC).setEmission(new Color(new java.awt.Color(0, 1, 0)))
-                        .setMaterial(new Material().setKt(1).setkBlurry(0.025)),
+                        .setMaterial(new Material().setKt(1)),
 
 
                 //sphere#1 - partly transparent, low specular
