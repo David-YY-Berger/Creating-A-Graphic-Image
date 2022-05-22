@@ -30,9 +30,7 @@ public class Ray {
      //* @param finalDir assigned to the ray... in case we needed to calculate point, but want the final direction to point somewhere else
      */
     public Ray(Point point, Vector origVector, Vector normalVec) {
-        //calculate nv - to see if point is on same side of ray (and should be pulled closer),
-        // if point is on different side of ray (and shouble be pushed farther)
-        double nv = origVector.normalize().dotProduct(normalVec);
+
         // moves the point "outside" of the shape -
         //to ensure that the shape does not "shade" itself
         p0 = point.add(normalVec.scale(origVector.dotProduct(normalVec) >= 0 ? DELTA : -DELTA));
@@ -132,10 +130,13 @@ public class Ray {
         //based on PARAMETRIC REPRESENTATION OF GENERIC POINT ON CIRCLE:
         //Point = Center +r*u*cos(t)+r*v*sin(t), t∈[0,2π). where u,v are perpendicular Vectors on circle, and r is radius
 
-        final int NUM_RANDOM_RAYS = 10;
+        final int NUM_RANDOM_RAYS = 100;
+
+        if (NUM_RANDOM_RAYS == 1)
+            return List.of(this);
 
         //assuming that glossinessParam is btw (0, 0.1)
-        double ratio = 100; //maybe should change this??
+        double ratio = 1000; //maybe should change this??
         double radiusOfTargArea =  ratio * glossinessParam; //example, if glossiness = .1, so radious = 10
         //double distance = p0.distance(destPoint);
 
@@ -153,7 +154,7 @@ public class Ray {
         for (int i = 0; i < NUM_RANDOM_RAYS; i++) {
             t = Util.random(0, 2*Math.PI); // for any angle btw 0degrees and 360 degrees, in Radians...
             //pointOnCircle is for debugging... delete this variable..
-            Point pointOnCircle = destPoint
+            Point pointOnCircle = p0.add(dirVector.scale(ratio))
                     .add( u.scale(radiusOfTargArea).scale(Math.cos(t))) //add in the U direction
                     .add( v.scale(radiusOfTargArea).scale(Math.sin(t)));//add in the V direction
             res.add(new Ray(p0, pointOnCircle.subtract(p0))); //construct ray from p0 to random point on circle...
