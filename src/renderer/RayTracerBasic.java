@@ -12,8 +12,6 @@ import static primitives.Util.alignZero;
  */
 public class RayTracerBasic extends RayTracerBase{
 
-    private static final double DELTA = 0.1; // moves the point "outside" of the shape.. see "unshaded()"
-    //stopping coniditions for recursion:
     private static final double INITIAL_K = 1.0;
     private static final int MAX_CALC_COLOR_LEVEL = 10;     //
     private static final double MIN_CALC_COLOR_K = 0.001;   // if color is no longer significant
@@ -31,7 +29,6 @@ public class RayTracerBasic extends RayTracerBase{
      * @param l - vector from the light..
      * @param normalVector - normal vector from the light
      //* @param nv scalar value btw Camera's vector and normal vector of l....
-     * @return
      */
     private double transparency(GeoPoint geoPoint, LightSource lightsource, Vector l, Vector normalVector){
 
@@ -71,23 +68,11 @@ public class RayTracerBasic extends RayTracerBase{
             return scene.backgroundColor;
 
         return calcColor(closestPoint, _ray);
-        /*
-        for help, see: https://stackoverflow.com/questions/32077952/ray-tracing-glossy-reflection-sampling-ray-direction
-
-        Collection = getListRandomRays(_ray, gp,  gp.Material.getGlossyParam()); //
-                                              // funciont contains Constant = how many rays to make (number of samples)
-        Color sumColors = 0;
-        int n = collection.Size;// numColors
-        for i==0; i<n.. //foreach i-ray in Collection
-                sumColors += calcColor(closestPoint, i);
-
-        return sumColors/n;
-         */
 
     }
 
     /**
-     * depending on lighting,
+     * depending on lighting, (allows for partial shadowing... by considering the angle of the "viewing" vector)
      * @return appropriate color of point in the 3d space..
      */
     public Color calcColor(GeoPoint geoPoint, Ray ray){
@@ -101,7 +86,6 @@ public class RayTracerBasic extends RayTracerBase{
      * @param ray origin ray
      * @param level for recursion -
      * @param k for recursion - initialized, and gets smaller with distance
-     * @return
      */
     private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
 
@@ -172,7 +156,7 @@ public class RayTracerBasic extends RayTracerBase{
             {
                 Color resColor = Color.BLACK;
                 List<Ray> randomRays = constructReflectedRay(gp.geometry.getNormal(gp.point), gp.point, rayFromCamera)
-                        .getRandomRays(gp.point, gp.geometry.getMaterial().kBlurry.d1);
+                        .getRandomRays(gp.geometry.getMaterial().kBlurry.d1);
                 for (Ray ray_i: randomRays) {
 
                     GeoPoint reflectedPoint = findClosestIntersection(ray_i);
@@ -194,7 +178,6 @@ public class RayTracerBasic extends RayTracerBase{
                             .scale(kr));
             }
 
-
         }
 
         double kt = gp.geometry.getMaterial().kT.d1;
@@ -207,7 +190,7 @@ public class RayTracerBasic extends RayTracerBase{
             {
                 Color resColor = Color.BLACK;
                 List<Ray> randomRays = constructRefractedRay(gp, rayFromCamera, gp.geometry.getNormal(gp.point))
-                        .getRandomRays(gp.point, gp.geometry.getMaterial().kBlurry.d1);
+                        .getRandomRays(gp.geometry.getMaterial().kBlurry.d1);
                 for (Ray ray_i: randomRays) {
 
                     GeoPoint refractedPoint = findClosestIntersection(ray_i);
@@ -236,7 +219,7 @@ public class RayTracerBasic extends RayTracerBase{
 
     public double calcSpecular(Material material, Vector normalVec, Vector lightVec, double nl, Vector cameraVec){
 
-        /**
+        /*
          * see ReadMe! diagram 3.2 - Calculating Vectors "r" and "l"
          * equation: ks (-v * r) ^(nshini)
          */

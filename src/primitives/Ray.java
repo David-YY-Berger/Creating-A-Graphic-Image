@@ -15,7 +15,9 @@ public class Ray {
     protected Point p0; // beginning point
     protected Vector dirVector; //direction vector
     private static final double DELTA = 0.1; // moves the point "outside" of the shape.. see CTOR#2
-
+    //parameters for calculating the randomRays 9assuming that glossinessParam is btw (0, 0.1):
+    private int num_random_rays = 100;
+    double distanceFromPoint = 1000;
 
     //CTOR #1 - w basic parameters
     public Ray(Point _point, Vector directionVec){
@@ -120,25 +122,19 @@ public class Ray {
     /**
      * getRandomRays() returns list of randomly calculated rays,
      * each one starting from this p0, and landing in a target area (a circle around destPoint)...
-     * @param destPoint center of target area (circle)
      * @param glossinessParam usually btw (0, .1) determines size of target area circle (how "glossy" the point is meant to be....for more blurry, target area is bigger, rays are "more" random)
      * @return list of the rays
      */
-    public List<Ray> getRandomRays(Point destPoint, double glossinessParam){
+    public List<Ray> getRandomRays(double glossinessParam){
 
         //for theory of function, see: 2nd answer at https://math.stackexchange.com/questions/4242584/picking-a-random-point-from-a-circle-in-3d
         //based on PARAMETRIC REPRESENTATION OF GENERIC POINT ON CIRCLE:
         //Point = Center +r*u*cos(t)+r*v*sin(t), t∈[0,2π). where u,v are perpendicular Vectors on circle, and r is radius
 
-        final int NUM_RANDOM_RAYS = 100;
-
-        if (NUM_RANDOM_RAYS == 1)
+        if (num_random_rays == 1)
             return List.of(this);
 
-        //assuming that glossinessParam is btw (0, 0.1)
-        double ratio = 1000; //maybe should change this??
-        double radiusOfTargArea =  ratio * glossinessParam; //example, if glossiness = .1, so radious = 10
-        //double distance = p0.distance(destPoint);
+        double radiusOfTargArea =  distanceFromPoint * glossinessParam; //example, if glossiness = .1, so radious = 10
 
         List<Ray> res = new LinkedList<>();
         Vector u = dirVector.perpendicVecNormalized(); //u is perpendicular to Ray's direction
@@ -150,11 +146,11 @@ public class Ray {
         || !Util.isZero(dirVector.dotProduct(v)))
             throw new ArithmeticException();
 
-        double t = 0;
-        for (int i = 0; i < NUM_RANDOM_RAYS; i++) {
+        double t; //parameter to randomly create points on circle's surface at destination point
+        for (int i = 0; i < num_random_rays; i++) {
             t = Util.random(0, 2*Math.PI); // for any angle btw 0degrees and 360 degrees, in Radians...
             //pointOnCircle is for debugging... delete this variable..
-            Point pointOnCircle = p0.add(dirVector.scale(ratio))
+            Point pointOnCircle = p0.add(dirVector.scale(distanceFromPoint)) //begin at CENTER of circle
                     .add( u.scale(radiusOfTargArea).scale(Math.cos(t))) //add in the U direction
                     .add( v.scale(radiusOfTargArea).scale(Math.sin(t)));//add in the V direction
             res.add(new Ray(p0, pointOnCircle.subtract(p0))); //construct ray from p0 to random point on circle...
