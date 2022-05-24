@@ -108,17 +108,30 @@ public class Camera {
         int totalXPixels = imageWriter.getNx();
         int totalYPixels = imageWriter.getNy();
 
-        for (int x = 0; x < totalXPixels; x++) {        //x = specific pixel in x direction (j)
-            for (int y = 0; y < totalYPixels; y++) {    //y = specific pixel in y direction (i)
-                Color pixelColor = castRay(totalXPixels, totalYPixels, x, y);
-                imageWriter.writePixel(x, y, pixelColor);
-            }
+        //  WITH ONE THREAD::
+//        for (int x = 0; x < totalXPixels; x++) {        //x = specific pixel in x direction (j)
+//            for (int y = 0; y < totalYPixels; y++) {    //y = specific pixel in y direction (i)
+//                Color pixelColor = castRay(totalXPixels, totalYPixels, x, y);
+//                imageWriter.writePixel(x, y, pixelColor);
+//            }
+//        }
+
+        //WITH MULTI-THREADING::
+        Pixel.initialize(totalYPixels, totalXPixels, 3);
+        int threadCount = 3;
+
+        for (int i = 0; i < threadCount; i++) {
+            new Thread(() -> {
+                for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+                {
+                    Color pixelColor = castRay(totalXPixels, totalYPixels, pixel.col, pixel.row);
+                    imageWriter.writePixel(pixel.col, pixel.row, pixelColor); //flip order?
+                }
+            }).start();
         }
+        Pixel.waitToFinish(); //stops the thread's from continuing
 
-        //(3) export bufferedImage to file (file given in image's constructor)
-        // imageWriter.writeToImage();
         return this;
-
     }
 
     private Color castRay(int totalXPixels, int totalYPixels, int x, int y) {

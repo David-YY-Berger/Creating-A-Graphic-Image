@@ -20,6 +20,7 @@ import scene.Scene;
  * @author Dan
  */
 public class TeapotTest {
+    //nx, ny = 800
     private final ImageWriter imageWriter = new ImageWriter("teapot", 800, 800);
 
     private final Camera camera = new Camera(new Point(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, 1, 0)) //
