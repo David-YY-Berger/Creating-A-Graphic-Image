@@ -129,7 +129,7 @@ public class Camera {
     /**
      * prints grid, colors the grid with the given color, keeps background empty
      */
-    public void printGrid(int interval, Color color) {
+    public Camera printGrid(int interval, Color color) {
         if(imageWriter == null)
             throw new MissingResourceException("missing resource!", "imageWriter", " ");
 
@@ -148,6 +148,7 @@ public class Camera {
                 imageWriter.writePixel(x, y, color);
             }
         }
+        return this;
     }
 
     //TO REPOSITION CAMERA AFTER BEING CONSTRUCTED (rotates Camera's "vector_to"):
