@@ -1,4 +1,5 @@
 package renderer;
+import java.util.stream.*;
 import primitives.*;
 
 import java.util.MissingResourceException;
@@ -116,20 +117,33 @@ public class Camera {
 //            }
 //        }
 
-        //WITH MULTI-THREADING::
-        Pixel.initialize(totalYPixels, totalXPixels, 3);
-        int threadCount = 3;
 
-        for (int i = 0; i < threadCount; i++) {
-            new Thread(() -> {
-                for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
-                {
-                    Color pixelColor = castRay(totalXPixels, totalYPixels, pixel.col, pixel.row);
-                    imageWriter.writePixel(pixel.col, pixel.row, pixelColor); //flip order?
-                }
-            }).start();
-        }
-        Pixel.waitToFinish(); //stops the thread's from continuing
+        Pixel.initialize(totalYPixels, totalXPixels, 3);
+
+        IntStream.range(0, totalYPixels).parallel().forEach(i -> {
+            IntStream.range(0, totalXPixels).parallel().forEach(j -> {
+                Color pixelColor = castRay(totalXPixels, totalYPixels, j, i);
+                imageWriter.writePixel(j, i, pixelColor);
+                Pixel.pixelDone();
+                Pixel.printPixel();
+            });
+        });
+
+
+        //WITH MULTI-THREADING::
+//        Pixel.initialize(totalYPixels, totalXPixels, 3);
+//        int threadCount = 3;
+//
+//        while (threadCount-- > 0){
+//            new Thread(() -> {
+//                for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+//                {
+//                    Color pixelColor = castRay(totalXPixels, totalYPixels, pixel.col, pixel.row);
+//                    imageWriter.writePixel(pixel.col, pixel.row, pixelColor); //flip order?
+//                }
+//            }).start();
+//        }
+//        Pixel.waitToFinish(); //stops the thread's from continuing
 
         return this;
     }
@@ -161,6 +175,7 @@ public class Camera {
                 imageWriter.writePixel(x, y, color);
             }
         }
+
         return this;
     }
 

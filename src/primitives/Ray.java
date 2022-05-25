@@ -15,9 +15,7 @@ public class Ray {
     protected Point p0; // beginning point
     protected Vector dirVector; //direction vector
     private static final double DELTA = 0.1; // moves the point "outside" of the shape.. see CTOR#2
-    //parameters for calculating the randomRays 9assuming that glossinessParam is btw (0, 0.1):
-    private int num_random_rays = 100;
-    double distanceFromPoint = 1000;
+
 
     //CTOR #1 - w basic parameters
     public Ray(Point _point, Vector directionVec){
@@ -131,10 +129,15 @@ public class Ray {
         //based on PARAMETRIC REPRESENTATION OF GENERIC POINT ON CIRCLE:
         //Point = Center +r*u*cos(t)+r*v*sin(t), t∈[0,2π). where u,v are perpendicular Vectors on circle, and r is radius
 
-        if (num_random_rays == 1)
+        final int NUM_RANDOM_RAYS = 30;
+
+        if (NUM_RANDOM_RAYS == 1)
             return List.of(this);
 
-        double radiusOfTargArea =  distanceFromPoint * glossinessParam; //example, if glossiness = .1, so radious = 10
+        //assuming that glossinessParam is btw (0, 0.1)
+        double ratio = 1000; //maybe should change this??
+        double radiusOfTargArea =  ratio * glossinessParam; //example, if glossiness = .1, so radious = 10
+        //double distance = p0.distance(destPoint);
 
         List<Ray> res = new LinkedList<>();
         Vector u = dirVector.perpendicVecNormalized(); //u is perpendicular to Ray's direction
@@ -146,11 +149,11 @@ public class Ray {
         || !Util.isZero(dirVector.dotProduct(v)))
             throw new ArithmeticException();
 
-        double t; //parameter to randomly create points on circle's surface at destination point
-        for (int i = 0; i < num_random_rays; i++) {
+        double t = 0;
+        for (int i = 0; i < NUM_RANDOM_RAYS; i++) {
             t = Util.random(0, 2*Math.PI); // for any angle btw 0degrees and 360 degrees, in Radians...
             //pointOnCircle is for debugging... delete this variable..
-            Point pointOnCircle = p0.add(dirVector.scale(distanceFromPoint)) //begin at CENTER of circle
+            Point pointOnCircle = p0.add(dirVector.scale(ratio))
                     .add( u.scale(radiusOfTargArea).scale(Math.cos(t))) //add in the U direction
                     .add( v.scale(radiusOfTargArea).scale(Math.sin(t)));//add in the V direction
             res.add(new Ray(p0, pointOnCircle.subtract(p0))); //construct ray from p0 to random point on circle...
