@@ -1,9 +1,7 @@
 package renderer;
 
 import org.junit.jupiter.api.Test;
-
 import static java.awt.Color.*;
-
 import lighting.*;
 import geometries.*;
 import primitives.*;
