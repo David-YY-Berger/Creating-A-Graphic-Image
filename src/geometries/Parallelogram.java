@@ -1,15 +1,21 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
+/**
+ * Parallelgram used for Boundary Value Hierarchy - see "Bounding-Box"
+ * automatically set as transparent
+ */
 public class Parallelogram extends Geometry{
 
-    private Triangle tri1;
-    private Triangle tri2;
+    private Color colorOfParrellogram = new Color(50, 0, 0);
+    private double transparency = .9;
+
+
+    public Triangle tri1;
+    public Triangle tri2;
     public Point[] vertices = new Point[4];
 
     public Parallelogram(Point p1, Point p2, Point p3){
@@ -17,6 +23,9 @@ public class Parallelogram extends Geometry{
         Point p4 = p1.add(p2.subtract(p1)).add(p3.subtract(p1));
         tri1 = new Triangle(p1, p2, p3);
         tri2 = new Triangle(p2, p3, p4);
+
+        tri1.setEmission(colorOfParrellogram).setMaterial(new Material().setKt(transparency));
+        tri2.setEmission(colorOfParrellogram).setMaterial(new Material().setKt(transparency));
 
         vertices[0] = p1;
         vertices[1] = p2;

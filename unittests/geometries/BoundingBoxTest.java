@@ -12,7 +12,7 @@ import java.util.List;
 
 import static java.awt.Color.BLACK;
 
-public class BoxTest {
+public class BoundingBoxTest {
 
     private Scene scene = new Scene.Builder("Test scene").build();
 
@@ -127,8 +127,8 @@ public class BoxTest {
         Geometry sphere1geometryForm = sphere1.setEmission(new Color(BLUE))
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
 
-        Box box = new Box(sphere1);
-        Geometry boxGeometry = box.setEmission(new Color(GREEN))
+        BoundingBox boundingBox = new BoundingBox(sphere1);
+        Geometry boxGeometry = boundingBox.setEmission(new Color(GREEN))
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
 
         List<Geometry> res = new LinkedList();

@@ -13,12 +13,11 @@ import java.util.List;
  * each geometry is put inside a "Box" - and rays only trace color if they come in contact with a box..
  * so that the iteration over the geometries collection in a scene can be much quicker
  */
-public class Box extends Geometry{
+public class BoundingBox extends Geometry{
 
     //for 6 sided box..
     public Parallelogram[] faces = new Parallelogram[6];
-
-    public Box(Sphere sphere) {
+    public BoundingBox(Sphere sphere) {
 
         //vertices of the box:
         Point[] vertices = new Point[8];
