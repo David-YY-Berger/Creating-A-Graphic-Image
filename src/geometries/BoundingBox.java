@@ -17,6 +17,10 @@ public class BoundingBox extends Geometry{
 
     //for 6 sided box..
     public Parallelogram[] faces = new Parallelogram[6];
+
+    /**
+     * CTOR 1 of 3
+     */
     public BoundingBox(Sphere sphere) {
 
         //vertices of the box:
@@ -40,7 +44,19 @@ public class BoundingBox extends Geometry{
 
     }
 
+    /**
+     * CTOR 2 of 3
+     */
+    public BoundingBox(Triangle triangle){
 
+    }
+    /**
+     * CTOR 3 of 3
+     */
+    public BoundingBox(BoundingBox ... boxes)
+    {
+
+    }
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
@@ -63,19 +79,6 @@ public class BoundingBox extends Geometry{
         }
 
      return res;
-//
-//        //if no intersections:
-//        if(res == null)// || res.size() == 0)
-//            return res;
-//        else {
-//            if (res.size() > 2)
-//                throw new ArithmeticException(); //should never happpen!
-//            if(res.size() == 1)
-//                return res;
-//            //(2) return closest intersection to ray's p0
-//            return (res.get(0).point.distance(_ray.getP0()) < res.get(1).point.distance(_ray.getP0())) ?
-//                    List.of(res.get(0)) : List.of(res.get(1));
-//        }
     }
 
     @Override
