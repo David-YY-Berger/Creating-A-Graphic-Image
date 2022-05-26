@@ -266,7 +266,7 @@ public class RayTracerBasic extends RayTracerBase{
     private GeoPoint findClosestIntersection(Ray ray){
 
             List<GeoPoint> geoIntersections = scene.geometries.findGeoIntersections(ray);
-            if (geoIntersections == null)
+            if (geoIntersections == null || geoIntersections.isEmpty()) //<-- added this here?? (ariel, dont delete...)
                 return null;
             else
                 return ray.findClosestGeoPoint(geoIntersections);
