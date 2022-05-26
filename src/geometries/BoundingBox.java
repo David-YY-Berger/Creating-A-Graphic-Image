@@ -15,8 +15,22 @@ import java.util.List;
  */
 public class BoundingBox extends Geometry{
 
+    private static final int[] max_x_index = {0, 1, 2, 3};
+
     //for 6 sided box..
     public Parallelogram[] faces = new Parallelogram[6];
+    public Point[] vertices = new Point[8];
+
+    //make static int[] of each index..
+    /* explanation of vertices:
+        max X = 0, 1, 2, 3
+        min X = 4, 5, 6, 7
+        max y = 0, 1, 4, 5
+        min y = 2, 3, 6, 7
+        max z = 0, 2, 6, 4
+        min z = 1, 3, 5, 7
+     */
+
 
     /**
      * CTOR 1 of 3
@@ -24,7 +38,7 @@ public class BoundingBox extends Geometry{
     public BoundingBox(Sphere sphere) {
 
         //vertices of the box:
-        Point[] vertices = new Point[8];
+        //Point[] vertices = new Point[8];
         vertices[0] = sphere.center.add(new Vector(sphere.radius, sphere.radius, sphere.radius));
         vertices[1] = sphere.center.add(new Vector(sphere.radius, sphere.radius, -sphere.radius));
         vertices[2] = sphere.center.add(new Vector(sphere.radius, -sphere.radius, sphere.radius));
@@ -55,7 +69,30 @@ public class BoundingBox extends Geometry{
      */
     public BoundingBox(BoundingBox ... boxes)
     {
+        List<Double> max_X = new LinkedList<>();
+        List<Double> max_Y = new LinkedList<>();
+        List<Double> max_Z = new LinkedList<>();
+        List<Double> min_X = new LinkedList<>();
+        List<Double> min_Y = new LinkedList<>();
+        List<Double> min_Z = new LinkedList<>();
 
+
+        //for all min/max values, get appropraite value, and build 8 vertices based on that...
+
+        /* explanation of vertices:
+        max X = 0, 1, 2, 3
+        min X = 4, 5, 6, 7
+        max y = 0, 1, 4, 5
+        min y = 2, 3, 6, 7
+        max z = 0, 2, 6, 4
+        min z = 1, 3, 5, 7
+     */for (BoundingBox box: boxes
+             ) {
+            for (int index: max_x_index
+                 ) {
+                max_X.add(box.vertices[index].getX());
+            }
+        }
     }
 
     @Override
