@@ -68,8 +68,8 @@ public class BoxTest {
                 new Sphere(radius_of_circle, new Point(0, 0, 0)).setEmission(new Color(BLUE))
                         .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5)),
                 //sphere#2 - opaque, high specular
-                new Sphere(radius_of_circle2, new Point(-(radius_of_circle + height_of_triangles + radius_of_circle2), 0, 0))
-                        .setMaterial(new Material().setKd(0.5).setKs(.9).setShininess(50).setKt(0)),
+//                new Sphere(radius_of_circle2, new Point(-(radius_of_circle + height_of_triangles + radius_of_circle2), 0, 0))
+//                        .setMaterial(new Material().setKd(0.5).setKs(.9).setShininess(50).setKt(0)),
 
                 // sphere 3, 4, 5, 6 are up in right
 
@@ -89,6 +89,10 @@ public class BoxTest {
                 new Sphere(radius_of_circle2, new Point(70, 75, 10)).setEmission(new Color(YELLOW))
                         .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.5)),
 
+                //triangle behind them
+                new Triangle(new Point(30, 65, -50), new Point(90, 160, -50), new Point(150, 65, -50)).setEmission(new Color(BLUE))
+                        .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1).setKt(0.5).setKr(0.8)),
+
 
                 //sphere 7, 8, 9, 10 are up in left
 
@@ -106,7 +110,55 @@ public class BoxTest {
 
                 //sphere#10
                 new Sphere(radius_of_circle2, new Point(-70, 105, 5)).setEmission(new Color(BLUE))
-                        .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.4))
+                        .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.4)),
+
+                //triangle behind them
+                new Triangle(new Point(30, -65, -70), new Point(90, -160, -70), new Point(150, -65, -70)).setEmission(new Color(BLUE))
+                        .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1).setKt(0)),
+
+                //sphere 11, 12, 13, 14 are down in left
+
+                //sphere#11
+                new Sphere(radius_of_circle2, new Point(-70, -75, -50)).setEmission(new Color(YELLOW))
+                        .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.5)),
+
+                //sphere#12
+                new Sphere(radius_of_circle2, new Point(-100, -120, -20)).setEmission(new Color(GREEN))
+                        .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.2)),
+
+                //sphere#13
+                new Sphere(radius_of_circle2, new Point(-100, -90, -20)).setEmission(new Color(RED))
+                        .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.6)),
+
+                //sphere#14
+                new Sphere(radius_of_circle2, new Point(-70, -105, -20)).setEmission(new Color(BLUE))
+                        .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.4)),
+
+                //triangle behind them
+                new Triangle(new Point(-30, -65, -70), new Point(-90, -160, -70), new Point(-150, -65, -70)).setEmission(new Color(BLUE))
+                        .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1).setKt(0).setKr(0.5)),
+
+                //sphere 15, 16, 17, 18 are down in right
+
+                //sphere#15
+                new Sphere(radius_of_circle2, new Point(70, -75, -50)).setEmission(new Color(YELLOW))
+                        .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.5)),
+
+                //sphere#16
+                new Sphere(radius_of_circle2, new Point(100, -120, -50)).setEmission(new Color(GREEN))
+                        .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.2)),
+
+                //sphere#17
+                new Sphere(radius_of_circle2, new Point(100, -90, -50)).setEmission(new Color(RED))
+                        .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.6)),
+
+                //sphere#18
+                new Sphere(radius_of_circle2, new Point(70, -105, -50)).setEmission(new Color(BLUE))
+                        .setMaterial(new Material().setKd(0.7).setKs(0.5).setShininess(30).setKt(0.4)),
+
+                //triangle behind them
+                new Triangle(new Point(-30, 65, -50), new Point(-90, 160, -50), new Point(-150, 65, -50)).setEmission(new Color(BLUE))
+                        .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1).setKt(0))
 
                 //colored triangles
                 //Tri #1 - not transparent, not shiny
