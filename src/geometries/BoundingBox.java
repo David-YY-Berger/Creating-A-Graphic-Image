@@ -106,7 +106,6 @@ public class BoundingBox extends Geometry{
 
     }
 
-
     /**
      * CTOR 4 of 4
      */

@@ -1,18 +1,21 @@
-package geometries;
+package special;
 
+import geometries.*;
+import lighting.AmbientLight;
+import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
-import static java.awt.Color.*;
-import lighting.*;
-import renderer.*;
 import primitives.*;
+import renderer.Camera;
+import renderer.ImageWriter;
+import renderer.RayTracerBasic;
 import scene.Scene;
 
-import java.util.LinkedList;
 import java.util.List;
 
+import static java.awt.Color.*;
 import static java.awt.Color.BLACK;
 
-public class BoundingBoxTest {
+public class HierarchyTest {
 
     private Scene scene = new Scene.Builder("Test scene").build();
 
@@ -123,33 +126,43 @@ public class BoundingBoxTest {
         Point C = new Point(200, 200, distance_btw_circle_and_background);
         Point D = new Point(-200, 200, distance_btw_circle_and_background);
 
-        Sphere sphere1 = new Sphere(radius_of_circle, new Point(0, 0, 0));
-        Geometry sphere1geometryForm = sphere1.setEmission(new Color(BLUE))
+        Geometry sphere1 = new Sphere(radius_of_circle, new Point(0, 0, 0))
+                .setEmission(new Color(BLUE))
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
 
-        Sphere sphere2 = new Sphere(radius_of_circle, new Point(100, 0, 0));
-        Geometry sphere2geometryForm = sphere2.setEmission(new Color(BLUE))
+
+        Geometry sphere2 = new Sphere(radius_of_circle, new Point(100, 0, 0))
+                .setEmission(new Color(BLUE))
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
 
-        Triangle tri1 = new Triangle(new Point(0, 80, 40), new Point(-10, 100, 50), new Point(10, 120, 60));
-        Geometry tri1geometry = tri1.setEmission(new Color(BLUE))
+
+        Geometry sphere3 = new Sphere(radius_of_circle, new Point(0, 100, 0))
+                .setEmission(new Color(BLUE))
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
 
-        BoundingBox boundingBox1 = new BoundingBox(sphere1);
-        Geometry boxGeometry1 = boundingBox1
-                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
+        Geometries allSpheres = new Geometries(sphere1, sphere2, sphere3);
 
-        BoundingBox boundingBox2 = new BoundingBox(sphere2);
-        Geometry boxGeometry2 = boundingBox2
-                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
+        Geometry tri1 = new Triangle(new Point(0, 80, 40), new Point(-10, 100, 50), new Point(10, 120, 60))
+                .setEmission(new Color(BLUE));
 
-        BoundingBox boundingBox3 = new BoundingBox(tri1);
-        Geometry boxGeometry3 = boundingBox3
-                .setMaterial(new Material());
+        Geometries topLevel = new Geometries(tri1, allSpheres);
 
-        BoundingBox boundingBox_Big = new BoundingBox(boundingBox1, boundingBox2, boundingBox3);
-        Geometry boxBigGeometry = boundingBox_Big
-                .setMaterial(new Material());
+
+//        BoundingBox boundingBox1 = new BoundingBox(sphere1);
+//        Geometry boxGeometry1 = boundingBox1
+//                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
+//
+//        BoundingBox boundingBox2 = new BoundingBox(sphere2);
+//        Geometry boxGeometry2 = boundingBox2
+//                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
+//
+//        BoundingBox boundingBox3 = new BoundingBox(tri1);
+//        Geometry boxGeometry3 = boundingBox3
+//                .setMaterial(new Material());
+//
+//        BoundingBox boundingBox_Big = new BoundingBox(boundingBox1, boundingBox2, boundingBox3);
+//        Geometry boxBigGeometry = boundingBox_Big
+//                .setMaterial(new Material());
 
         scene.geometries.add( //
 
@@ -159,43 +172,46 @@ public class BoundingBoxTest {
                 new Triangle(D, B, C).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
 
-                sphere1geometryForm,
-                boxGeometry1,
+                topLevel
 
-                sphere2geometryForm,
-                boxGeometry2,
 
-                tri1geometry,
-                boxGeometry3,
+                //sphere1geometryForm,
+                //boxGeometry1,
 
-                boxBigGeometry
+                //sphere2geometryForm,
+                //boxGeometry2,
+
+                //tri1geometry,
+                //boxGeometry3,
+
+                //boxBigGeometry
 
 
         );
 
 
-        ImageWriter imageWriter = new ImageWriter("BoxTest", 600, 600);
+        ImageWriter imageWriter = new ImageWriter("HierarchyTest", 600, 600);
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage() //
                 .writeToImage();
 
-        ImageWriter imageWriter2 = new ImageWriter("BoxTest_from_left", 600, 600);
-        camera.resetP0(new Point(-300, 0, 800));
-        //camera.rotateAroundZ(40);
-        camera.rotateAroundY(-15);
-        camera.setImageWriter(imageWriter2) //
-                .setRayTracer(new RayTracerBasic(scene)) //
-                .renderImage() //
-                .writeToImage();
-
-        ImageWriter imageWriter3 = new ImageWriter("BoxTest_from_right", 600, 600);
-        camera.resetP0(new Point(450, 0, 900));
-        camera.rotateAroundY(40);
-        camera.setImageWriter(imageWriter3) //
-                .setRayTracer(new RayTracerBasic(scene)) //
-                .renderImage() //
-                .writeToImage();
+//        ImageWriter imageWriter2 = new ImageWriter("BoxTest_from_left", 600, 600);
+//        camera.resetP0(new Point(-300, 0, 800));
+//        //camera.rotateAroundZ(40);
+//        camera.rotateAroundY(-15);
+//        camera.setImageWriter(imageWriter2) //
+//                .setRayTracer(new RayTracerBasic(scene)) //
+//                .renderImage() //
+//                .writeToImage();
+//
+//        ImageWriter imageWriter3 = new ImageWriter("BoxTest_from_right", 600, 600);
+//        camera.resetP0(new Point(450, 0, 900));
+//        camera.rotateAroundY(40);
+//        camera.setImageWriter(imageWriter3) //
+//                .setRayTracer(new RayTracerBasic(scene)) //
+//                .renderImage() //
+//                .writeToImage();
 
 
 
