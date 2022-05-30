@@ -131,6 +131,10 @@ public class BoundingBoxTest {
         Geometry sphere2geometryForm = sphere2.setEmission(new Color(BLUE))
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
 
+        Triangle tri1 = new Triangle(new Point(0, 80, 40), new Point(-10, 100, 50), new Point(10, 120, 60));
+        Geometry tri1geometry = tri1.setEmission(new Color(BLUE))
+                .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
+
         BoundingBox boundingBox1 = new BoundingBox(sphere1);
         Geometry boxGeometry1 = boundingBox1
                 .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
@@ -139,7 +143,11 @@ public class BoundingBoxTest {
         Geometry boxGeometry2 = boundingBox2
                 .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
 
-        BoundingBox boundingBox_Big = new BoundingBox(boundingBox1, boundingBox2);
+        BoundingBox boundingBox3 = new BoundingBox(tri1);
+        Geometry boxGeometry3 = boundingBox3
+                .setMaterial(new Material());
+
+        BoundingBox boundingBox_Big = new BoundingBox(boundingBox1, boundingBox2, boundingBox3);
         Geometry boxBigGeometry = boundingBox_Big
                 .setMaterial(new Material());
 
@@ -157,6 +165,9 @@ public class BoundingBoxTest {
 
                 sphere2geometryForm,
                 boxGeometry2,
+
+                tri1geometry,
+                boxGeometry3,
 
                 boxBigGeometry
 
