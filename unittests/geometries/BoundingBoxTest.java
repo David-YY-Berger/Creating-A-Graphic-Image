@@ -127,16 +127,21 @@ public class BoundingBoxTest {
         Geometry sphere1geometryForm = sphere1.setEmission(new Color(BLUE))
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
 
-        BoundingBox boundingBox = new BoundingBox(sphere1);
-        Geometry boxGeometry = boundingBox.setEmission(new Color(GREEN))
-                .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
+        Sphere sphere2 = new Sphere(radius_of_circle, new Point(100, 0, 0));
+        Geometry sphere2geometryForm = sphere2.setEmission(new Color(BLUE))
+                .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
 
-        List<Geometry> res = new LinkedList();
-//        for (Point boxPoint: box.vertices
-//             ) {
-//            res.add(new Sphere(5, boxPoint).setEmission(new Color(0, 255, 0))
-//                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5)));
-//        }
+        BoundingBox boundingBox1 = new BoundingBox(sphere1);
+        Geometry boxGeometry1 = boundingBox1
+                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
+
+        BoundingBox boundingBox2 = new BoundingBox(sphere2);
+        Geometry boxGeometry2 = boundingBox2
+                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
+
+        BoundingBox boundingBox_Big = new BoundingBox(boundingBox1, boundingBox2);
+        Geometry boxBigGeometry = boundingBox_Big
+                .setMaterial(new Material());
 
         scene.geometries.add( //
 
@@ -146,23 +151,15 @@ public class BoundingBoxTest {
                 new Triangle(D, B, C).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
 
-//                new Parallelogram(A, B, C).setEmission(new Color(0, 255, 0))
-//                        .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
 
-
-                //sphere#1 - partly transparent, low specular
                 sphere1geometryForm,
-                boxGeometry
+                boxGeometry1,
 
-                //box's vertices:
-//                res.get(0),
-//                res.get(1),
-//                res.get(2),
-//                res.get(3),
-//                res.get(4),
-//                res.get(5),
-//                res.get(6),
-//                res.get(7)
+                sphere2geometryForm,
+                boxGeometry2,
+
+                boxBigGeometry
+
 
         );
 

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Parallelogram extends Geometry{
 
-    private Color colorOfParrellogram = new Color(50, 0, 0);
+    private Color colorOfParrellogram = new Color(0, 50, 0);
     private double transparency = .9;
 
 
