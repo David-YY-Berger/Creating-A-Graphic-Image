@@ -139,23 +139,21 @@ public class BoundingBox extends Geometry{
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
 
-        List<GeoPoint> res = new LinkedList<>();
-        List<GeoPoint> pointList = null;
+        List<GeoPoint> res = null;
+        List<GeoPoint> temp = null;
         //(1) iterate thru faces, looking for intersections... there could be 0,1, or 2
         for (Parallelogram face_i: faces
              ) {
-            pointList = face_i.findGeoIntersectionsHelper(_ray);
-            if(pointList == null)// || pointList.isEmpty())
+            temp = face_i.findGeoIntersectionsHelper(_ray);
+            if(temp == null)  //if there are no intersections...
                 continue;
             else {
-                if(pointList.isEmpty())
-                {
-                    int g = 0;
-                }
-                res.add(pointList.get(0));
+                //add the intersection:
+                if(res == null)
+                    res = new LinkedList<>();
+                res.add(temp.get(0));
             }
         }
-
      return res;
     }
 

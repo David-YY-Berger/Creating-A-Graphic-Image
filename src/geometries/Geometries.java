@@ -40,25 +40,6 @@ public class Geometries extends Intersectable {
         intersectableList.addAll(List.of(geoList));
     }
 
-//DELETE THIS
-//    @Override
-//    public List<Point> findIntersections(Ray _ray) {
-//
-//        var geoList = findGeoIntersections(_ray);
-//        List<Point> res = null;
-//        if (geoList != null) {
-//            res = new LinkedList<>();
-//            for (GeoPoint gP : geoList
-//            ) {
-//                res.add(gP.point);
-//            }
-////           return geoList == null ? null
-////                    : geoList.stream().map(gp -> gp.point).toList(); //<doesnt work; i guess i dont have the right java?
-//        }
-//        return res; //returns null if no points..
-//    }
-
-
         @Override
         public List<GeoPoint> findGeoIntersectionsHelper (Ray ray){
 
