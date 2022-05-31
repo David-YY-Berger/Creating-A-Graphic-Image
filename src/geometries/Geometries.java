@@ -50,6 +50,11 @@ public class Geometries extends Intersectable {
                     if(shape instanceof BoundingBox)
                     {
                         res = ((BoundingBox) shape).boxShapeList.findGeoIntersections(ray);
+                        if(res == null)
+                        {
+                            res = new LinkedList<>();
+                            res.addAll(thisShapeIntersections);
+                        }
                     }
                     else {
                         if (res == null) { //for first time that we add a list...

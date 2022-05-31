@@ -169,7 +169,8 @@ public class BoundingBoxTest {
 
                 //box1, box2, box3
                 allBoxes
-//                sphere1geometryForm,
+
+////                sphere1geometryForm,
 //                boxGeometry1,
 //
 //                sphere2geometryForm,
