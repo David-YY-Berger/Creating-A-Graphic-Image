@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  */
 public class Geometries extends Intersectable {
 
-    private List<Intersectable> intersectableList; //should NOT be final; we plan to add to this..
+    public List<Intersectable> intersectableList; //should NOT be final; we plan to add to this..
 
     //default CTOR
     public Geometries() {
@@ -33,10 +33,11 @@ public class Geometries extends Intersectable {
         intersectableList.addAll(List.of(geometries));
     }
 
-    public List<Intersectable> getIntersectableList() {
-        return intersectableList;
-    }
+//    public List<Intersectable> getIntersectableList() {
+//        return intersectableList;
+//    }
     public void add(Intersectable ... geoList) {
+
         intersectableList.addAll(List.of(geoList));
     }
 
@@ -46,13 +47,21 @@ public class Geometries extends Intersectable {
             List<GeoPoint> res = null;
 
             for (Intersectable shape : intersectableList) {
+
                 List<GeoPoint> thisShapeIntersections = shape.findGeoIntersections(ray);
                 if (thisShapeIntersections != null)      //returns null if there are no intersections....
                 {
-                    if (res == null) { //for first time that we add a list...
-                        res = new LinkedList<>();
+                    if(shape instanceof BoundingBox)
+                    {
+                        res = ((BoundingBox) shape).shapes.findGeoIntersections(ray);
                     }
-                    res.addAll(thisShapeIntersections);
+                    else {
+                        if (res == null) { //for first time that we add a list...
+                            res = new LinkedList<>();
+                        }
+                        res.addAll(thisShapeIntersections);
+                    }
+
                 }
             }
 

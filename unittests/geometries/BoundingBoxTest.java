@@ -135,21 +135,29 @@ public class BoundingBoxTest {
         Geometry tri1geometry = tri1.setEmission(new Color(BLUE))
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
 
-        BoundingBox boundingBox1 = new BoundingBox(sphere1);
-        Geometry boxGeometry1 = boundingBox1
-                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
+        BoundingBox box1 = new BoundingBox(new Geometries(sphere1geometryForm));
+        BoundingBox box2 = new BoundingBox(new Geometries(sphere2geometryForm));
+        BoundingBox box3 = new BoundingBox(new Geometries(tri1geometry));
 
-        BoundingBox boundingBox2 = new BoundingBox(sphere2);
-        Geometry boxGeometry2 = boundingBox2
-                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
 
-        BoundingBox boundingBox3 = new BoundingBox(tri1);
-        Geometry boxGeometry3 = boundingBox3
-                .setMaterial(new Material());
 
-        BoundingBox boundingBox_Big = new BoundingBox(boundingBox1, boundingBox2, boundingBox3);
-        Geometry boxBigGeometry = boundingBox_Big
-                .setMaterial(new Material());
+
+
+//        BoundingBox boundingBox1 = new BoundingBox(sphere1);
+//        Geometry boxGeometry1 = boundingBox1
+//                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
+//
+//        BoundingBox boundingBox2 = new BoundingBox(sphere2);
+//        Geometry boxGeometry2 = boundingBox2
+//                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
+//
+//        BoundingBox boundingBox3 = new BoundingBox(tri1);
+//        Geometry boxGeometry3 = boundingBox3
+//                .setMaterial(new Material());
+//
+//        BoundingBox boundingBox_Big = new BoundingBox(boundingBox1, boundingBox2, boundingBox3);
+//        Geometry boxBigGeometry = boundingBox_Big
+//                .setMaterial(new Material());
 
         scene.geometries.add( //
 
@@ -159,16 +167,18 @@ public class BoundingBoxTest {
                 new Triangle(D, B, C).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
 
-                sphere1geometryForm,
-                boxGeometry1,
+                box1, box2, box3
 
-                sphere2geometryForm,
-                boxGeometry2,
-
-                tri1geometry,
-                boxGeometry3,
-
-                boxBigGeometry
+//                sphere1geometryForm,
+//                boxGeometry1,
+//
+//                sphere2geometryForm,
+//                boxGeometry2,
+//
+//                tri1geometry,
+//                boxGeometry3,
+//
+//                boxBigGeometry
 
 
         );
