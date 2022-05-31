@@ -1,13 +1,9 @@
 package geometries;
 
-import primitives.Point;
 import primitives.Ray;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * implements the "Composite" design pattern; this object can iterate thru a list of geometries
@@ -53,7 +49,7 @@ public class Geometries extends Intersectable {
                 {
                     if(shape instanceof BoundingBox)
                     {
-                        res = ((BoundingBox) shape).shapes.findGeoIntersections(ray);
+                        res = ((BoundingBox) shape).boxShapeList.findGeoIntersections(ray);
                     }
                     else {
                         if (res == null) { //for first time that we add a list...

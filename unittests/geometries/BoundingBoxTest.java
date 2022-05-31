@@ -139,7 +139,7 @@ public class BoundingBoxTest {
         BoundingBox box2 = new BoundingBox(new Geometries(sphere2geometryForm));
         BoundingBox box3 = new BoundingBox(new Geometries(tri1geometry));
 
-
+        BoundingBox allBoxes = new BoundingBox(box1, box2, box3);
 
 
 
@@ -167,8 +167,8 @@ public class BoundingBoxTest {
                 new Triangle(D, B, C).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
 
-                box1, box2, box3
-
+                //box1, box2, box3
+                allBoxes
 //                sphere1geometryForm,
 //                boxGeometry1,
 //
