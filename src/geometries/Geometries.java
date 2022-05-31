@@ -44,14 +44,17 @@ public class Geometries extends Intersectable {
 
             for (Intersectable shape : intersectableList) {
 
-                List<GeoPoint> thisShapeIntersections = shape.findGeoIntersections(ray);
-                if (thisShapeIntersections != null)      //returns null if there are no intersections....
+                List<GeoPoint> thisShapeIntersections = shape.findGeoIntersections(ray); //returns null if there are no intersections....
+
+                if (thisShapeIntersections != null)
                 {
                     if(shape instanceof BoundingBox)
                     {
+                        //show the geometries WITHIN the box..
                         res = ((BoundingBox) shape).boxShapeList.findGeoIntersections(ray);
                         if(res == null)
                         {
+                            //if point is within the box, but there are no shapes - show the box itself (transparent..
                             res = new LinkedList<>();
                             res.addAll(thisShapeIntersections);
                         }
