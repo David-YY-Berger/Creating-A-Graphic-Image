@@ -10,9 +10,8 @@ import java.util.List;
  */
 public class Parallelogram extends Geometry{
 
-    private Color colorOfParrellogram = new Color(0, 50, 0);
+    private Color colorOfParrellogram =  new Color(0, 50, 0);
     private double transparency = .9;
-
 
     public Triangle tri1;
     public Triangle tri2;
@@ -33,6 +32,11 @@ public class Parallelogram extends Geometry{
         vertices[3] = p4;
     }
 
+    public void setColorAndTransparency(Color color, double tranps){
+
+        tri1.setEmission(color).setMaterial(new Material().setKt(tranps));
+        tri2.setEmission(color).setMaterial(new Material().setKt(tranps));
+    }
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {

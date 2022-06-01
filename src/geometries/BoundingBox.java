@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -19,8 +20,6 @@ public class BoundingBox extends Geometry{
     public Parallelogram[] faces = new Parallelogram[6];
     private Point[] vertices = new Point[8];
     public Geometries boxShapeList = null;
-
-
 
     private static final int max_X_Index = 0;
     private static int min_X_Index = 7;
@@ -190,6 +189,15 @@ public class BoundingBox extends Geometry{
                 );
 
     }
+
+    public void setColorAndTransp(Color color, double transp){
+        for (Parallelogram face: faces
+             ) {
+            face.setColorAndTransparency(color, transp);
+        }
+    }
+
+
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {

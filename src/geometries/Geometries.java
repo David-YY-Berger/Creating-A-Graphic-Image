@@ -50,16 +50,18 @@ public class Geometries extends Intersectable {
                 {
                     if(shape instanceof BoundingBox)
                     {
-                        //show the geometries WITHIN the box..
+                        //show the geometries WITHIN the box.. do not show the box
                         res = ((BoundingBox) shape).boxShapeList.findGeoIntersections(ray);
-                        if(res == null)
+
+                        if(res == null) //if point is within the box,
+                            // but there are no shapes - show the box itself (transparent..
                         {
-                            //if point is within the box, but there are no shapes - show the box itself (transparent..
                             res = new LinkedList<>();
                             res.addAll(thisShapeIntersections);
                         }
                     }
                     else {
+                        //if shape is not a bounding box
                         if (res == null) { //for first time that we add a list...
                             res = new LinkedList<>();
                         }

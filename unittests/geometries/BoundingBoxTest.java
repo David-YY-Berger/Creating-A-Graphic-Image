@@ -136,11 +136,14 @@ public class BoundingBoxTest {
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
 
         BoundingBox box1 = new BoundingBox(new Geometries(sphere1geometryForm));
+        box1.setColorAndTransp(new Color(50, 0, 0),  .9);
         BoundingBox box2 = new BoundingBox(new Geometries(sphere2geometryForm));
+        box2.setColorAndTransp(new Color(50, 0, 0),  .9);
         BoundingBox box3 = new BoundingBox(new Geometries(tri1geometry));
+        box3.setColorAndTransp(new Color(50, 0, 0),  .9);
 
         BoundingBox allBoxes = new BoundingBox(box1, box2, box3);
-
+        //allBoxes.setColorAndTransp(new Color(50, 0, 0), .9);
 
 
 //        BoundingBox boundingBox1 = new BoundingBox(sphere1);
