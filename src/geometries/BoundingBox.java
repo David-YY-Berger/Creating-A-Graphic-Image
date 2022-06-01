@@ -71,36 +71,41 @@ public class BoundingBox extends Geometry{
      */
     public BoundingBox(Geometries shapeList) {
 
+        //to find general boundaries for box - for all shapes
+        double max_x_val = Double.NEGATIVE_INFINITY;
+        double min_x_val = Double.POSITIVE_INFINITY;
+        double max_y_val = Double.NEGATIVE_INFINITY;
+        double min_y_val = Double.POSITIVE_INFINITY;
+        double max_z_val = Double.NEGATIVE_INFINITY;
+        double min_z_val = Double.POSITIVE_INFINITY;
+
+        double temp; // to compare
+
+
         for (Intersectable shape: shapeList.intersectableList
              ) {
             if(shape instanceof Sphere)
             {
                 Sphere sphere = (Sphere)shape;
-                constructThisBox(sphere.center.getX() + sphere.radius,
-                                sphere.center.getX() - sphere.radius,
-                                sphere.center.getY() + sphere.radius,
-                                sphere.center.getY() - sphere.radius,
-                                sphere.center.getZ() + sphere.radius,
-                                sphere.center.getZ() - sphere.radius,
-                            new Geometries(shape)
-                        );
+                temp = sphere.center.getX() + sphere.radius;
+                if(temp > max_x_val) max_x_val = temp;
+                temp = sphere.center.getX() - sphere.radius;
+                if(temp < min_x_val) min_x_val = temp;
+                temp = sphere.center.getY() + sphere.radius;
+                if(temp > max_y_val) max_y_val = temp;
+                temp = sphere.center.getY() - sphere.radius;
+                if(temp < min_y_val) min_y_val = temp;
+                temp = sphere.center.getZ() + sphere.radius;
+                if(temp > max_z_val) max_z_val = temp;
+                temp = sphere.center.getZ() - sphere.radius;
+                if(temp < min_z_val) min_z_val = temp;
                 continue;
             }
             if(shape instanceof Triangle)
             {
-                double max_x_val = Double.NEGATIVE_INFINITY;
-                double min_x_val = Double.POSITIVE_INFINITY;
-                double max_y_val = Double.NEGATIVE_INFINITY;
-                double min_y_val = Double.POSITIVE_INFINITY;
-                double max_z_val = Double.NEGATIVE_INFINITY;
-                double min_z_val = Double.POSITIVE_INFINITY;
-
-                Triangle triangle = (Triangle) shape;
-
                 //iterate thru points in trianlge, and found the max and min values in all 6 directions:
-                for (Point point: (triangle.vertices)
-                ) {
-
+                for (Point point: ((Triangle)shape).vertices)
+                {
                     if(point.getX() > max_x_val) max_x_val = point.getX();
                     if(point.getX() < min_x_val) min_x_val = point.getX();
 
@@ -110,18 +115,12 @@ public class BoundingBox extends Geometry{
                     if(point.getZ() > max_z_val) max_z_val = point.getZ();
                     if(point.getZ() < min_z_val) min_z_val = point.getZ();
                 }
-                constructThisBox(max_x_val, min_x_val, max_y_val, min_y_val, max_z_val, min_z_val,
-                        new Geometries(shape));
+
             }
 
-
-
         }
-
-
-
-
-
+        constructThisBox(max_x_val, min_x_val, max_y_val, min_y_val, max_z_val, min_z_val,
+                shapeList);
     }
 
 //    /**
