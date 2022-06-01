@@ -28,6 +28,12 @@ public class Geometries extends Intersectable {
         intersectableList = new LinkedList<>(); //intialize...
         intersectableList.addAll(List.of(geometries));
     }
+    public Geometries(List<Intersectable> lst)
+    {
+        intersectableList = lst;
+    }
+
+
 
 //    public List<Intersectable> getIntersectableList() {
 //        return intersectableList;

@@ -1,7 +1,6 @@
 package special;
 
-import geometries.Sphere;
-import geometries.Triangle;
+import geometries.*;
 import lighting.AmbientLight;
 import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,9 @@ import renderer.Camera;
 import renderer.ImageWriter;
 import renderer.RayTracerBasic;
 import scene.Scene;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import static java.awt.Color.*;
 import static java.awt.Color.BLACK;
@@ -57,6 +59,28 @@ public class BoxTest {
         Point f = new Point(-radius_of_circle, -radius_of_circle, 0);
         Point g = new Point(-(radius_of_circle + height_of_triangles), 0, 0);
 
+        int numRows = 10;
+        int distance = 10;
+        int diff_color = 20;
+        int radius_sphere = 4;
+        List<Intersectable> lst = new LinkedList<>();
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numRows; j++) {
+                for (int k = 0; k < numRows; k++) {
+                   lst.add(
+                           new Sphere(radius_sphere, new Point(i*distance, j*distance, k*distance))
+                                   .setEmission(new Color(i*diff_color, j*diff_color, k*diff_color))
+                                   .setMaterial(new Material().setKt(.5))
+                   )       ;
+                }
+            }
+        }
+
+
+
+
+
+
         scene.geometries.add( //
 
                 //background triangles...
@@ -72,6 +96,9 @@ public class BoxTest {
 //                        .setMaterial(new Material().setKd(0.5).setKs(.9).setShininess(50).setKt(0)),
 
                 // sphere 3, 4, 5, 6 are up in right
+
+                new BoundingBox(new Geometries(lst)),
+
 
                 //sphere#3
                 new Sphere(radius_of_circle2, new Point(100, 120, 10)).setEmission(new Color(GREEN))
