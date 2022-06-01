@@ -5,9 +5,8 @@ package primitives;
  */
 public class Point {
 
-    Double3 xyz;
+    public Double3 xyz;
     static public Point ZERO = new Point(0, 0, 0);
-
     /**
      * Constructor by 3 coordinates
      */
