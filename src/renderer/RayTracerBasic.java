@@ -32,6 +32,8 @@ public class RayTracerBasic extends RayTracerBase{
      */
     private double transparency(GeoPoint geoPoint, LightSource lightsource, Vector l, Vector normalVector){
 
+        if(geoPoint.geometry.getMaterial().kT.d1 == 1)
+            return 1;
 
         Vector lightDirection = l.scale(-1);
 

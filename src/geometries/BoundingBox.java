@@ -20,6 +20,7 @@ public class BoundingBox extends Geometry{
     public Parallelogram[] faces = new Parallelogram[6];
     private Point[] vertices = new Point[8];
     public Geometries boxShapeList = null;
+    private double EPSILON = 1;
 
     private static final int max_X_Index = 0;
     private static int min_X_Index = 7;
@@ -45,6 +46,14 @@ public class BoundingBox extends Geometry{
     public BoundingBox constructThisBox(double max_x, double min_x, double max_y,
                                         double min_y, double max_z, double min_z,
                                         Geometries shapeList){
+
+        max_x = max_x + EPSILON;
+        min_x = min_x - EPSILON;
+        max_y = max_y + EPSILON;
+        min_y = min_y - EPSILON;
+        max_z = max_z + EPSILON;
+        min_z = min_z - EPSILON;
+
 
         vertices[0] = new Point(max_x, max_y, max_z);
         vertices[1] = new Point(max_x, max_y, min_z);

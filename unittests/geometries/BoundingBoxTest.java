@@ -141,18 +141,21 @@ public class BoundingBoxTest {
 
         //BoundingBox allBoxes = new BoundingBox(box1, box2, box3);
         BoundingBox allBoxes = new BoundingBox(new Geometries(sphere1geometryForm, sphere2geometryForm, tri1geometry));
-        //allBoxes.setColorAndTransp(new Color(50, 0, 0), .9);
+        allBoxes.setColorAndTransp(new Color(0, 0, 0), 1);
 
 
 
         scene.geometries.add( //
 
                 //background triangles...
+                new BoundingBox(
+                new Geometries(
                 new Triangle(A, B, C).setEmission(new Color(BLACK))
                         .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
                 new Triangle(D, B, C).setEmission(new Color(BLACK))
-                        .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
-
+                        .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1))
+                        )
+                ),
                 //box1, box2, box3
                 allBoxes
 
