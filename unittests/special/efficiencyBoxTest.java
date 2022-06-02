@@ -49,15 +49,18 @@ public class efficiencyBoxTest {
                     new Triangle(D, B, C).setEmission(new Color(BLACK))
                             .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
 
-//                    new BoundingBox(new Geometries(createSphereBox(new Point(-100, 0, 0)))),
-//                    new BoundingBox(new Geometries(createSphereBox(new Point(0, 0, 0)))),
-//                    new BoundingBox(new Geometries(createSphereBox(new Point(-50, -100, 0)))),
-//                    new BoundingBox(new Geometries(createSphereBox(new Point(50, 100, 0)))
+                    new BoundingBox(new Geometries(createSphereCube(new Point(-100, 0, 0)))),
+                    new BoundingBox(new Geometries(createSphereCube(new Point(0, 0, 0)))),
+                    new BoundingBox(new Geometries(createSphereCube(new Point(-50, -100, 0)))),
+                    new BoundingBox(new Geometries(createSphereCube(new Point(50, 100, 0)))),
+                    new BoundingBox(new Geometries(getRayCrown()))
 
-                    new Geometries(createSphereCube(new Point(-100, 0, 0))),
-                    new Geometries(createSphereCube(new Point(0, 0, 0))),
-                    new Geometries(createSphereCube(new Point(-50, -100, 0))),
-                    new Geometries(createSphereCube(new Point(50, 100, 0)))
+//                    new Geometries(createSphereCube(new Point(-100, 0, 0))),
+//                    new Geometries(createSphereCube(new Point(0, 0, 0))),
+//                    new Geometries(createSphereCube(new Point(-50, -100, 0))),
+//                    new Geometries(createSphereCube(new Point(50, 100, 0))),
+//                    new Geometries(getRayCrown())
+
 
 
 
@@ -97,7 +100,7 @@ public class efficiencyBoxTest {
             int numColoumns = 5;
             int numDepth = 10;
             int distance = 8;
-            int diff_color = 20;
+            int diff_color = 10;
             int radius_sphere = 3;
             Point p = startPoint;
             for (int i = 0; i < numColoumns; i++) {
@@ -107,14 +110,35 @@ public class efficiencyBoxTest {
                                 new Sphere(radius_sphere, new Point(p.xyz.d1 + i*distance, p.xyz.d2 + j*distance, p.xyz.d3 + k*distance))
                                         .setEmission(new Color(i*diff_color, j*diff_color, k*diff_color))
                                         .setMaterial(new Material().setKt(.9))
-                        )       ;
+                        );
                     }
                 }
             }
             return res;
         }
 
+        private List<Intersectable> getRayCrown()
+        {
+            List<Intersectable> res = new LinkedList<>();
 
+            Ray baseRay = new Ray(new Point(-100, 90, 1), new Vector(0001, 1, 5));
+            //baseRay.getRandomRays(.1);
+            Plane plane = new Plane(baseRay.getP0().add(baseRay.getDirVector().scale(100)), baseRay.getDirVector());
+
+            Point startPoint = baseRay.getP0();
+            double thickness = 5;
+            Point startPoint2;// = startPoint.add(new Vector(thickness, 0, 1));
+            List<Ray> rayList = baseRay.getRandomRays(.1);
+            for (int i = 0; i < rayList.size(); i++) {
+
+                Point intersect = plane.findGeoIntersections(rayList.get(i)).get(0).point;
+                res.add(new Triangle(startPoint, intersect.add(new Vector(thickness, 0, 0)), intersect)
+                        .setEmission(new Color(255 - i*5, i*10 ,0))
+                        .setMaterial(new Material().setKt(.5)));
+            }
+
+            return res;
+        }
 
 
 
