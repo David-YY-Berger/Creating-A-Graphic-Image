@@ -1,9 +1,6 @@
 package special;
 
-import geometries.Geometries;
-import geometries.Geometry;
-import geometries.Sphere;
-import geometries.Triangle;
+import geometries.*;
 import lighting.AmbientLight;
 import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
@@ -12,6 +9,9 @@ import renderer.Camera;
 import renderer.ImageWriter;
 import renderer.RayTracerBasic;
 import scene.Scene;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import static java.awt.Color.*;
 import static java.awt.Color.BLACK;
@@ -40,43 +40,6 @@ public class efficiencyBoxTest {
             Point C = new Point(200, 200, distance_btw_circle_and_background);
             Point D = new Point(-200, 200, distance_btw_circle_and_background);
 
-            Geometry sphere1 = new Sphere(radius_of_circle, new Point(0, 0, 0))
-                    .setEmission(new Color(BLUE))
-                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
-
-
-            Geometry sphere2 = new Sphere(radius_of_circle, new Point(100, 0, 0))
-                    .setEmission(new Color(BLUE))
-                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
-
-
-            Geometry sphere3 = new Sphere(radius_of_circle, new Point(0, -100, 0))
-                    .setEmission(new Color(BLUE))
-                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
-
-            Geometries allSpheres = new Geometries(sphere1, sphere2, sphere3);
-
-            Geometry tri1 = new Triangle(new Point(0, 80, 40), new Point(-10, 100, 50), new Point(10, 120, 60))
-                    .setEmission(new Color(BLUE));
-
-            Geometries topLevel = new Geometries(tri1, allSpheres);
-
-
-//        BoundingBox boundingBox1 = new BoundingBox(sphere1);
-//        Geometry boxGeometry1 = boundingBox1
-//                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
-//
-//        BoundingBox boundingBox2 = new BoundingBox(sphere2);
-//        Geometry boxGeometry2 = boundingBox2
-//                .setMaterial(new Material());//.setKd(0.2).setKs(0.2).setShininess(10).setKt(1));
-//
-//        BoundingBox boundingBox3 = new BoundingBox(tri1);
-//        Geometry boxGeometry3 = boundingBox3
-//                .setMaterial(new Material());
-//
-//        BoundingBox boundingBox_Big = new BoundingBox(boundingBox1, boundingBox2, boundingBox3);
-//        Geometry boxBigGeometry = boundingBox_Big
-//                .setMaterial(new Material());
 
             scene.geometries.add( //
 
@@ -86,19 +49,16 @@ public class efficiencyBoxTest {
                     new Triangle(D, B, C).setEmission(new Color(BLACK))
                             .setMaterial(new Material().setKd(.2).setKs(.2).setShininess(1)),
 
-                    topLevel
+//                    new BoundingBox(new Geometries(createSphereBox(new Point(-100, 0, 0)))),
+//                    new BoundingBox(new Geometries(createSphereBox(new Point(0, 0, 0)))),
+//                    new BoundingBox(new Geometries(createSphereBox(new Point(-50, -100, 0)))),
+//                    new BoundingBox(new Geometries(createSphereBox(new Point(50, 100, 0)))
 
+                    new Geometries(createSphereCube(new Point(-100, 0, 0))),
+                    new Geometries(createSphereCube(new Point(0, 0, 0))),
+                    new Geometries(createSphereCube(new Point(-50, -100, 0))),
+                    new Geometries(createSphereCube(new Point(50, 100, 0)))
 
-                    //sphere1geometryForm,
-                    //boxGeometry1,
-
-                    //sphere2geometryForm,
-                    //boxGeometry2,
-
-                    //tri1geometry,
-                    //boxGeometry3,
-
-                    //boxBigGeometry
 
 
             );
@@ -127,12 +87,32 @@ public class efficiencyBoxTest {
                 .renderImage() //
                 .writeToImage();
 
-
-
         }
 
 
+        private List<Intersectable> createSphereCube(Point startPoint) {
 
+            List<Intersectable> res = new LinkedList<>();
+            int numRows = 10;
+            int numColoumns = 5;
+            int numDepth = 10;
+            int distance = 8;
+            int diff_color = 20;
+            int radius_sphere = 3;
+            Point p = startPoint;
+            for (int i = 0; i < numColoumns; i++) {
+                for (int j = 0; j < numRows; j++) {
+                    for (int k = 0; k < numDepth; k++) {
+                        res.add(
+                                new Sphere(radius_sphere, new Point(p.xyz.d1 + i*distance, p.xyz.d2 + j*distance, p.xyz.d3 + k*distance))
+                                        .setEmission(new Color(i*diff_color, j*diff_color, k*diff_color))
+                                        .setMaterial(new Material().setKt(.9))
+                        )       ;
+                    }
+                }
+            }
+            return res;
+        }
 
 
 

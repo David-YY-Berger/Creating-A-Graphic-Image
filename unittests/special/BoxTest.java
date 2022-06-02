@@ -60,7 +60,6 @@ public class BoxTest {
         Point g = new Point(-(radius_of_circle + height_of_triangles), 0, 0);
 
         int numRows = 10;
-
         int distance = 4;
         int diff_color = 20;
         int radius_sphere = 1;
