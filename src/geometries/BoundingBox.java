@@ -148,11 +148,12 @@ public class BoundingBox extends Geometry{
                 shapeList);
     }
 
-    public void setColorAndTransp(Color color, double transp){
+    public BoundingBox setColorAndTransp(Color color, double transp){
         for (Parallelogram face: faces
              ) {
             face.setColorAndTransparency(color, transp);
         }
+        return this;
     }
 
 
