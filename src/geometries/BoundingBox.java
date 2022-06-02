@@ -86,6 +86,9 @@ public class BoundingBox extends Geometry{
         double max_z_val = Double.NEGATIVE_INFINITY;
         double min_z_val = Double.POSITIVE_INFINITY;
 
+        //Geometries boxList = new Geometries(); //list to build box with..
+
+
         double temp; // to compare
         //(1) iterate thru shapes, extract farthest values..
         for (Intersectable shape: shapeList.intersectableList
@@ -105,6 +108,7 @@ public class BoundingBox extends Geometry{
                 if(temp > max_z_val) max_z_val = temp;
                 temp = sphere.center.getZ() - sphere.radius;
                 if(temp < min_z_val) min_z_val = temp;
+                //boxList.add();
                 continue;
             }
             if(shape instanceof Triangle)
@@ -121,6 +125,7 @@ public class BoundingBox extends Geometry{
                     if(point.xyz.d3 > max_z_val) max_z_val = point.xyz.d3;
                     if(point.xyz.d3 < min_z_val) min_z_val = point.xyz.d3;
                 }
+                //boxList.add(new BoundingBox(new Geometries(shape)));
                 continue;
             }
             if(shape instanceof BoundingBox)
@@ -134,10 +139,12 @@ public class BoundingBox extends Geometry{
 
                 if(box.vertices[max_point_Index].xyz.d3 > max_z_val) max_z_val = box.vertices[max_point_Index].xyz.d3;
                 if(box.vertices[min_point_Index].xyz.d3 < min_z_val) min_z_val = box.vertices[min_point_Index].xyz.d3;
+                //boxList.add(box);
                 continue;
             }
         }
         constructThisBox(max_x_val, min_x_val, max_y_val, min_y_val, max_z_val, min_z_val,
+                //boxList);
                 shapeList);
     }
 

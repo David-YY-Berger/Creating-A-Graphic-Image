@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class Parallelogram extends Geometry{
 
-    private Color colorOfParrellogram =  new Color(0, 50, 0);
-    private double transparency = .9;
+    private Color colorOfParrellogram =  new Color(0, 0, 0);
+    private double transparency = 1;
 
     public Triangle tri1;
     public Triangle tri2;

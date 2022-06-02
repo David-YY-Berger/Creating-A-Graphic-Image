@@ -136,12 +136,12 @@ public class BoundingBoxTest {
         Geometry tri1geometry = tri1.setEmission(new Color(BLUE))
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(10).setKt(0.5));
 
-        BoundingBox box1 = new BoundingBox(new Geometries(sphere1geometryForm));
-        BoundingBox box2 = new BoundingBox(new Geometries(sphere2geometryForm));
-        BoundingBox box3 = new BoundingBox(new Geometries(tri1geometry));
+//        BoundingBox box1 = new BoundingBox(new Geometries(sphere1geometryForm));
+//        BoundingBox box2 = new BoundingBox(new Geometries(sphere2geometryForm));
+//        BoundingBox box3 = new BoundingBox(new Geometries(tri1geometry));
 
-        BoundingBox allBoxes = new BoundingBox(new Geometries(box1, box2, box3));
-        //BoundingBox allBoxes = new BoundingBox(new Geometries(sphere1geometryForm, sphere2geometryForm, tri1geometry));
+        //BoundingBox allBoxes = new BoundingBox(new Geometries(box1, box2, box3));
+        BoundingBox allBoxes = new BoundingBox(new Geometries(sphere1geometryForm, sphere2geometryForm, tri1geometry));
         //allBoxes.setColorAndTransp(new Color(0, 0, 0), 1);
 
 
