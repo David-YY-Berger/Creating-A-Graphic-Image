@@ -126,7 +126,7 @@ public class efficiencyBoxTest {
             Plane plane = new Plane(baseRay.getP0().add(baseRay.getDirVector().scale(100)), baseRay.getDirVector());
 
             Point startPoint = baseRay.getP0();
-            double thickness = 5;
+            double thickness = 2;
             Point startPoint2;// = startPoint.add(new Vector(thickness, 0, 1));
             List<Ray> rayList = baseRay.getRandomRays(.1);
             for (int i = 0; i < rayList.size(); i++) {
