@@ -44,10 +44,6 @@ public class Parallelogram extends Geometry{
         if(res == null)
             return tri2.findGeoIntersectionsHelper(ray);
         else
-            if(res.isEmpty())
-            {
-                int d = 5;
-            }
             return res;
     }
 

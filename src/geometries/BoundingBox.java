@@ -156,8 +156,6 @@ public class BoundingBox extends Geometry{
         return this;
     }
 
-
-
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
 
