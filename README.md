@@ -1,6 +1,6 @@
 # Creating a Graphic Image
-## Project in S/W Engineering Course 
 ### by David Berger and Ariel Zuckermann - at Lev Academic Institute
+Our Program produces realistic images (exporting in .png format) from Algebraically defined Shapes. We color the objects based on the intersection of their points and directional vectors of light sources. The .png file is compiled by printing the pixels of the Camera's View Plane.
 
 ### What we learned from this project:
 We implemented different design patterns, like **Builder** (see “Scene”, “Camera”), **Composite** (“Geometries”), **Wrapper Class/functions** (“Color” and Java’s awt.color).  
