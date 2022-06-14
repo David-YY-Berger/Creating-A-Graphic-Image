@@ -3,10 +3,10 @@
 ### by David Berger and Ariel Zuckermann - at Lev Academic Institute
 
 ### What we learned from this project:
-We implemented different design patterns, like **Builder** (see “Scene”, “Camera”), **Composite** (“Geometries”), **Wrapper Class/functions** (“Color” and Java’s awt.color).
-We coordinated sophisticated Linear Algebra and Physics to **create different effects**: partial lighting and shadows, transparency, rotating the camera, glossy/blurry surfaces, etc.
-We learned about Runtime efficiency - by running multiple threads simoultaneously, and using **Boundary Volume Hierarchy.** 
-We wrote **tests** before any implementation (“TDD”) using **Junit**, and learned about **Unit vs Integration testing**, **BVA and ECP** (Boundary Value Analysis and Equivalent Class Partitioning.
+We implemented different design patterns, like **Builder** (see “Scene”, “Camera”), **Composite** (“Geometries”), **Wrapper Class/functions** (“Color” and Java’s awt.color).  
+We coordinated sophisticated Linear Algebra and Physics to **create different effects**: partial lighting and shadows, transparency, rotating the camera, glossy/blurry surfaces, etc.  
+We learned about Runtime efficiency - by running multiple threads simoultaneously, and using **Boundary Volume Hierarchy.**   
+We wrote **tests** before any implementation (“TDD”) using **Junit**, and learned about **Unit vs Integration testing**, **BVA and ECP** (Boundary Value Analysis and Equivalent Class Partitioning.  
 
 ## Some Images and Effects:
 ### Blurry Effect (see bottom right half):
