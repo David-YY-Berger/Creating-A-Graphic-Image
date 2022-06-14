@@ -1,6 +1,6 @@
 # Creating a Graphic Image
 ### by David Berger and Ariel Zuckermann - at Lev Academic Institute
-
+Our Program produces realistic images (exporting in .png format) from Algebraically defined Shapes.  
 ### What we learned from this project:
 We implemented different design patterns, like **Builder** (see “Scene”, “Camera”), **Composite** (“Geometries”), **Wrapper Class/functions** (“Color” and Java’s awt.color).  
 We coordinated sophisticated Linear Algebra and Physics to **create different effects**: partial lighting and shadows, transparency, rotating the camera, glossy/blurry surfaces, etc.  
