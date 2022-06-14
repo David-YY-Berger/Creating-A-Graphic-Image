@@ -1,5 +1,4 @@
 # Creating a Graphic Image
-## Project in S/W Engineering Course 
 ### by David Berger and Ariel Zuckermann - at Lev Academic Institute
 
 ### What we learned from this project:
