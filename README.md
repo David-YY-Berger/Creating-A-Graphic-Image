@@ -1,5 +1,5 @@
 # Creating a Graphic Image
-### by David Berger and Ariel Zuckermann - at Lev Academic Institute
+### by David Berger and Ariel Zuckermann - at Lev Academic Institute (Jerusalem College of Technology)
 Our Program produces realistic images (exporting in .png format) from Algebraically defined Shapes. We color the objects based on the intersection of their points and directional vectors of light sources. The .png file is compiled by printing the pixels of the Camera's View Plane.
 
 ### What we learned from this project:
